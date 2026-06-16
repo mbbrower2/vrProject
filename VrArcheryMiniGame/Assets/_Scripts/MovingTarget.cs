@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class MovingTarget : MonoBehaviour, IHittable
@@ -13,9 +10,12 @@ public class MovingTarget : MonoBehaviour, IHittable
 
     [SerializeField] private int health = 1;
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private float arriveThreshold, movementRadius = 2, speed = 1;
-    [SerializeField] private bool isMoving = true;
+    [SerializeField] private float arriveThreshold, movementRadius = 2;
     [SerializeField] float targetScoreValue;
+
+    private bool isMoving => TargetManager.Instance.IsMoving;
+    private float speed => TargetManager.Instance.Speed;
+    private float size => TargetManager.Instance.Size;
 
     private void Awake()
     {
@@ -31,6 +31,22 @@ public class MovingTarget : MonoBehaviour, IHittable
     private void Start()
     {
         TargetManager.Instance.RegisterTarget();
+        TargetManager.Instance.OnTargetSettingsChanged += ApplySettings;
+        ApplySettings();
+    }
+
+    private void OnDestroy()
+    {
+        if (TargetManager.Instance != null)
+            TargetManager.Instance.OnTargetSettingsChanged -= ApplySettings;
+    }
+
+    private void ApplySettings()
+    {
+        stopped = !isMoving;
+        if (!stopped)
+            nextposition = GetNewMovementPosition();
+        transform.localScale = Vector3.one * size;
     }
 
     private Vector3 GetNewMovementPosition()
@@ -62,12 +78,11 @@ public class MovingTarget : MonoBehaviour, IHittable
 
             return;
         }
-
     }
 
     private void FixedUpdate()
     {
-        if (stopped == false)
+        if (!stopped)
         {
             if (Vector3.Distance(transform.position, nextposition) < arriveThreshold)
             {
@@ -83,29 +98,9 @@ public class MovingTarget : MonoBehaviour, IHittable
     {
         var maxDistance = 0.12f;
         var distanceFromTarget = Vector3.Distance(transform.position, hitpoint);
-
-        // Clamp so misses outside the target always score 0
         var clampedDistance = Mathf.Clamp(distanceFromTarget, 0f, maxDistance);
-
-        // Invert so bullseye (distance = 0) = 100, edge (distance = max) = 0
         var score = (1f - (clampedDistance / maxDistance)) * 100f;
-
         return score;
-    }
-
-    public void SetMoving(bool moving)
-    {
-        isMoving = moving;
-
-        if (isMoving)
-        {
-            stopped = false;
-            nextposition = GetNewMovementPosition();
-        }
-        else
-        {
-            stopped = true;
-        }
     }
 }
 

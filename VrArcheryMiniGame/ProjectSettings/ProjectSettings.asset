@@ -144,7 +144,9 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -5519558493775018760, guid: d0a00d3bedd23ac4e822693611b102a9, type: 2}
+  - {fileID: -857244837967472460, guid: 80cb9c8bf6463444086af83ee350c1bc, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   xboxOneDisableKinectGpuReservation: 1
@@ -180,7 +182,7 @@ PlayerSettings:
   stripEngineCode: 1
   iPhoneStrippingLevel: 0
   iPhoneScriptCallOptimization: 0
-  ForceInternetPermission: 0
+  ForceInternetPermission: 1
   ForceSDCardPermission: 0
   CreateWallpaper: 0
   androidSplitApplicationBinary: 0
@@ -823,9 +825,23 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
-    Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
+    Android: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS;EXTOSC
+    EmbeddedLinux: EXTOSC
+    GameCoreScarlett: EXTOSC
+    GameCoreXboxOne: EXTOSC
+    Kepler: EXTOSC
+    LinuxHeadlessSimulation: EXTOSC
+    Nintendo Switch: EXTOSC
+    Nintendo Switch 2: EXTOSC
+    PS4: EXTOSC
+    PS5: EXTOSC
+    QNX: EXTOSC
+    Standalone: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS;EXTOSC
+    VisionOS: EXTOSC
+    WebGL: EXTOSC
     Windows Store Apps: USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
+    XboxOne: EXTOSC
+    tvOS: EXTOSC
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
