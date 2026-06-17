@@ -7,20 +7,23 @@ public class MovingTarget : MonoBehaviour, IHittable
     private bool stopped = false;
     private Vector3 nextposition;
     private Vector3 originPosition;
+    private Vector3 originalScale;
 
     [SerializeField] private int health = 1;
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private float arriveThreshold, movementRadius = 2;
+    [SerializeField] private float arriveThreshold;
     [SerializeField] float targetScoreValue;
 
     private bool isMoving => TargetManager.Instance.IsMoving;
     private float speed => TargetManager.Instance.Speed;
+    private float movementRadius => TargetManager.Instance.MovementRadius;
     private float size => TargetManager.Instance.Size;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         originPosition = transform.position;
+        originalScale = transform.localScale;
 
         if (isMoving)
             nextposition = GetNewMovementPosition();
@@ -43,14 +46,18 @@ public class MovingTarget : MonoBehaviour, IHittable
 
     private void ApplySettings()
     {
+
         stopped = !isMoving;
-        if (!stopped)
+        if (!stopped) 
+        {
             nextposition = GetNewMovementPosition();
-        transform.localScale = Vector3.one * size;
+        }
+        transform.localScale = originalScale * size;
     }
 
     private Vector3 GetNewMovementPosition()
     {
+
         return originPosition + (Vector3)Random.insideUnitCircle * movementRadius;
     }
 
