@@ -80,6 +80,24 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.Flush();
     }
 
+    public void DrtTargetResponse(string currentScene, float timeElapsed)
+    {
+        if (!_isInitialized)
+        {
+            return; // don't try to record if analytics isn't ready
+        }
+
+        CustomEvent myEvent = new CustomEvent("DrtTargetResponse")
+        {
+            {"participantID", participantID},
+            { "currentScene", currentScene},
+            { "timeElapsed", timeElapsed}
+        };
+
+        AnalyticsService.Instance.RecordEvent(myEvent);
+        AnalyticsService.Instance.Flush();
+    }
+
     public void UpdateScore(string currentScene, float score )
     {
         if (!_isInitialized)
