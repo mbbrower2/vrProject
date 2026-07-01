@@ -10,7 +10,6 @@ Library: /Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/Bu
 --target-framework=NetFramework
 --generate-link-xml=Temp/burst.link.xml
 --temp-folder=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/Burst
---debug=Full
 --key-folder=/Applications/Unity/Hub/Editor/6000.4.0f1/PlaybackEngines/AndroidPlayer
 --decode-folder=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Library/Burst
 --output=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
@@ -127,7 +126,6 @@ Library: /Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/Bu
 --target-framework=NetFramework
 --generate-link-xml=Temp/burst.link.xml
 --temp-folder=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/Burst
---debug=Full
 --key-folder=/Applications/Unity/Hub/Editor/6000.4.0f1/PlaybackEngines/AndroidPlayer
 --decode-folder=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Library/Burst
 --output=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated
@@ -205,7 +203,6 @@ Library: /Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/Bu
 --float-mode=Fast
 --generate-link-xml=Temp/burst.link.xml
 --temp-folder=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/Burst
---debug=Full
 --key-folder=/Applications/Unity/Hub/Editor/6000.4.0f1/PlaybackEngines/AndroidPlayer
 --decode-folder=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Library/Burst
 --output=/Users/maddiebrower/workspace/tufts/vrProject/VrArcheryMiniGame/Temp/BurstOutput/tempburstlibs/arm64-v8a/lib_burst_generated

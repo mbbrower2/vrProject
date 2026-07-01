@@ -11,7 +11,7 @@ public class MovingTarget : MonoBehaviour, IHittable
 
     [SerializeField] private int health = 1;
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private float arriveThreshold;
+    [SerializeField] private float arriveThreshold = 2f;
     [SerializeField] float targetScoreValue;
 
     private bool isMoving => TargetManager.Instance.IsMoving;
@@ -41,7 +41,10 @@ public class MovingTarget : MonoBehaviour, IHittable
     private void OnDestroy()
     {
         if (TargetManager.Instance != null)
+        {
             TargetManager.Instance.OnTargetSettingsChanged -= ApplySettings;
+        }
+            
     }
 
     private void ApplySettings()
@@ -94,11 +97,17 @@ public class MovingTarget : MonoBehaviour, IHittable
             if (Vector3.Distance(transform.position, nextposition) < arriveThreshold)
             {
                 nextposition = GetNewMovementPosition();
+                Debug.Log("ABCD less than arrive threshold");
             }
 
             Vector3 direction = nextposition - transform.position;
+            Vector3 newPos = transform.position + direction.normalized * Time.fixedDeltaTime * speed;
             rb.MovePosition(transform.position + direction.normalized * Time.fixedDeltaTime * speed);
+            Debug.Log("ABCD original position is : " + transform.position);
+            Debug.Log("ABCD next position is " + newPos);
         }
+
+        
     }
 
     public float CalculateAccuracy(Vector3 hitpoint)

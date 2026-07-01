@@ -35,7 +35,24 @@ public class TargetManager : MonoBehaviour
         var defaults = GameManager.Instance.GetDefaultsForScene(
             SceneManager.GetActiveScene().name
         );
-        SetNextSceneName(SceneManager.GetActiveScene().name);
+
+        //TODO: when testing the osc logic this should bee commented out and the line bellow uncommented
+        switch (GameManager.Instance.GetCurrentScene())
+        {
+            case GameManager.GameScene.L1:
+                SetNextSceneName("ArcherySceneL2");
+                break;
+
+            case GameManager.GameScene.L2:
+                SetNextSceneName("ArcherySceneL3");
+                break;
+
+            case GameManager.GameScene.L3:
+                SetNextSceneName("ArcherySceneL2");
+                break;
+        }
+        
+        //SetNextSceneName(SceneManager.GetActiveScene().name);
         SetMoving(defaults.isMoving);
         SetSpeed(defaults.speed);
         SetMovementRadius(defaults.movementRadius);
