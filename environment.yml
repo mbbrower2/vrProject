@@ -27,3 +27,4 @@ dependencies:
     - tqdm
     - black
     - isort
+    - websockets
