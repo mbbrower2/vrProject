@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class Missile : MonoBehaviour
 {
@@ -108,6 +109,7 @@ private void OnCollisionEnter(Collision collision)
             MissileManager.Instance.ReportMissileDown();
             return;
         }
+        Analytics.CustomEvent(GameManager.Instance.GetCurrentScene() + ": Missile Hit Player");
         Explode();
         GameManager.Instance.PlayerScored(scoreForGettingHit);
         MissileManager.Instance.ReportMissileDown();
@@ -117,6 +119,7 @@ private void OnCollisionEnter(Collision collision)
     // Hit by an arrow
     if (collision.gameObject.CompareTag("Arrow"))
     {
+        Analytics.CustomEvent(GameManager.Instance.GetCurrentScene() + ": Missile Shot Down");
         Explode();
         GameManager.Instance.PlayerScored(scoreForProjectile);
         MissileManager.Instance.ReportMissileDown();

@@ -29,6 +29,7 @@ public class MovingTarget : MonoBehaviour, IHittable
             nextposition = GetNewMovementPosition();
         else
             stopped = true;
+
     }
 
     private void Start()
@@ -85,7 +86,7 @@ public class MovingTarget : MonoBehaviour, IHittable
             var accuracyScore = CalculateAccuracy(hitpoint);
             var scoreForTarget = accuracyScore + targetScoreValue;
             GameManager.Instance.PlayerScored(scoreForTarget);
-
+            AnalyticsManager.Instance.TargetHit( GameManager.Instance.GetCurrentSceneName(), accuracyScore);
             return;
         }
     }
@@ -97,14 +98,14 @@ public class MovingTarget : MonoBehaviour, IHittable
             if (Vector3.Distance(transform.position, nextposition) < arriveThreshold)
             {
                 nextposition = GetNewMovementPosition();
-                Debug.Log("ABCD less than arrive threshold");
+                //Debug.Log("ABCD less than arrive threshold");
             }
 
             Vector3 direction = nextposition - transform.position;
             Vector3 newPos = transform.position + direction.normalized * Time.fixedDeltaTime * speed;
             rb.MovePosition(transform.position + direction.normalized * Time.fixedDeltaTime * speed);
-            Debug.Log("ABCD original position is : " + transform.position);
-            Debug.Log("ABCD next position is " + newPos);
+            // Debug.Log("ABCD original position is : " + transform.position);
+            // Debug.Log("ABCD next position is " + newPos);
         }
 
         

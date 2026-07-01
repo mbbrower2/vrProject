@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Analytics;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class ScoreManager : MonoBehaviour
     static ScoreManager instance;
 
     public static ScoreManager Instance {get {return instance;}}
+    private float currentScore = 0f;
 
     [SerializeField] TextMeshProUGUI scoreText;
     
@@ -20,13 +22,17 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
+        
         DontDestroyOnLoad(this);
     }
     #endregion
 
     public void UpdateScoreText(float score)
     {
-        scoreText.text = "Score: " + score.ToString("0");
+        Analytics.CustomEvent(GameManager.Instance.GetCurrentScene() + ": Current Score: " + scoreText.text + " Score Update: " + score);
+        currentScore += score;
+        scoreText.text = "Score: " + currentScore.ToString("0");
+        
+        
     }
 }

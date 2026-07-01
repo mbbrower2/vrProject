@@ -3,9 +3,10 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
-    #region Singleton
+    
     static GameManager instance;
 
     public static GameManager Instance {get {return instance;}}
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(this);
     }
-    #endregion
+    
 
     private static float score;
     public float Score {get {return score;}}
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     public void PlayerScored(float targetValue)
     {
         score = score + targetValue;
+        AnalyticsManager.Instance.UpdateScore(GetCurrentSceneName(), score);
         ScoreManager.Instance.UpdateScoreText(score);
     }
     private static readonly Dictionary<string, SceneSettings> sceneDefaults = new()
@@ -67,6 +69,11 @@ public class GameManager : MonoBehaviour
             "ArcherySceneL3" => GameScene.L3,
             _ => GameScene.Unknown
         };
+    }
+
+    public string GetCurrentSceneName()
+    {
+        return SceneManager.GetActiveScene().name;
     }
 
     public string GameSceneToString(GameScene scene)

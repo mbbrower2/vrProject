@@ -28,6 +28,7 @@ public class TargetManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
     }
 
     private void Start()
@@ -67,10 +68,13 @@ public class TargetManager : MonoBehaviour
     public void ReportTargetDown()
     {
         remainingTargets--;
+
         if (remainingTargets <= 0)
         {
+            AnalyticsManager.Instance.MovingToNextLevel(GameManager.Instance.GetCurrentSceneName(), nextSceneName);
             SceneManager.LoadScene(nextSceneName);
         }
+
     }
 
     public void SetNextSceneName(string sceneName)
@@ -140,7 +144,9 @@ public class TargetManager : MonoBehaviour
 
         if (Speed < maxSpeed)
         {
-            SetSpeed(Speed + 1);
+            float updateSpeed = Speed + 1;
+            AnalyticsManager.Instance.UpdateSpeed(GameManager.Instance.GetCurrentSceneName(), updateSpeed);
+            SetSpeed(updateSpeed);
             return;
         }
 
@@ -151,16 +157,24 @@ public class TargetManager : MonoBehaviour
                 break;
 
             case GameManager.GameScene.L2:
-                if (Size > minSize)
-                    SetSize(Size - 1);
+                
+                if (Size > minSize) {
+                    float updateTargetSize = Size - 1;
+                    SetSize(updateTargetSize);
+                    AnalyticsManager.Instance.UpdateSize(GameManager.Instance.GetCurrentSceneName(), updateTargetSize);
+                }
                 else
                     TryNextLevel();
                 break;
 
             case GameManager.GameScene.L3:
                 // TODO: add projectile logic
-                if (Size > minSize)
-                    SetSize(Size - 1);
+                
+                if (Size > minSize) {
+                    float updateTargetSize = Size - 1;
+                    SetSize(updateTargetSize);
+                    AnalyticsManager.Instance.UpdateSize(GameManager.Instance.GetCurrentSceneName(), updateTargetSize);
+                }
                 else
                     TryNextLevel();
                 break;
