@@ -27,6 +27,7 @@ public class TargetManager : MonoBehaviour
 
         if (remainingTargets <= 0)
         {
+            AnalyticsManager.Instance.MovingToNextLevel(GameManager.Instance.GetCurrentSceneName(), nextSceneName);
             SceneManager.LoadScene(nextSceneName);
         }
     }

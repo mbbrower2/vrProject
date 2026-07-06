@@ -27,6 +27,7 @@ public class AnalyticsManager : MonoBehaviour
 
     async void Start()
     {
+
         // 1. Initialize core Unity Gaming Services
         await UnityServices.InitializeAsync();
 
@@ -34,7 +35,7 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.StartDataCollection();
 
         _isInitialized = true;
-        Debug.Log("ABCD Unity Analytics successfully initialized.");
+
     }
 
     public void MovingToNextLevel(string currentScene, string nextScene)
@@ -109,39 +110,5 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.Flush();
     }
 
-    public void UpdateSpeed(string currentScene ,float speed)
-    {
-                if (!_isInitialized)
-        {
-            return; // don't try to record if analytics isn't ready
-        }
 
-        CustomEvent myEvent = new CustomEvent("UpdateSpeed")
-        {
-            {"participantID", participantID},
-            { "currentScene", currentScene},
-            { "newSpeed", speed}
-        };
-
-        AnalyticsService.Instance.RecordEvent(myEvent);
-        AnalyticsService.Instance.Flush();
-    }
-
-    public void UpdateSize(string currentScene ,float size)
-    {
-                if (!_isInitialized)
-        {
-            return; // don't try to record if analytics isn't ready
-        }
-
-        CustomEvent myEvent = new CustomEvent("UpdateSize")
-        {
-            {"participantID", participantID},
-            { "currentScene", currentScene},
-            { "newSpeed", size}
-        };
-
-        AnalyticsService.Instance.RecordEvent(myEvent);
-        AnalyticsService.Instance.Flush();
-    }
 }
