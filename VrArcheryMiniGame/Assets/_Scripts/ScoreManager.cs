@@ -8,7 +8,7 @@ public class ScoreManager : MonoBehaviour
     static ScoreManager instance;
 
     public static ScoreManager Instance {get {return instance;}}
-    private float currentScore = 0f;
+    private float currentScore = 0f; 
 
     [SerializeField] TextMeshProUGUI scoreText;
     
@@ -29,10 +29,9 @@ public class ScoreManager : MonoBehaviour
 
     public void UpdateScoreText(float score)
     {
-        Analytics.CustomEvent(GameManager.Instance.GetCurrentScene() + ": Current Score: " + scoreText.text + " Score Update: " + score);
+        AnalyticsManager.Instance.UpdateScore(GameManager.Instance.GetCurrentSceneName(), score);
         currentScore += score;
         scoreText.text = "Score: " + currentScore.ToString("0");
-        
         
     }
 }
