@@ -3,7 +3,17 @@ guid: 54cc74209a3f84ef393d2e3dd0170d5a
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ballon
+    second: {fileID: 2100000, guid: fd000e300853dec42bf6defed3e13aad, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: string1
+    second: {fileID: 2100000, guid: 367e87b4150214b41963e70ca94a8f27, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
