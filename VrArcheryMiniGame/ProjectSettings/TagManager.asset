@@ -8,6 +8,7 @@ TagManager:
   - Target
   - Missile
   - Laser
+  - Environment
   layers:
   - Default
   - TransparentFX

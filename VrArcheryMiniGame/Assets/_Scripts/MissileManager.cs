@@ -18,18 +18,28 @@ public class MissileManager : MonoBehaviour
     }
     void Update()
     {   
+
         if (currentMissileCount < maxMissles)
         {
-            //TODO: this random spawn position range needs to be adjusted, its too close to the camera
             Vector3 randomSpawnPosition = new Vector3(
-                Random.Range(-10, 11),
+                Random.Range(-20, 21),
                 5,
-                Random.Range(-10, 11)
+                Random.Range(-20, 21)
             );
             GameObject newMissile = Instantiate(missle, randomSpawnPosition, Quaternion.identity);
             newMissile.GetComponent<Missile>().SetTarget(Camera.main.transform); // <-- Set target here
             RegisterMissile();
         }
+    }
+
+    public void updateMaxMissles(int numMissles)
+    {
+        maxMissles = numMissles;
+    }
+
+    public int getMaxMissles()
+    {
+        return maxMissles;
     }
 
     public void RegisterMissile()
