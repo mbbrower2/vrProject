@@ -535,21 +535,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Dear traveler, it is the year 3056.
-
-    Humanity has expanded into deep
-    space.
-
-
-    You are a newly recruited cadet aboard
-
-    the Atlas Training Station.
-
-
-    Prepare
-    to defend humanity from
-
-    hostile alien forces.'
+  m_text: "Dear traveler, it is the year 3056.\nHumanity has expanded into deep space.\n\nYou
+    are a newly recruited cadet aboard\nthe Atlas Training Station.\n\nPrepare to
+    defend humanity from\nhostile alien forces. \n\nPress A to begin the tutorial."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2923,6 +2911,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IntroPopup
   introCanvas: {fileID: 1678335678}
+  aButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: A Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 9e192cae-ec2b-475f-8164-289053ff900a
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: -1526607395745397227, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
 --- !u!4 &1741266474
 Transform:
   m_ObjectHideFlags: 0
@@ -3196,6 +3197,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: XR Device Simulator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

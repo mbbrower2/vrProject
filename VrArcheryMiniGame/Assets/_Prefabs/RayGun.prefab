@@ -375,7 +375,7 @@ MonoBehaviour:
   linePrefab: {fileID: 9055638563639907839, guid: a3f66197da4064d98a48760e7156db08,
     type: 3}
   shootingPoint: {fileID: 5410709083789341446}
-  maxLineDistance: 5
+  maxLineDistance: 10
   lineShowTimer: 0.2
   stickingArrowPrefab: {fileID: 2606330010978727818, guid: c43cb160aa3a446f5aaf5c9c81611616,
     type: 3}
