@@ -9,7 +9,7 @@ public class IntroPopup : MonoBehaviour
 
     void Start()
     {
-        Invoke("ShowPopup", 5f);
+        Invoke("ShowPopup", 3f);
     }
 
     void ShowPopup()
