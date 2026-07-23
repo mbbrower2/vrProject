@@ -19,14 +19,17 @@ public class TargetManager : MonoBehaviour
     public void RegisterTarget()
     {
         remainingTargets++;
+        Debug.Log("ABCD TARGET registered  TARGET count " + remainingTargets);
     }
 
     public void ReportTargetDown()
     {
+        
         remainingTargets--;
-
+Debug.Log("ABCD TARGET DOWN REMAINING TARGET " + remainingTargets);
         if (remainingTargets <= 0)
         {
+            Debug.Log("ABCD no targets remaining moving to " + nextSceneName);
             AnalyticsManager.Instance.MovingToNextLevel(GameManager.Instance.GetCurrentSceneName(), nextSceneName);
             SceneManager.LoadScene(nextSceneName);
         }

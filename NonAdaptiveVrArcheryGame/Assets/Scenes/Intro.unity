@@ -1950,7 +1950,7 @@ MonoBehaviour:
   m_text: "Step right up, sharpshooter!\n\nWelcome to the carnival\u2019s famous
     duck shooting gallery.\n\nTake aim, hit as many moving ducks as you can, and
     prove you have what it takes to earn the highest score.\n\nReady your aim, the
-    game is about to begin!"
+    game is about to begin! \n\nPress A to begin the tutorial."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6113,6 +6113,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IntroPopup
   introCanvas: {fileID: 1678335678}
+  aButton:
+    m_UseReference: 1
+    m_Action:
+      m_Name: A Button
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 5578b56a-2eff-4399-b4b4-7d9b8c5d7f92
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 3769239757803894588, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
 --- !u!4 &1741266474
 Transform:
   m_ObjectHideFlags: 0
@@ -6588,6 +6601,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: XR Device Simulator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
