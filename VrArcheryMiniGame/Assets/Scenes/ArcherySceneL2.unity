@@ -375,6 +375,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ceiling Closed (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -442,6 +447,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Garbage Bin (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751521506394663254, guid: 703b0b9baff312645a73bd13e1f10a5e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -769,7 +779,7 @@ GameObject:
   - component: {fileID: 208389084}
   m_Layer: 0
   m_Name: FLOOR
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1011,6 +1021,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ceiling Closed (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1387,6 +1402,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ceiling Closed (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1818,7 +1838,7 @@ GameObject:
   - component: {fileID: 477728117}
   m_Layer: 0
   m_Name: WALLS
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2627,6 +2647,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -3602,7 +3627,7 @@ GameObject:
   - component: {fileID: 807267251}
   m_Layer: 0
   m_Name: Details
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4117,6 +4142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ceiling Closed (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4670,7 +4700,7 @@ GameObject:
   - component: {fileID: 1023489549}
   m_Layer: 0
   m_Name: Ceiling
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4979,7 +5009,7 @@ GameObject:
   - component: {fileID: 1161157065}
   m_Layer: 0
   m_Name: BuildingPreFabs
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5231,6 +5261,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -5765,6 +5800,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shelf Variation 02
       objectReference: {fileID: 0}
+    - target: {fileID: 1151952502364127329, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 4154526033587974770, guid: 5c1b535d3782bee49819656f221e56de,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -5947,17 +5987,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 221a60e96f435459a9b6c1cda39d654d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.50031906
+      value: -0.473
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221a60e96f435459a9b6c1cda39d654d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.81
+      value: -0.757
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221a60e96f435459a9b6c1cda39d654d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.024716187
+      value: -0.023
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 221a60e96f435459a9b6c1cda39d654d,
         type: 3}
@@ -6981,89 +7021,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 27381686}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1653006643
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5533847
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.6670018
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.6670018
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -19.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99995434
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.00955503
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -1.095
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346222295, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_Name
-      value: Corridor Corner Lights (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0d9d85399f9310e458b966faa3d36bdb, type: 3}
 --- !u!1001 &1633533020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7157,6 +7114,94 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1633533020}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1653006643
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5533847
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6670018
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6670018
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -19.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99995434
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00955503
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -1.095
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346222295, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_Name
+      value: Corridor Corner Lights (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346222295, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d9d85399f9310e458b966faa3d36bdb, type: 3}
 --- !u!1001 &1673550285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7219,6 +7264,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ceiling Closed
+      objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8032,7 +8082,7 @@ GameObject:
   - component: {fileID: 1870839196}
   m_Layer: 0
   m_Name: 2NDFLOOR
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8059,6 +8109,7 @@ Transform:
   - {fileID: 1070551713}
   - {fileID: 1897297416}
   - {fileID: 2132719586}
+  - {fileID: 732734578}
   m_Father: {fileID: 1161157065}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1876074891
@@ -8197,6 +8248,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Garbage Bin
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751521506394663254, guid: 703b0b9baff312645a73bd13e1f10a5e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8682,6 +8738,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ceiling Closed (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8945,74 +9006,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2061591477}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2086084116
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 12.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7220986072346222295, guid: 0d9d85399f9310e458b966faa3d36bdb,
-        type: 3}
-      propertyPath: m_Name
-      value: Corridor Corner Lights
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0d9d85399f9310e458b966faa3d36bdb, type: 3}
 --- !u!1001 &2083884462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9107,6 +9100,79 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2083884462}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2086084116
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346051319, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346222295, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_Name
+      value: Corridor Corner Lights
+      objectReference: {fileID: 0}
+    - target: {fileID: 7220986072346222295, guid: 0d9d85399f9310e458b966faa3d36bdb,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d9d85399f9310e458b966faa3d36bdb, type: 3}
 --- !u!1001 &2117228077
 PrefabInstance:
   m_ObjectHideFlags: 0
