@@ -29,8 +29,6 @@ private Vector3 deviatedPrediction;
 [SerializeField] float scoreForGettingHit = -20;
 [SerializeField] float scoreForProjectile = 20;
 
-[SerializeField] private float minFrontDistance = 1f;
-
 private void Update()
 {
     if (target == null)
@@ -51,7 +49,6 @@ private void Update()
     PredictMovement(leadTimePercentage);
     AddDeviation(leadTimePercentage);
     RotateRocket();
-    ClampInFrontOfTarget();
 }
 
 private void PredictMovement(float leadTimePercentage)
@@ -92,34 +89,6 @@ private void RotateRocket()
             rotateSpeed * Time.deltaTime
         )
     );
-}
-
-// Keeps the missile from ever crossing behind the target's forward-facing plane
-// (i.e. behind the camera). "In front" is defined the same way OnCollisionEnter
-// already does it: dot(target.forward, missilePos - targetPos) > 0.
-private void ClampInFrontOfTarget()
-{
-    Vector3 toMissile = transform.position - target.position;
-    float frontDistance = Vector3.Dot(target.forward, toMissile);
-
-    if (frontDistance >= minFrontDistance)
-        return;
-
-    // Push the missile back onto the plane at minFrontDistance.
-    float correctionAmount = minFrontDistance - frontDistance;
-    transform.position += target.forward * correctionAmount;
-
-    // Kill any velocity component that's still driving it further behind,
-    // so it doesn't immediately get pushed back next frame (and instead
-    // starts sliding along the plane / turning back toward the target).
-    Vector3 velocity = rb.linearVelocity;
-    float velocityAlongForward = Vector3.Dot(velocity, target.forward);
-
-    if (velocityAlongForward < 0f)
-    {
-        velocity -= target.forward * velocityAlongForward;
-        rb.linearVelocity = velocity;
-    }
 }
 
 private void OnCollisionEnter(Collision collision)

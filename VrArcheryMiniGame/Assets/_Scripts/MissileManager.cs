@@ -18,7 +18,6 @@ public class MissileManager : MonoBehaviour
     }
     void Update()
     {   
-
         if (currentMissileCount < maxMissles)
         {
             Vector3 randomSpawnPosition = new Vector3(
@@ -40,6 +39,11 @@ public class MissileManager : MonoBehaviour
     public int getMaxMissles()
     {
         return maxMissles;
+    }
+
+    public int getCurrMissles()
+    {
+        return currentMissileCount;
     }
 
     public void RegisterMissile()

@@ -98,14 +98,11 @@ public class MovingTarget : MonoBehaviour, IHittable
             if (Vector3.Distance(transform.position, nextposition) < arriveThreshold)
             {
                 nextposition = GetNewMovementPosition();
-                //Debug.Log("ABCD less than arrive threshold");
             }
 
             Vector3 direction = nextposition - transform.position;
             Vector3 newPos = transform.position + direction.normalized * Time.fixedDeltaTime * speed;
             rb.MovePosition(transform.position + direction.normalized * Time.fixedDeltaTime * speed);
-            // Debug.Log("ABCD original position is : " + transform.position);
-            // Debug.Log("ABCD next position is " + newPos);
         }
 
         

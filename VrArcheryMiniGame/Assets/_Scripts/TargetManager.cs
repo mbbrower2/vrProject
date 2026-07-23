@@ -101,7 +101,7 @@ public class TargetManager : MonoBehaviour
     {
         IsMoving = moving;
         Speed = 1f;
-        MovementRadius = 2f;
+        MovementRadius = 5f;
         OnTargetSettingsChanged?.Invoke();
     }
 

@@ -34,7 +34,6 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.StartDataCollection();
 
         _isInitialized = true;
-        Debug.Log("ABCD Unity Analytics successfully initialized.");
     }
 
     public void MovingToNextLevel(string currentScene, string nextScene)

@@ -15,7 +15,6 @@ public class OscHandler : MonoBehaviour
     // OSC logic lives here — affects all targets globally
     public void oscTransformation(bool bored)
     {
-        Debug.Log("IN OSC TRANSFORMATION");
         if (bored)
             HandleBored();
         else
@@ -54,6 +53,7 @@ public class OscHandler : MonoBehaviour
 
         switch (GameManager.Instance.GetCurrentScene())
         {
+            
             case GameManager.GameScene.L1:
                 TryNextLevel();
                 break;
@@ -75,8 +75,8 @@ public class OscHandler : MonoBehaviour
                     float updateTargetSize = TargetManager.Instance.Size - 1;
                     TargetManager.Instance.SetSize(updateTargetSize);
                     AnalyticsManager.Instance.UpdateSize(GameManager.Instance.GetCurrentSceneName(), updateTargetSize);
-                } else if (MissileManager.Instance.getMaxMissles() < GameManager.Instance.GetMaxMissiles()) {
-                    int numMissles = MissileManager.Instance.getMaxMissles();
+                } else if (MissileManager.Instance.getCurrMissles() < GameManager.Instance.GetMaxMissiles()) {
+                    int numMissles = MissileManager.Instance.getCurrMissles();
                     MissileManager.Instance.updateMaxMissles(numMissles + 1);
                 }
                 else

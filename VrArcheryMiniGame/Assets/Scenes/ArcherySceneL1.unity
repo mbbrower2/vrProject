@@ -2695,82 +2695,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &694490206
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 694490209}
-  - component: {fileID: 694490208}
-  - component: {fileID: 694490207}
-  m_Layer: 0
-  m_Name: OSC Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &694490207
+--- !u!114 &694490207 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3606890225054359363, guid: d7381605e067842e28bddd6ff611b538,
+    type: 3}
+  m_PrefabInstance: {fileID: 5248760601663222511}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694490206}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fbba286dc10e549b2bdec947ef8dbd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: extOSC::extOSC.OSCReceiver
-  _autoConnect: 1
-  _closeOnPause: 0
-  _mapBundle: {fileID: 0}
-  _workInEditor: 0
-  _localHostMode: 1
-  _localHost: 10.243.118.53
-  _localPort: 7000
---- !u!114 &694490208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694490206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464088183d2a1484ab8fb64e356c9f5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: extOSC::extOSC.OSCTransmitter
-  _autoConnect: 1
-  _closeOnPause: 0
-  _mapBundle: {fileID: 0}
-  _workInEditor: 0
-  _localHostMode: 1
-  _localPortMode: 2
-  _localReceiver: {fileID: 0}
-  _localHost: 10.243.118.53
-  _localPort: 7000
-  _remoteHost: 127.0.0.1
-  _remotePort: 7000
-  _useBundle: 0
---- !u!4 &694490209
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 694490206}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &707112834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7739,6 +7675,74 @@ TerrainCollider:
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: c474cc9ff6f5513449a0514ca76a79d3, type: 2}
   m_EnableTreeColliders: 1
+--- !u!1001 &5248760601663222511
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8199167111613072505, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_Name
+      value: OSC Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7381605e067842e28bddd6ff611b538, type: 3}
 --- !u!1001 &5404996209546603809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8047,7 +8051,7 @@ SceneRoots:
   - {fileID: 707112834}
   - {fileID: 1853726303}
   - {fileID: 584797984}
-  - {fileID: 694490209}
+  - {fileID: 5248760601663222511}
   - {fileID: 1135323422}
   - {fileID: 5404996209546603809}
   - {fileID: 614012727258287445}

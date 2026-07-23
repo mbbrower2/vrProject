@@ -214,6 +214,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Door 02 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111224, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111228, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111230, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 2025503266058409176, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -281,6 +296,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Corner (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851013419894056381, guid: 32467b8dc355cd04da356b17dbac4f29,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 3452931867044665262, guid: 32467b8dc355cd04da356b17dbac4f29,
         type: 3}
@@ -552,6 +572,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catwalk Long
       objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -674,6 +699,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Plain (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -801,10 +831,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1781972870}
     m_Modifications:
+    - target: {fileID: 7546825810512202858, guid: 1a91b66dee996324fa51df60c547b29d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7546825811929280183, guid: 1a91b66dee996324fa51df60c547b29d,
         type: 3}
       propertyPath: m_Name
       value: Pallet Variation 02
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546825811929280183, guid: 1a91b66dee996324fa51df60c547b29d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 7546825811929379479, guid: 1a91b66dee996324fa51df60c547b29d,
         type: 3}
@@ -855,6 +895,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546825812406137111, guid: 1a91b66dee996324fa51df60c547b29d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7546825812571322192, guid: 1a91b66dee996324fa51df60c547b29d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -930,6 +980,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 03
       objectReference: {fileID: 0}
+    - target: {fileID: 3167031632194995179, guid: 4f019145598ea474b899ca25a03acd09,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -953,6 +1008,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -1028,6 +1088,16 @@ PrefabInstance:
       value: Short Stairs Wide
       objectReference: {fileID: 0}
     - target: {fileID: 4410478108093735952, guid: 7e3f523375a441341abd337ac986d569,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410478108093735956, guid: 7e3f523375a441341abd337ac986d569,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410478108093735958, guid: 7e3f523375a441341abd337ac986d569,
         type: 3}
       propertyPath: m_TagString
       value: Environment
@@ -1116,6 +1186,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catwalk Rails Long (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1194,6 +1269,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Door 02 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111224, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111228, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111230, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 2025503266058409176, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
         type: 3}
@@ -1516,6 +1606,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catwalk Rails Long (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1638,6 +1733,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor Tile 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2796068601526596500, guid: aae952dc76387e84287a598d901b120d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1811,6 +1911,86 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shelf Variation 02
       objectReference: {fileID: 0}
+    - target: {fileID: 1151952502364127329, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669633949817011, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634036142340, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634162725336, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634162836753, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634288563724, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634345009301, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634576517401, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634642737550, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634720381971, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634793157542, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669634843634189, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669635077023458, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669635227980844, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669635545694207, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2149669635800582286, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 4154526033587974770, guid: 5c1b535d3782bee49819656f221e56de,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1880,6 +2060,131 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5138983466742123776, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631840423675289, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631840607117360, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631841331939375, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631841508496507, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631841791053823, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631841880492740, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631841955839088, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631842294994416, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6256631842324397970, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6558556736952878949, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198739670177659, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198739886328470, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198739990988609, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198740466663591, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198740649928512, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198740685232339, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198740787710247, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198740979428962, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198741031140967, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198741075108971, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198741210690957, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198741310165293, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198741340647311, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699198741631396244, guid: 5c1b535d3782bee49819656f221e56de,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1991,7 +2296,7 @@ GameObject:
   - component: {fileID: 299294237}
   m_Layer: 0
   m_Name: SouthWall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2095,6 +2400,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890688, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890690, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890692, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 7486943341193890694, guid: 4f1819ea97fb2c147a2281df45df2ea7,
         type: 3}
@@ -2272,6 +2592,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2283,74 +2608,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 309947992}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &310478565
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5902896381689761549, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_Name
-      value: OscHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3.71403
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.61518
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.00786
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 81580bcde9b784da8914ab4e5a873dab, type: 3}
 --- !u!1001 &317191516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2523,6 +2780,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ceiling Closed (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2597,6 +2859,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 06
       objectReference: {fileID: 0}
+    - target: {fileID: 2796068601526596500, guid: aae952dc76387e84287a598d901b120d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2620,6 +2887,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -2951,6 +3223,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890688, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890690, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890692, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7486943341193890694, guid: 4f1819ea97fb2c147a2281df45df2ea7,
         type: 3}
       propertyPath: m_Name
@@ -3226,6 +3513,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Door 02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111224, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111228, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111230, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 2025503266058409176, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3424,6 +3726,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Garbage Bin
       objectReference: {fileID: 0}
+    - target: {fileID: 2751521506394663254, guid: 703b0b9baff312645a73bd13e1f10a5e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3577,6 +3884,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 02
       objectReference: {fileID: 0}
+    - target: {fileID: 2796068601526596500, guid: aae952dc76387e84287a598d901b120d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3600,6 +3912,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -3673,6 +3990,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Door 02 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111224, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111228, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111230, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 2025503266058409176, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
         type: 3}
@@ -3798,6 +4130,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3811,6 +4148,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1313050933}
     m_Modifications:
+    - target: {fileID: 1949829723593740736, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251707864179479384, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 6269635625250689571, guid: 1b890216c6645c648bfde4c7ba8f0b08,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3861,10 +4208,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6677150898063936281, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7014745350219325488, guid: 1b890216c6645c648bfde4c7ba8f0b08,
         type: 3}
       propertyPath: m_Name
       value: Wall Window (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7014745350219325488, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3939,6 +4296,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cart
+      objectReference: {fileID: 0}
+    - target: {fileID: 8170962087039567002, guid: 126b2c575cf932341a8f0414ccd5b254,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4506,6 +4868,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catwalk Rails Long (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -4630,10 +4997,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7748243253765183376, guid: 0a65198f3cbcab345bc0b33f23a45e76,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748243253765183378, guid: 0a65198f3cbcab345bc0b33f23a45e76,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7748243253765183380, guid: 0a65198f3cbcab345bc0b33f23a45e76,
         type: 3}
       propertyPath: m_Name
       value: Wall Fan
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748243253765183380, guid: 0a65198f3cbcab345bc0b33f23a45e76,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748243253765183382, guid: 0a65198f3cbcab345bc0b33f23a45e76,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748243253765183388, guid: 0a65198f3cbcab345bc0b33f23a45e76,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7748243253765183390, guid: 0a65198f3cbcab345bc0b33f23a45e76,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4888,6 +5285,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ceiling Closed (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4905,6 +5307,79 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1644455931}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &702187699
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5902896381689761549, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_Name
+      value: OscHandler
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.259
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.71146
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.993
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6585008913314168491, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7338042971553619120, guid: 81580bcde9b784da8914ab4e5a873dab,
+        type: 3}
+      propertyPath: _receiver
+      value: 
+      objectReference: {fileID: 856409106}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 81580bcde9b784da8914ab4e5a873dab, type: 3}
 --- !u!1 &704892545
 GameObject:
   m_ObjectHideFlags: 0
@@ -5005,6 +5480,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5079,6 +5559,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5146,6 +5631,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ceiling Closed (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5417,6 +5907,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5434,6 +5929,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -5570,6 +6070,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 07
       objectReference: {fileID: 0}
+    - target: {fileID: 3167031632194995179, guid: 4f019145598ea474b899ca25a03acd09,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5593,6 +6098,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -5672,6 +6182,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -6084,6 +6599,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2006484414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &856409105
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8199167111613072505, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_Name
+      value: OSC Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10.259
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.71146
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.993
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600137833063490309, guid: d7381605e067842e28bddd6ff611b538,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d7381605e067842e28bddd6ff611b538, type: 3}
+--- !u!114 &856409106 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3606890225054359363, guid: d7381605e067842e28bddd6ff611b538,
+    type: 3}
+  m_PrefabInstance: {fileID: 856409105}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbba286dc10e549b2bdec947ef8dbd3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: extOSC::extOSC.OSCReceiver
 --- !u!1001 &859515125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6096,6 +6691,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -6169,6 +6769,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -6305,6 +6910,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 08
       objectReference: {fileID: 0}
+    - target: {fileID: 3167031632194995179, guid: 4f019145598ea474b899ca25a03acd09,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6328,6 +6938,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -6407,6 +7022,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Door 02 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111224, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111228, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111230, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 2025503266058409176, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
         type: 3}
@@ -6526,6 +7156,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 04
       objectReference: {fileID: 0}
+    - target: {fileID: 3167031632194995179, guid: 4f019145598ea474b899ca25a03acd09,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6600,6 +7235,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6623,6 +7263,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -6747,7 +7392,7 @@ GameObject:
   - component: {fileID: 993255392}
   m_Layer: 0
   m_Name: EastWall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6847,6 +7492,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890688, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890690, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890692, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7486943341193890694, guid: 4f1819ea97fb2c147a2281df45df2ea7,
         type: 3}
       propertyPath: m_Name
@@ -6924,6 +7584,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cart (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8170962087039567002, guid: 126b2c575cf932341a8f0414ccd5b254,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7012,10 +7677,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1933807477239654733, guid: d324de115c4dff845bee7b7f166883c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2647211758135124163, guid: d324de115c4dff845bee7b7f166883c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 2702167651921923441, guid: d324de115c4dff845bee7b7f166883c4,
         type: 3}
       propertyPath: m_Name
       value: Wall BayDoor (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702167651921923441, guid: d324de115c4dff845bee7b7f166883c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975399993979019661, guid: d324de115c4dff845bee7b7f166883c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7034,6 +7719,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -7113,6 +7803,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -7310,6 +8005,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catwalk Rails Long (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -7388,6 +8088,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -7590,6 +8295,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7681,6 +8391,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -7811,6 +8526,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7855,6 +8575,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 299294237}
     m_Modifications:
+    - target: {fileID: 1949829723593740736, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251707864179479384, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 6269635625250689571, guid: 1b890216c6645c648bfde4c7ba8f0b08,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7905,10 +8635,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6677150898063936281, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7014745350219325488, guid: 1b890216c6645c648bfde4c7ba8f0b08,
         type: 3}
       propertyPath: m_Name
       value: Wall Window
+      objectReference: {fileID: 0}
+    - target: {fileID: 7014745350219325488, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7989,6 +8729,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ceiling Closed (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8097,6 +8842,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8156,6 +8906,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -8360,6 +9115,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ceiling Closed (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8429,10 +9189,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1933807477239654733, guid: d324de115c4dff845bee7b7f166883c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2647211758135124163, guid: d324de115c4dff845bee7b7f166883c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 2702167651921923441, guid: d324de115c4dff845bee7b7f166883c4,
         type: 3}
       propertyPath: m_Name
       value: Wall BayDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2702167651921923441, guid: d324de115c4dff845bee7b7f166883c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975399993979019661, guid: d324de115c4dff845bee7b7f166883c4,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8456,7 +9236,7 @@ GameObject:
   - component: {fileID: 1313050933}
   m_Layer: 0
   m_Name: NorthWall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8496,6 +9276,91 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1781972870}
     m_Modifications:
+    - target: {fileID: 1247432281755230328, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247432282340001908, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1247432282648510756, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312668987415240659, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312668988206230688, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312668988385387076, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312668988420222414, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016307452606037, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016307550243954, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016307663230249, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016307699833807, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016307750593552, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016307779548515, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016307785055054, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016307915607762, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308174726969, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308304012428, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 1682016308309836802, guid: 324f2a5232c3ab4488fe817c9ea94b63,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -8566,10 +9431,110 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1682016308310267936, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 1682016308310267938, guid: 324f2a5232c3ab4488fe817c9ea94b63,
         type: 3}
       propertyPath: m_Name
       value: Shelf Variation 01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308310267938, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308310267940, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308412889363, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308442437232, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308508272877, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308549470500, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308606001159, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308683919804, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308734052939, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308791592194, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016308905817800, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016309126447094, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016309173906288, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016309492494130, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016309494545280, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016309535319635, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682016309574426235, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737220938648174827, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737220938729774926, guid: 324f2a5232c3ab4488fe817c9ea94b63,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8590,6 +9555,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 299294237}
     m_Modifications:
+    - target: {fileID: 1949829723593740736, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251707864179479384, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 6269635625250689571, guid: 1b890216c6645c648bfde4c7ba8f0b08,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8640,10 +9615,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6677150898063936281, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7014745350219325488, guid: 1b890216c6645c648bfde4c7ba8f0b08,
         type: 3}
       propertyPath: m_Name
       value: Wall Window (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7014745350219325488, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8668,6 +9653,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -8748,6 +9738,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catwalk Long (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -8820,6 +9815,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor Tile 05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6257800485735965347, guid: cf8443763fc34314490f8a3e2f94dd37,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 6954531691785998512, guid: cf8443763fc34314490f8a3e2f94dd37,
         type: 3}
@@ -8940,6 +9940,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Door 02
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111224, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111228, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111230, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 2025503266058409176, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
         type: 3}
@@ -9065,6 +10080,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9088,6 +10108,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -9212,6 +10237,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9235,6 +10265,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -9377,6 +10412,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Door 02 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111224, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111228, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111230, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 2025503266058409176, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9511,6 +10561,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890688, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890690, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486943341193890692, guid: 4f1819ea97fb2c147a2281df45df2ea7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7486943341193890694, guid: 4f1819ea97fb2c147a2281df45df2ea7,
         type: 3}
       propertyPath: m_Name
@@ -9550,6 +10615,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -9623,6 +10693,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -9753,6 +10828,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 11
       objectReference: {fileID: 0}
+    - target: {fileID: 3167031632194995179, guid: 4f019145598ea474b899ca25a03acd09,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9772,10 +10852,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1781972870}
     m_Modifications:
+    - target: {fileID: 8616490787129141615, guid: d96e3ff0793bd824fb6771e987a80a35,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8616490787709101291, guid: d96e3ff0793bd824fb6771e987a80a35,
         type: 3}
       propertyPath: m_Name
       value: Pallet Variation 05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616490787709101291, guid: d96e3ff0793bd824fb6771e987a80a35,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8616490787709139147, guid: d96e3ff0793bd824fb6771e987a80a35,
         type: 3}
@@ -9827,6 +10917,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8616490788224328187, guid: d96e3ff0793bd824fb6771e987a80a35,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616490788912666826, guid: d96e3ff0793bd824fb6771e987a80a35,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9850,6 +10950,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -9929,6 +11034,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -10133,6 +11243,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catwalk Long
       objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -10211,6 +11326,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Door 02 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111224, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111228, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 2025503266058111230, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 2025503266058409176, guid: 01f7094c0e795ad47b0ef77f3cf2ae66,
         type: 3}
@@ -10778,6 +11908,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Garbage Bin (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2751521506394663254, guid: 703b0b9baff312645a73bd13e1f10a5e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10801,6 +11936,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -10887,6 +12027,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Catwalk Long (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -10959,6 +12104,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Corner (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851013419894056381, guid: 32467b8dc355cd04da356b17dbac4f29,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 3452931867044665262, guid: 32467b8dc355cd04da356b17dbac4f29,
         type: 3}
@@ -11084,6 +12234,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11101,6 +12256,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -11181,6 +12341,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 09
       objectReference: {fileID: 0}
+    - target: {fileID: 6257800485735965347, guid: cf8443763fc34314490f8a3e2f94dd37,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 6954531691785998512, guid: cf8443763fc34314490f8a3e2f94dd37,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11253,7 +12418,7 @@ GameObject:
   - component: {fileID: 1665068365}
   m_Layer: 0
   m_Name: Runway (2)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11294,6 +12459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Corner (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851013419894056381, guid: 32467b8dc355cd04da356b17dbac4f29,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 3452931867044665262, guid: 32467b8dc355cd04da356b17dbac4f29,
         type: 3}
@@ -11650,6 +12820,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11672,7 +12847,7 @@ GameObject:
   - component: {fileID: 1706942026}
   m_Layer: 0
   m_Name: Runway (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11744,6 +12919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Wall Corner
+      objectReference: {fileID: 0}
+    - target: {fileID: 1851013419894056381, guid: 32467b8dc355cd04da356b17dbac4f29,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 3452931867044665262, guid: 32467b8dc355cd04da356b17dbac4f29,
         type: 3}
@@ -11817,7 +12997,7 @@ GameObject:
   - component: {fileID: 1745041836}
   m_Layer: 0
   m_Name: Runway (3)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11865,7 +13045,7 @@ GameObject:
   - component: {fileID: 1759125635}
   m_Layer: 0
   m_Name: Runway
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12002,6 +13182,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ceiling Closed
       objectReference: {fileID: 0}
+    - target: {fileID: 2481634258350380217, guid: eb4b38db67a56dc469a2c2aafcc36add,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12036,7 +13221,7 @@ GameObject:
   - component: {fileID: 1830688542}
   m_Layer: 0
   m_Name: WestWall
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12075,6 +13260,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Floor Tile 01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6257800485735965347, guid: cf8443763fc34314490f8a3e2f94dd37,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 6954531691785998512, guid: cf8443763fc34314490f8a3e2f94dd37,
         type: 3}
@@ -12149,6 +13339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -12273,6 +13468,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor Tile 12
       objectReference: {fileID: 0}
+    - target: {fileID: 3167031632194995179, guid: 4f019145598ea474b899ca25a03acd09,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12302,6 +13502,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -12438,6 +13643,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12512,6 +13722,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12571,6 +13786,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -12736,6 +13956,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12759,6 +13984,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Long (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910352700272845603, guid: b76f846b3379607468a593969b575654,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654,
         type: 3}
@@ -12895,6 +14125,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12918,6 +14153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Catwalk Rails Long (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341519867693014527, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8,
         type: 3}
@@ -13042,6 +14282,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall Plain (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 8730245854331329977, guid: b2452a5c2cd649a4db9eebcd16f7b155,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13086,6 +14331,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1313050933}
     m_Modifications:
+    - target: {fileID: 1949829723593740736, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251707864179479384, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 6269635625250689571, guid: 1b890216c6645c648bfde4c7ba8f0b08,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13136,10 +14391,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6677150898063936281, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     - target: {fileID: 7014745350219325488, guid: 1b890216c6645c648bfde4c7ba8f0b08,
         type: 3}
       propertyPath: m_Name
       value: Wall Window (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7014745350219325488, guid: 1b890216c6645c648bfde4c7ba8f0b08,
+        type: 3}
+      propertyPath: m_TagString
+      value: Environment
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13651,4 +14916,5 @@ SceneRoots:
   - {fileID: 1006903757}
   - {fileID: 400830191}
   - {fileID: 102258161}
-  - {fileID: 310478565}
+  - {fileID: 856409105}
+  - {fileID: 702187699}
