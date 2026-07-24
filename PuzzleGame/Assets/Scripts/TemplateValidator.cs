@@ -1,0 +1,271 @@
+using UnityEngine;
+using UnityEngine.Events;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using Oculus.Interaction;
+
+public class TemplateValidator : MonoBehaviour
+{
+    public TemplateSpawner spawner;
+    public AudioClip completionSound;
+    public float delayBeforeNextLevel = 2f;
+    public UnityEvent onAllLevelsComplete;
+
+    [Header("Levels")]
+    public List<TemplateData> levels = new List<TemplateData>();
+
+    [Header("Timer")]
+    public TextMeshProUGUI timerText;
+
+    [Header("Block Spawning")]
+    public GameObject blockBasePrefab;
+    [System.Serializable]
+    public class BlockSpawnInfo
+    {
+        public BlockData blockData;
+        public Vector3 position;
+    }
+    public List<BlockSpawnInfo> blockSpawns = new List<BlockSpawnInfo>();
+
+    private AudioSource audioSource;
+    private ControlDisplay controlDisplay;
+    private List<GameObject> activeBlocks = new List<GameObject>();
+    private float elapsedTime = 0f;
+    private bool timerRunning = false;
+    private int currentLevelIndex = 0;
+    private List<float> levelTimes = new List<float>();
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        controlDisplay = FindAnyObjectByType<ControlDisplay>();
+    }
+
+    void OnEnable()
+    {
+        currentLevelIndex = 0;
+        levelTimes.Clear();
+        LoadLevel(currentLevelIndex);
+    }
+
+    void OnDisable()
+    {
+        StopTimer();
+    }
+
+    void Update()
+    {
+        if (timerRunning)
+        {
+            elapsedTime += Time.deltaTime;
+            UpdateTimerDisplay();
+        }
+
+        // Y button to reset current level
+        if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
+            ResetLevel();
+    }
+
+    void StartTimer()
+    {
+        elapsedTime = 0f;
+        timerRunning = true;
+    }
+
+    void StopTimer()
+    {
+        timerRunning = false;
+    }
+
+    void UpdateTimerDisplay()
+    {
+        if (timerText == null) return;
+        int minutes = Mathf.FloorToInt(elapsedTime / 60f);
+        int seconds = Mathf.FloorToInt(elapsedTime % 60f);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    void LoadLevel(int index)
+    {
+        if (index >= levels.Count)
+        {
+            HandleAllLevelsComplete();
+            return;
+        }
+
+        Debug.Log($"Loading level {index + 1}: {levels[index].templateName}");
+
+        spawner.templateData = levels[index];
+        spawner.BuildTemplate();
+
+        SpawnBlocks();
+        StartTimer();
+    }
+
+    void SpawnBlocks()
+    {
+        foreach (GameObject block in activeBlocks)
+            if (block != null) Destroy(block);
+        activeBlocks.Clear();
+
+        foreach (var info in blockSpawns)
+        {
+            if (info.blockData == null || blockBasePrefab == null) continue;
+
+            GameObject blockParent = Instantiate(blockBasePrefab, info.position, Quaternion.identity);
+            blockParent.name = $"Block_{info.blockData.blockName}";
+            blockParent.transform.localScale = Vector3.one;
+
+            // Collision checker, can delete now
+            //blockParent.layer = LayerMask.NameToLayer("PuzzleBlock");
+
+            MeshRenderer mr = blockParent.GetComponent<MeshRenderer>();
+            if (mr != null) mr.enabled = false;
+
+            Collider col = blockParent.GetComponent<Collider>();
+            if (col != null) DestroyImmediate(col);
+
+            BlockSpawner bs = blockParent.AddComponent<BlockSpawner>();
+            bs.blockData = info.blockData;
+
+            foreach (Vector3Int cell in info.blockData.cells)
+            {
+                Vector3 localPos = new Vector3(cell.x, cell.y, cell.z) * info.blockData.cellSize;
+
+                GameObject cellObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                cellObj.transform.SetParent(blockParent.transform);
+                cellObj.transform.localPosition = localPos;
+                cellObj.transform.localRotation = Quaternion.identity;
+                cellObj.transform.localScale = Vector3.one * 0.1f;
+
+                DestroyImmediate(cellObj.GetComponent<Collider>());
+
+                Renderer r = cellObj.GetComponent<Renderer>();
+                if (r != null)
+                {
+                    Material mat = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+                    mat.color = info.blockData.color;
+                    r.material = mat;
+                }
+            }
+
+            // Bounding box collider covering all cells
+            Vector3Int bMin = info.blockData.cells[0];
+            Vector3Int bMax = info.blockData.cells[0];
+            foreach (Vector3Int cell in info.blockData.cells)
+            {
+                bMin = Vector3Int.Min(bMin, cell);
+                bMax = Vector3Int.Max(bMax, cell);
+            }
+
+            Vector3 boundsSize = new Vector3(
+                (bMax.x - bMin.x + 1) * info.blockData.cellSize,
+                (bMax.y - bMin.y + 1) * info.blockData.cellSize,
+                (bMax.z - bMin.z + 1) * info.blockData.cellSize
+            );
+
+            Vector3 boundsCenter = new Vector3(
+                (bMin.x + bMax.x) * 0.5f * info.blockData.cellSize,
+                (bMin.y + bMax.y) * 0.5f * info.blockData.cellSize,
+                (bMin.z + bMax.z) * 0.5f * info.blockData.cellSize
+            );
+
+            BoxCollider physicsCol = blockParent.AddComponent<BoxCollider>();
+            physicsCol.isTrigger = true;
+            physicsCol.center = boundsCenter;
+            physicsCol.size = boundsSize;
+
+            activeBlocks.Add(blockParent);
+        }
+    }
+
+    public void CheckCompletion()
+    {
+        foreach (SnapSlot slot in spawner.spawnedSlots)
+        {
+            if (!slot.isOccupied)
+            {
+                Debug.Log($"Not complete - slot at {slot.gridPos} is not occupied");
+                return;
+            }
+        }
+
+        foreach (SnapSlot slot in spawner.spawnedSlots)
+        {
+            BlockSpawner occupant = slot.occupant;
+            if (occupant != null && !occupant.FullyMatched)
+            {
+                Debug.Log($"Not complete - block '{occupant.name}' has cells off-template");
+                return;
+            }
+        }
+
+        Debug.Log($"Level {currentLevelIndex + 1} complete! Time: {elapsedTime:F2}s");
+        StopTimer();
+        levelTimes.Add(elapsedTime);
+
+        // show level complete on canvas
+        controlDisplay?.ShowLevelComplete(
+            currentLevelIndex + 1,
+            elapsedTime,
+            levels.Count,
+            levelTimes);
+
+        if (completionSound != null && audioSource != null)
+            audioSource.PlayOneShot(completionSound);
+
+        StartCoroutine(AdvanceToNextLevel());
+    }
+
+    IEnumerator AdvanceToNextLevel()
+    {
+        // lock all blocks
+        foreach (GameObject block in activeBlocks)
+        {
+            if (block == null) continue;
+            foreach (var mb in block.GetComponents<MonoBehaviour>())
+            {
+                if (mb == null) continue;
+                if (mb.GetType().Name.Contains("Interactable") ||
+                    mb.GetType().Name.Contains("Grabbable"))
+                    mb.enabled = false;
+            }
+        }
+
+        yield return new WaitForSeconds(delayBeforeNextLevel);
+
+        currentLevelIndex++;
+        LoadLevel(currentLevelIndex);
+    }
+
+    void HandleAllLevelsComplete()
+    {
+        Debug.Log("All levels complete!");
+
+        for (int i = 0; i < levelTimes.Count; i++)
+        {
+            int mins = Mathf.FloorToInt(levelTimes[i] / 60f);
+            int secs = Mathf.FloorToInt(levelTimes[i] % 60f);
+            Debug.Log($"  Level {i + 1}: {mins:00}:{secs:00}");
+        }
+
+        controlDisplay?.ShowEndScreen(levelTimes);
+        onAllLevelsComplete?.Invoke();
+    }
+
+    public void ResetLevel()
+    {
+        StopTimer();
+
+        foreach (GameObject block in activeBlocks)
+            if (block != null) Destroy(block);
+        activeBlocks.Clear();
+
+        spawner.BuildTemplate();
+        SpawnBlocks();
+        StartTimer();
+
+        Debug.Log($"Level {currentLevelIndex + 1} reset!");
+    }
+}
