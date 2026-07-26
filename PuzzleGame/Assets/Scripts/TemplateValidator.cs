@@ -36,6 +36,9 @@ public class TemplateValidator : MonoBehaviour
     private int currentLevelIndex = 0;
     private List<float> levelTimes = new List<float>();
 
+    private TemplateData currentLevel;
+    public TemplateData CurrentLevel => currentLevel;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -97,6 +100,7 @@ public class TemplateValidator : MonoBehaviour
         Debug.Log($"Loading level {index + 1}: {levels[index].templateName}");
 
         spawner.templateData = levels[index];
+        currentLevel = levels[index];
         spawner.BuildTemplate();
 
         SpawnBlocks();
