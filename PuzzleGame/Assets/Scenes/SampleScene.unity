@@ -938,13 +938,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343555792}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02286, y: 0.427, z: -0.02286}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -4, y: 0, z: 1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &373159533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,7 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b21fd41170341a3a91fcff2431a8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DrtTargetSpawner
-  targetPrefab: {fileID: 1125414273320052687, guid: dbf36bc015c22f140b7d66bfa659f84e, type: 3}
+  targetPrefab: {fileID: 8146441332283315165, guid: 654fa5ade7bb3453184d32c143f1afd4, type: 3}
   spawnInterval: 10
   spawnPoints:
   - {fileID: 343555793}
