@@ -18,12 +18,10 @@ public class DrtTarget : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         originPosition = transform.position;
-        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-
         RegisterCollision(collision.gameObject.name);
 
     }
@@ -31,6 +29,7 @@ public class DrtTarget : MonoBehaviour
     // If your target uses a Trigger collider instead of a solid one
     void OnTriggerEnter(Collider other)
     {
+
         RegisterCollision(other.gameObject.name);
     }
 
