@@ -108,4 +108,5 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+PuzzleGame/PuzzleGame_BackUpThisFolder_ButDontShipItWithYourGame/*
 
