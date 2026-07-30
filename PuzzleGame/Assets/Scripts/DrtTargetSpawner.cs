@@ -33,6 +33,9 @@ public class DrtTargetSpawner : MonoBehaviour
 
         currentTarget = Instantiate(targetPrefab, spawnPos, Quaternion.identity);
         DrtTarget targetScript = currentTarget.GetComponent<DrtTarget>();
+
+        Transform targetA = currentTarget.transform.Find("targetA");
+        targetA.localRotation = Quaternion.Euler(0f, 90f, 0f);
   
         if (targetScript != null)
         {
@@ -47,6 +50,6 @@ public class DrtTargetSpawner : MonoBehaviour
         {
             return spawnPoints[0].position;
         }
-        return new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+        return new Vector3(Random.Range(-.5f, .5f), 1f, Random.Range(-.5f, .5f));
     }
 }
