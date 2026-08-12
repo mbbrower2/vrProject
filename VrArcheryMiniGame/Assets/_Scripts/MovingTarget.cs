@@ -11,7 +11,7 @@ public class MovingTarget : MonoBehaviour, IHittable
 
     [SerializeField] private int health = 1;
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] private float arriveThreshold = 2f;
+    [SerializeField] private float arriveThreshold = 1f;
     [SerializeField] float targetScoreValue;
 
     private bool isMoving => TargetManager.Instance.IsMoving;

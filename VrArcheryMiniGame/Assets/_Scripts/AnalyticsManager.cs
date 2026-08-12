@@ -137,7 +137,25 @@ public class AnalyticsManager : MonoBehaviour
         {
             {"participantID", participantID},
             { "currentScene", currentScene},
-            { "newSpeed", size}
+            { "newSize", size}
+        };
+
+        AnalyticsService.Instance.RecordEvent(myEvent);
+        AnalyticsService.Instance.Flush();
+    }
+
+        public void UpdateMaxMissiles(string currentScene ,int numMissles)
+    {
+                if (!_isInitialized)
+        {
+            return; // don't try to record if analytics isn't ready
+        }
+
+        CustomEvent myEvent = new CustomEvent("UpdateMissiles")
+        {
+            {"participantID", participantID},
+            { "currentScene", currentScene},
+            { "numMissiles", numMissles}
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);

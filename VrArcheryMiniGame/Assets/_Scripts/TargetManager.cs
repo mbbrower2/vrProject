@@ -31,27 +31,10 @@ public class TargetManager : MonoBehaviour
         var defaults = GameManager.Instance.GetSettingsForScene(
             GameManager.Instance.GetCurrentScene()
         );
-
-        //TODO: when testing the osc logic this should bee commented out and the line bellow uncommented
-        // switch (GameManager.Instance.GetCurrentScene())
-        // {
-        //     case GameManager.GameScene.L1:
-        //         SetNextSceneName("ArcherySceneL2");
-        //         break;
-
-        //     case GameManager.GameScene.L2:
-        //         SetNextSceneName("ArcherySceneL3");
-        //         break;
-
-        //     case GameManager.GameScene.L3:
-        //         SetNextSceneName("ArcherySceneL2");
-        //         break;
-        // }
         
         SetNextSceneName(SceneManager.GetActiveScene().name);
         SetMoving(defaults.isMoving);
         SetSpeed(defaults.speed);
-        SetMovementRadius(defaults.movementRadius);
         SetSize(defaults.size);
     }
 
@@ -80,7 +63,6 @@ public class TargetManager : MonoBehaviour
                 GameManager.GameScene currentScene = GameManager.Instance.GetCurrentScene();
                 GameManager.Instance.SetIsMoving(currentScene, IsMoving);
                 GameManager.Instance.SetSpeed(currentScene, Speed);
-                GameManager.Instance.SetMovementRadius(currentScene, MovementRadius);
                 GameManager.Instance.SetSize(currentScene, Size);
             }
             else
@@ -114,12 +96,6 @@ public class TargetManager : MonoBehaviour
     public void SetSize(float size)
     {
         Size = Mathf.Clamp(size, GameManager.Instance.MinSize, GameManager.Instance.OriginalSize);
-        OnTargetSettingsChanged?.Invoke();
-    }
-
-        public void SetMovementRadius(float movementRadius)
-    {
-        MovementRadius = movementRadius;
         OnTargetSettingsChanged?.Invoke();
     }
 }

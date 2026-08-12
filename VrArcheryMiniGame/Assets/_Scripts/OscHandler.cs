@@ -45,7 +45,7 @@ public class OscHandler : MonoBehaviour
 
         if (TargetManager.Instance.Speed < GameManager.Instance.MaxSpeed)
         {
-            float updateSpeed = TargetManager.Instance.Speed + 1;
+            float updateSpeed = TargetManager.Instance.Speed + .5f;
             AnalyticsManager.Instance.UpdateSpeed(GameManager.Instance.GetCurrentSceneName(), updateSpeed);
             TargetManager.Instance.SetSpeed(updateSpeed);
             return;
@@ -61,7 +61,7 @@ public class OscHandler : MonoBehaviour
             case GameManager.GameScene.L2:
                 if (TargetManager.Instance.Size > GameManager.Instance.MinSize)
                 {
-                    float updateTargetSize = TargetManager.Instance.Size - 1;
+                    float updateTargetSize = TargetManager.Instance.Size * 0.75f;
                     TargetManager.Instance.SetSize(updateTargetSize);
                     AnalyticsManager.Instance.UpdateSize(GameManager.Instance.GetCurrentSceneName(), updateTargetSize);
                 }
@@ -72,13 +72,14 @@ public class OscHandler : MonoBehaviour
             case GameManager.GameScene.L3:
                 if (TargetManager.Instance.Size > GameManager.Instance.MinSize)
                 {
-                    float updateTargetSize = TargetManager.Instance.Size - 1;
+                    float updateTargetSize = TargetManager.Instance.Size * 0.75f;
                     TargetManager.Instance.SetSize(updateTargetSize);
                     AnalyticsManager.Instance.UpdateSize(GameManager.Instance.GetCurrentSceneName(), updateTargetSize);
                 } else if (MissileManager.Instance.getCurrMissles() < GameManager.Instance.GetMaxMissiles()) {
-                    int numMissles = MissileManager.Instance.getCurrMissles();
-                    MissileManager.Instance.updateMaxMissles(numMissles + 1);
-                }
+                    int numMissles = MissileManager.Instance.getCurrMissles() + 1;
+                    MissileManager.Instance.updateMaxMissles(numMissles);
+                    AnalyticsManager.Instance.UpdateMaxMissiles(GameManager.Instance.GetCurrentSceneName(), numMissles);
+                }   
                 else
                     TryNextLevel();
                 break;
@@ -119,7 +120,7 @@ public class OscHandler : MonoBehaviour
 
             case GameManager.GameScene.L2:
                 if (TargetManager.Instance.Size < GameManager.Instance.OriginalSize)
-                    TargetManager.Instance.SetSize(TargetManager.Instance.Size + 1);
+                    TargetManager.Instance.SetSize(TargetManager.Instance.Size * 1.25f);
                 else
                 {
                     canSlowDown = TrySlowDown();
@@ -130,7 +131,7 @@ public class OscHandler : MonoBehaviour
 
             case GameManager.GameScene.L3:
                 if (TargetManager.Instance.Size < GameManager.Instance.OriginalSize) {
-                    TargetManager.Instance.SetSize(TargetManager.Instance.Size + 1);
+                    TargetManager.Instance.SetSize(TargetManager.Instance.Size * 1.25f);
                 } else if (MissileManager.Instance.getMaxMissles() >= GameManager.Instance.GetMaxMissiles())
                 {
                     int numMissles = MissileManager.Instance.getMaxMissles();
@@ -153,7 +154,7 @@ public class OscHandler : MonoBehaviour
     {
         if (TargetManager.Instance.Speed > 0)
         {
-            var newSpeed = TargetManager.Instance.Speed - 1;
+            var newSpeed = TargetManager.Instance.Speed - .5f;
             TargetManager.Instance.SetSpeed(newSpeed);
             if (newSpeed == 0)
                 TargetManager.Instance.SetMoving(false);

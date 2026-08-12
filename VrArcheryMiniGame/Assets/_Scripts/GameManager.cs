@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return instance; } }
     public int MaxMissles = 4;
 
-    [SerializeField] private float maxSpeed = 5f;
-    [SerializeField] private float minSize = 0.5f;
+    [SerializeField] private float maxSpeed = 3f;
+    [SerializeField] private float minSize = 0.25f;
     public float OriginalSize { get; private set; } = 1f;
     public float MaxSpeed => maxSpeed;
     public float MinSize => minSize;
@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     {
         public bool isMoving;
         public float speed;
-        public float movementRadius;
         public float size;
     }
 
@@ -32,9 +31,9 @@ public class GameManager : MonoBehaviour
     // Original/default values for each scene.
     private static readonly Dictionary<GameScene, SceneSettings> defaultSceneSettings = new()
     {
-        [GameScene.L1] = new SceneSettings { isMoving = false, speed = 0f, movementRadius = 0f, size = 1f },
-        [GameScene.L2] = new SceneSettings { isMoving = true,  speed = 1f, movementRadius = 2f, size = 1f },
-        [GameScene.L3] = new SceneSettings { isMoving = true,  speed = 1f, movementRadius = 3f, size = 1f },
+        [GameScene.L1] = new SceneSettings { isMoving = false, speed = 0f, size = 1f },
+        [GameScene.L2] = new SceneSettings { isMoving = true,  speed = 1f, size = 1f },
+        [GameScene.L3] = new SceneSettings { isMoving = true,  speed = 1f, size = 1f },
     };
 
     // Live settings, initialized from defaultSceneSettings. Get/set values through this at runtime.
@@ -80,14 +79,6 @@ public class GameManager : MonoBehaviour
     {
         var s = sceneSettings.TryGetValue(scene, out var existing) ? existing : default;
         s.speed = value;
-        sceneSettings[scene] = s;
-    }
-
-    public float GetMovementRadius(GameScene scene) => sceneSettings.TryGetValue(scene, out var s) ? s.movementRadius : default;
-    public void SetMovementRadius(GameScene scene, float value)
-    {
-        var s = sceneSettings.TryGetValue(scene, out var existing) ? existing : default;
-        s.movementRadius = value;
         sceneSettings[scene] = s;
     }
 
