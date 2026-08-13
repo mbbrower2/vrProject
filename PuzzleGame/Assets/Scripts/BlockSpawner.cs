@@ -7,6 +7,8 @@ public class BlockSpawner : MonoBehaviour
     [HideInInspector] public BlockData blockData;
     public float snapThreshold = 0.1f;
 
+    public static BlockSpawner CurrentlyHeld { get; private set; }
+
     private Grabbable grabbable;
     private Rigidbody rb;
     private TemplateSpawner templateSpawner;
@@ -34,6 +36,8 @@ public class BlockSpawner : MonoBehaviour
     {
         if (grabbable != null)
             grabbable.WhenPointerEventRaised -= OnPointerEvent;
+        if (CurrentlyHeld == this)
+            CurrentlyHeld = null;
     }
 
     void OnPointerEvent(PointerEvent evt)
@@ -41,12 +45,15 @@ public class BlockSpawner : MonoBehaviour
         if (evt.Type == PointerEventType.Select)
         {
             isHeld = true;
+            CurrentlyHeld = this;
             Unsnap();
         }
 
         if (evt.Type == PointerEventType.Unselect)
         {
             isHeld = false;
+            if (CurrentlyHeld == this)
+                CurrentlyHeld = null;
             ClearPreview();
             if (rb != null)
             {
@@ -73,10 +80,8 @@ public class BlockSpawner : MonoBehaviour
     {
         Vector3 worldOffset = blockRotation *
             (new Vector3(cell.x, cell.y, cell.z) * blockData.cellSize);
-
         // Express that offset in the template's local coordinate frame
         Vector3 templateLocal = Quaternion.Inverse(TemplateRotation) * worldOffset;
-
         return new Vector3Int(
             Mathf.RoundToInt(templateLocal.x / blockData.cellSize),
             Mathf.RoundToInt(templateLocal.y / blockData.cellSize),
@@ -166,14 +171,11 @@ public class BlockSpawner : MonoBehaviour
         Quaternion snappedRotation = templateRot * snappedRelative;
 
         if (!FindClosestSlot(snappedRotation, out SnapSlot anchorSlot, out Vector3Int anchorCellTemplate))
-        {
-            Debug.Log($"No slot found within threshold {snapThreshold}");
             return;
-        }
 
         Vector3Int baseGrid = anchorSlot.gridPos - anchorCellTemplate;
-
         List<SnapSlot> slotsToOccupy = new List<SnapSlot>();
+
         foreach (Vector3Int cell in blockData.cells)
         {
             Vector3Int cellTemplate = CellInTemplateSpace(cell, snappedRotation);
@@ -181,10 +183,7 @@ public class BlockSpawner : MonoBehaviour
             SnapSlot targetSlot = templateSpawner.GetSlot(targetGrid);
 
             if (targetSlot != null && targetSlot.isOccupied)
-            {
-                Debug.Log($"Snap rejected - cell {cell} would land on occupied slot {targetGrid}");
                 return;
-            }
 
             if (targetSlot != null)
                 slotsToOccupy.Add(targetSlot);
@@ -220,16 +219,15 @@ public class BlockSpawner : MonoBehaviour
 
         currentSlots = slotsToOccupy;
         isSnapped = true;
-
         transform.SetParent(templateSpawner.transform);
 
-        Debug.Log($"'{blockData.blockName}' snapped - fullyMatched: {fullyMatched} ({slotsToOccupy.Count}/{blockData.cells.Length} cells)");
         FindAnyObjectByType<TemplateValidator>()?.CheckCompletion();
     }
 
     void Unsnap()
     {
         if (!isSnapped) return;
+
         transform.SetParent(null);
 
         foreach (SnapSlot slot in currentSlots)

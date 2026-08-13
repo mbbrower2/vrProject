@@ -10,14 +10,17 @@ public class TemplateRotator : MonoBehaviour
     void Update()
     {
         // B (right controller) rotate horizontally
+        Transform target = BlockSpawner.CurrentlyHeld != null
+            ? BlockSpawner.CurrentlyHeld.transform
+            : transform;
+
         if (OVRInput.Get(OVRInput.Button.Two, OVRInput.Controller.RTouch))
         {
             Quaternion currentRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
             Quaternion delta = currentRotation * Quaternion.Inverse(previousControllerRotationRight);
-
             float yaw = delta.eulerAngles.y;
             if (yaw > 180f) yaw -= 360f;
-            transform.Rotate(Vector3.up, yaw * rotationSpeed, Space.World);
+            target.Rotate(Vector3.up, yaw * rotationSpeed, Space.World);
             previousControllerRotationRight = currentRotation;
         }
 
@@ -26,11 +29,9 @@ public class TemplateRotator : MonoBehaviour
         {
             Quaternion currentRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch);
             Quaternion delta = currentRotation * Quaternion.Inverse(previousControllerRotationLeft);
-
             float pitch = delta.eulerAngles.x;
             if (pitch > 180f) pitch -= 360f;
-            transform.Rotate(Vector3.right, pitch * rotationSpeed, Space.World);
-
+            target.Rotate(Vector3.right, pitch * rotationSpeed, Space.World);
             previousControllerRotationLeft = currentRotation;
         }
 

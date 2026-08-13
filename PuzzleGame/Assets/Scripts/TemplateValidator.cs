@@ -18,6 +18,9 @@ public class TemplateValidator : MonoBehaviour
     [Header("Timer")]
     public TextMeshProUGUI timerText;
 
+    [Header("Game Over Timer")]
+    public float totalTimeLimit = 900f;
+
     [Header("Block Spawning")]
     public GameObject blockBasePrefab;
     [System.Serializable]
@@ -32,12 +35,12 @@ public class TemplateValidator : MonoBehaviour
     private ControlDisplay controlDisplay;
     private List<GameObject> activeBlocks = new List<GameObject>();
     private float elapsedTime = 0f;
+    private float totalElapsed = 0f;
     private bool timerRunning = false;
+    private bool gameOver = false;
     private int currentLevelIndex = 0;
     private List<float> levelTimes = new List<float>();
-
-    private TemplateData currentLevel;
-    public TemplateData CurrentLevel => currentLevel;
+    public TemplateData CurrentLevel => (currentLevelIndex < levels.Count) ? levels[currentLevelIndex] : null;
 
     void Awake()
     {
@@ -49,6 +52,8 @@ public class TemplateValidator : MonoBehaviour
     {
         currentLevelIndex = 0;
         levelTimes.Clear();
+        totalElapsed = 0f;
+        gameOver = false;
         LoadLevel(currentLevelIndex);
     }
 
@@ -59,13 +64,15 @@ public class TemplateValidator : MonoBehaviour
 
     void Update()
     {
-        if (timerRunning)
-        {
-            elapsedTime += Time.deltaTime;
-            UpdateTimerDisplay();
-        }
+        if (!timerRunning || gameOver) return;
 
-        // Y button to reset current level
+        elapsedTime += Time.deltaTime;
+        totalElapsed += Time.deltaTime;
+        UpdateTimerDisplay();
+
+        if (totalTimeLimit > 0f && totalElapsed >= totalTimeLimit)
+            TriggerGameOver();
+
         if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
             ResetLevel();
     }
@@ -89,6 +96,27 @@ public class TemplateValidator : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
+    void TriggerGameOver()
+    {
+        if (gameOver) return;
+        gameOver = true;
+        StopTimer();
+
+        foreach (GameObject block in activeBlocks)
+        {
+            if (block == null) continue;
+            foreach (var mb in block.GetComponents<MonoBehaviour>())
+            {
+                if (mb == null) continue;
+                if (mb.GetType().Name.Contains("Interactable") ||
+                    mb.GetType().Name.Contains("Grabbable"))
+                    mb.enabled = false;
+            }
+        }
+
+        controlDisplay?.ShowGameOver(levelTimes, currentLevelIndex + 1, levels.Count);
+    }
+
     void LoadLevel(int index)
     {
         if (index >= levels.Count)
@@ -97,12 +125,8 @@ public class TemplateValidator : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Loading level {index + 1}: {levels[index].templateName}");
-
         spawner.templateData = levels[index];
-        currentLevel = levels[index];
         spawner.BuildTemplate();
-
         SpawnBlocks();
         StartTimer();
     }
@@ -136,13 +160,11 @@ public class TemplateValidator : MonoBehaviour
             foreach (Vector3Int cell in info.blockData.cells)
             {
                 Vector3 localPos = new Vector3(cell.x, cell.y, cell.z) * info.blockData.cellSize;
-
                 GameObject cellObj = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 cellObj.transform.SetParent(blockParent.transform);
                 cellObj.transform.localPosition = localPos;
                 cellObj.transform.localRotation = Quaternion.identity;
                 cellObj.transform.localScale = Vector3.one * 0.1f;
-
                 DestroyImmediate(cellObj.GetComponent<Collider>());
 
                 Renderer r = cellObj.GetComponent<Renderer>();
@@ -154,7 +176,6 @@ public class TemplateValidator : MonoBehaviour
                 }
             }
 
-            // Bounding box collider covering all cells
             Vector3Int bMin = info.blockData.cells[0];
             Vector3Int bMax = info.blockData.cells[0];
             foreach (Vector3Int cell in info.blockData.cells)
@@ -166,14 +187,12 @@ public class TemplateValidator : MonoBehaviour
             Vector3 boundsSize = new Vector3(
                 (bMax.x - bMin.x + 1) * info.blockData.cellSize,
                 (bMax.y - bMin.y + 1) * info.blockData.cellSize,
-                (bMax.z - bMin.z + 1) * info.blockData.cellSize
-            );
+                (bMax.z - bMin.z + 1) * info.blockData.cellSize);
 
             Vector3 boundsCenter = new Vector3(
                 (bMin.x + bMax.x) * 0.5f * info.blockData.cellSize,
                 (bMin.y + bMax.y) * 0.5f * info.blockData.cellSize,
-                (bMin.z + bMax.z) * 0.5f * info.blockData.cellSize
-            );
+                (bMin.z + bMax.z) * 0.5f * info.blockData.cellSize);
 
             BoxCollider physicsCol = blockParent.AddComponent<BoxCollider>();
             physicsCol.isTrigger = true;
@@ -186,35 +205,21 @@ public class TemplateValidator : MonoBehaviour
 
     public void CheckCompletion()
     {
+        if (gameOver) return;
+
         foreach (SnapSlot slot in spawner.spawnedSlots)
-        {
-            if (!slot.isOccupied)
-            {
-                Debug.Log($"Not complete - slot at {slot.gridPos} is not occupied");
-                return;
-            }
-        }
+            if (!slot.isOccupied) return;
 
         foreach (SnapSlot slot in spawner.spawnedSlots)
         {
             BlockSpawner occupant = slot.occupant;
-            if (occupant != null && !occupant.FullyMatched)
-            {
-                Debug.Log($"Not complete - block '{occupant.name}' has cells off-template");
-                return;
-            }
+            if (occupant != null && !occupant.FullyMatched) return;
         }
 
-        Debug.Log($"Level {currentLevelIndex + 1} complete! Time: {elapsedTime:F2}s");
         StopTimer();
         levelTimes.Add(elapsedTime);
 
-        // show level complete on canvas
-        controlDisplay?.ShowLevelComplete(
-            currentLevelIndex + 1,
-            elapsedTime,
-            levels.Count,
-            levelTimes);
+        controlDisplay?.ShowLevelComplete(currentLevelIndex + 1, elapsedTime, levels.Count, levelTimes);
 
         if (completionSound != null && audioSource != null)
             audioSource.PlayOneShot(completionSound);
@@ -245,21 +250,13 @@ public class TemplateValidator : MonoBehaviour
 
     void HandleAllLevelsComplete()
     {
-        Debug.Log("All levels complete!");
-
-        for (int i = 0; i < levelTimes.Count; i++)
-        {
-            int mins = Mathf.FloorToInt(levelTimes[i] / 60f);
-            int secs = Mathf.FloorToInt(levelTimes[i] % 60f);
-            Debug.Log($"  Level {i + 1}: {mins:00}:{secs:00}");
-        }
-
         controlDisplay?.ShowEndScreen(levelTimes);
         onAllLevelsComplete?.Invoke();
     }
 
     public void ResetLevel()
     {
+        if (gameOver) return;
         StopTimer();
 
         foreach (GameObject block in activeBlocks)
@@ -269,7 +266,5 @@ public class TemplateValidator : MonoBehaviour
         spawner.BuildTemplate();
         SpawnBlocks();
         StartTimer();
-
-        Debug.Log($"Level {currentLevelIndex + 1} reset!");
     }
 }
