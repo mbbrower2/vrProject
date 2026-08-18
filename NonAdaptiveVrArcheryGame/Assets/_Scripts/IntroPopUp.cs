@@ -5,15 +5,9 @@ using UnityEngine.InputSystem;
 public class IntroPopup : MonoBehaviour
 {
     public GameObject introCanvas;
-
     public InputActionProperty aButton;
 
     void Start()
-    {
-        Invoke("ShowPopup", 3f);
-    }
-
-    void ShowPopup()
     {
         introCanvas.SetActive(true);
     }
