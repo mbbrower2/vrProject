@@ -9,6 +9,8 @@ public class BlockSpawner : MonoBehaviour
 
     public static BlockSpawner CurrentlyHeld { get; private set; }
 
+    public Transform VisualWrapper { get; private set; }
+
     private Grabbable grabbable;
     private Rigidbody rb;
     private TemplateSpawner templateSpawner;
@@ -19,6 +21,11 @@ public class BlockSpawner : MonoBehaviour
     private bool isHeld = false;
     public bool IsSnapped => isSnapped;
     public bool FullyMatched => fullyMatched;
+
+    public void SetVisualWrapper(Transform wrapper)
+    {
+        VisualWrapper = wrapper;
+    }
 
     void Awake()
     {
@@ -54,6 +61,9 @@ public class BlockSpawner : MonoBehaviour
             isHeld = false;
             if (CurrentlyHeld == this)
                 CurrentlyHeld = null;
+
+            BakeVisualRotation();
+
             ClearPreview();
             if (rb != null)
             {
@@ -64,23 +74,29 @@ public class BlockSpawner : MonoBehaviour
         }
     }
 
+    void BakeVisualRotation()
+    {
+        if (VisualWrapper == null) return;
+        transform.rotation = VisualWrapper.rotation;
+
+        VisualWrapper.rotation = transform.rotation;
+        VisualWrapper.localRotation = Quaternion.identity;
+    }
+
     void Update()
     {
         if (!isHeld || isSnapped) return;
         UpdatePreview();
     }
 
-    // uses for slot world positions, so this is always in sync with slot placement.
     Quaternion TemplateRotation => templateSpawner != null
         ? templateSpawner.transform.rotation
         : Quaternion.identity;
 
-    // Rotate a cell offset into template-local grid space.
     Vector3Int CellInTemplateSpace(Vector3Int cell, Quaternion blockRotation)
     {
         Vector3 worldOffset = blockRotation *
             (new Vector3(cell.x, cell.y, cell.z) * blockData.cellSize);
-        // Express that offset in the template's local coordinate frame
         Vector3 templateLocal = Quaternion.Inverse(TemplateRotation) * worldOffset;
         return new Vector3Int(
             Mathf.RoundToInt(templateLocal.x / blockData.cellSize),
@@ -90,8 +106,11 @@ public class BlockSpawner : MonoBehaviour
 
     Vector3 CellWorldPos(Vector3Int cell)
     {
+        Quaternion rot = (VisualWrapper != null && isHeld)
+            ? VisualWrapper.rotation
+            : transform.rotation;
         return transform.position +
-            transform.rotation * (new Vector3(cell.x, cell.y, cell.z) * blockData.cellSize);
+            rot * (new Vector3(cell.x, cell.y, cell.z) * blockData.cellSize);
     }
 
     bool FindClosestSlot(Quaternion snappedRotation, out SnapSlot closestSlot, out Vector3Int closestCellTemplate)
@@ -164,7 +183,6 @@ public class BlockSpawner : MonoBehaviour
     {
         if (isSnapped || templateSpawner == null) return;
 
-        // Snap relative to the template's current rotation, not world space
         Quaternion templateRot = templateSpawner.transform.rotation;
         Quaternion blockRelativeToTemplate = Quaternion.Inverse(templateRot) * transform.rotation;
         Quaternion snappedRelative = CubeRotations.SnapToNearest(blockRelativeToTemplate);

@@ -2,44 +2,26 @@ using UnityEngine;
 
 public class TemplateRotator : MonoBehaviour
 {
-    public float rotationSpeed = 2f;
-
-    private Quaternion previousControllerRotationRight;
-    private Quaternion previousControllerRotationLeft;
+    public float rotationSpeed = 90f;
 
     void Update()
     {
-        // B (right controller) rotate horizontally
-        Transform target = BlockSpawner.CurrentlyHeld != null
-            ? BlockSpawner.CurrentlyHeld.transform
-            : transform;
+        bool bHeld = OVRInput.Get(OVRInput.Button.Two, OVRInput.Controller.RTouch);
+        bool xHeld = OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.LTouch);
 
-        if (OVRInput.Get(OVRInput.Button.Two, OVRInput.Controller.RTouch))
+        if (BlockSpawner.CurrentlyHeld != null)
         {
-            Quaternion currentRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
-            Quaternion delta = currentRotation * Quaternion.Inverse(previousControllerRotationRight);
-            float yaw = delta.eulerAngles.y;
-            if (yaw > 180f) yaw -= 360f;
-            target.Rotate(Vector3.up, yaw * rotationSpeed, Space.World);
-            previousControllerRotationRight = currentRotation;
+            Transform visual = BlockSpawner.CurrentlyHeld.VisualWrapper;
+            if (visual != null)
+            {
+                if (bHeld) visual.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
+                if (xHeld) visual.Rotate(Vector3.right, rotationSpeed * Time.deltaTime, Space.World);
+            }
         }
-
-        // X (left controller) rotate vertically
-        if (OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.LTouch))
+        else
         {
-            Quaternion currentRotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch);
-            Quaternion delta = currentRotation * Quaternion.Inverse(previousControllerRotationLeft);
-            float pitch = delta.eulerAngles.x;
-            if (pitch > 180f) pitch -= 360f;
-            target.Rotate(Vector3.right, pitch * rotationSpeed, Space.World);
-            previousControllerRotationLeft = currentRotation;
+            if (bHeld) transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
+            if (xHeld) transform.Rotate(Vector3.right, rotationSpeed * Time.deltaTime, Space.World);
         }
-
-        // Always update previous rotations 
-        if (!OVRInput.Get(OVRInput.Button.Two, OVRInput.Controller.RTouch))
-            previousControllerRotationRight = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch);
-
-        if (!OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.LTouch))
-            previousControllerRotationLeft = OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch);
     }
 }

@@ -14,11 +14,16 @@ public class ControlDisplay : MonoBehaviour
 
     [Header("Settings")]
     public float fadeOutDuration = 0.5f;
+    public float hintDisplayDuration = 2f;
 
     private bool gameStarted = false;
     private bool gameEnded = false;
     private bool gameOver = false;
+    private bool awaitingNextLevel = false;
     private CanvasGroup canvasGroup;
+    private Coroutine hintFadeCoroutine;
+
+    public bool ReadyForNextLevel { get; private set; } = false;
 
     void Start()
     {
@@ -34,11 +39,12 @@ public class ControlDisplay : MonoBehaviour
 
     void Update()
     {
-        // Start game
         if (!gameStarted && OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
             StartGame();
 
-        // Restart after game ended
+        if (awaitingNextLevel && OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
+            ConfirmNextLevel();
+
         if ((gameEnded || gameOver) && OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
             RestartGame();
     }
@@ -69,11 +75,50 @@ public class ControlDisplay : MonoBehaviour
             "  <b>Press A to Start</b>  ";
     }
 
-    // Called by TemplateValidator after each level completes
-    public void ShowLevelComplete(int levelIndex, float levelTime, int totalLevels, List<float> allTimes)
+    public void ShowHintFlash(int hintCount)
     {
         if (instructionText == null) return;
-        // Make canvas visible again if it was hidden
+
+        if (hintFadeCoroutine != null)
+            StopCoroutine(hintFadeCoroutine);
+
+        // Activate canvas before theread
+        instructionCanvas.gameObject.SetActive(true);
+        if (canvasGroup != null) canvasGroup.alpha = 1f;
+
+        instructionText.text = $"<size=120%><b>Hint #{hintCount} recorded</b></size>\n\n" +
+                            "This will appear on your results.";
+
+        hintFadeCoroutine = StartCoroutine(HintFlashCoroutine());
+    }
+
+    IEnumerator HintFlashCoroutine()
+    {
+        yield return new WaitForSeconds(hintDisplayDuration);
+
+        float elapsed = 0f;
+        while (elapsed < fadeOutDuration)
+        {
+            elapsed += Time.deltaTime;
+            if (canvasGroup != null)
+                canvasGroup.alpha = 1f - (elapsed / fadeOutDuration);
+            yield return null;
+        }
+
+        instructionCanvas.gameObject.SetActive(false);
+        hintFadeCoroutine = null;
+    }
+
+    public void ShowLevelComplete(int levelIndex, float levelTime, int totalLevels, List<float> allTimes, bool isLastLevel)
+    {
+        if (instructionText == null) return;
+
+        if (hintFadeCoroutine != null)
+        {
+            StopCoroutine(hintFadeCoroutine);
+            hintFadeCoroutine = null;
+        }
+
         if (canvasGroup != null) canvasGroup.alpha = 1f;
         instructionCanvas.gameObject.SetActive(true);
 
@@ -94,13 +139,32 @@ public class ControlDisplay : MonoBehaviour
             }
         }
 
-        if (levelIndex < totalLevels)
-            text += "\n------------------------\n<b>Next level loading...</b>";
+        if (!isLastLevel)
+        {
+            text += "\n------------------------\n<b>Press A for Next Level</b>";
+            awaitingNextLevel = true;
+            ReadyForNextLevel = false;
+        }
 
         instructionText.text = text;
     }
 
-    public void ShowEndScreen(List<float> allTimes)
+    void ConfirmNextLevel()
+    {
+        awaitingNextLevel = false;
+        ReadyForNextLevel = true;
+        StartCoroutine(FadeOutCanvas());
+        StartCoroutine(ResetReadyFlag());
+    }
+
+    IEnumerator ResetReadyFlag()
+    {
+        yield return null;
+        yield return null;
+        ReadyForNextLevel = false;
+    }
+
+    public void ShowEndScreen(List<float> allTimes, List<TemplateValidator.HintRecord> hints)
     {
         if (instructionText == null) return;
         if (canvasGroup != null) canvasGroup.alpha = 1f;
@@ -125,22 +189,21 @@ public class ControlDisplay : MonoBehaviour
             "<b>Level Times:</b>\n" +
             timesText +
             $"\n<b>Total: {totalMins:00}:{totalSecs:00}</b>\n\n" +
+            BuildHintText(hints) +
             "-----------------------------\n" +
-            "  <b>Press A to Play Again</b>  ";
+            "  <b>Press A to Play Again</b>";
     }
 
-    public void ShowGameOver(List<float> completedTimes, int reachedLevel, int totalLevels)
+    public void ShowGameOver(List<float> completedTimes, int reachedLevel, int totalLevels, List<TemplateValidator.HintRecord> hints)
     {
         if (instructionText == null) return;
         if (canvasGroup != null) canvasGroup.alpha = 1f;
         instructionCanvas.gameObject.SetActive(true);
         gameOver = true;
 
-        float total = 0f;
         string timesText = "";
         for (int i = 0; i < completedTimes.Count; i++)
         {
-            total += completedTimes[i];
             int m = Mathf.FloorToInt(completedTimes[i] / 60f);
             int s = Mathf.FloorToInt(completedTimes[i] % 60f);
             timesText += $"  Level {i + 1}: {m:00}:{s:00}\n";
@@ -154,8 +217,24 @@ public class ControlDisplay : MonoBehaviour
         instructionText.text =
             "<size=130%><b>Time's Up!</b></size>\n\n" +
             progress +
-            "\n-----------------------------\n" +
-            "  <b>Press A to Try Again</b>  ";
+            "\n" + BuildHintText(hints) +
+            "-----------------------------\n" +
+            "  <b>Press A to Try Again</b>";
+    }
+
+    string BuildHintText(List<TemplateValidator.HintRecord> hints)
+    {
+        if (hints == null || hints.Count == 0)
+            return "<b>Hints:</b> None\n\n";
+
+        string text = $"<b>Hints ({hints.Count} total):</b>\n";
+        foreach (var h in hints)
+        {
+            int m = Mathf.FloorToInt(h.timestamp / 60f);
+            int s = Mathf.FloorToInt(h.timestamp % 60f);
+            text += $"  Level {h.level} at {m:00}:{s:00}\n";
+        }
+        return text + "\n";
     }
 
     void StartGame()
@@ -172,6 +251,8 @@ public class ControlDisplay : MonoBehaviour
         gameEnded = false;
         gameOver = false;
         gameStarted = false;
+        awaitingNextLevel = false;
+        ReadyForNextLevel = false;
 
         if (templateValidator != null)
         {
