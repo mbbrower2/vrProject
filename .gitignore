@@ -110,3 +110,13 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]ceneDependencyCache*
 PuzzleGame/PuzzleGame_BackUpThisFolder_ButDontShipItWithYourGame/*
 
+*.asset
+/AdapativePuzzleGame/Assets/XR/Settings
+/AdapativePuzzleGame/Library
+/AdapativePuzzleGame/Assets/XR/Settings
+AdapativePuzzleGame/ProjectSettings/EditorBuildSettings.asset
+/AdapativePuzzleGame/ProjectSettings
+/AdapativePuzzleGame/ProjectSettings
+/AdapativePuzzleGame/UserSettings/Layouts
+*.settings
+*.asset
