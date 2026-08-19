@@ -480,7 +480,7 @@ Transform:
   m_GameObject: {fileID: 97145122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53, y: 1, z: 0.53}
+  m_LocalPosition: {x: 0.53, y: 1.137, z: -0.213}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -684,7 +684,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TemplateValidator
   spawner: {fileID: 194103454}
   completionSound: {fileID: 8300000, guid: d2ef3b83627e3274dbf388fb7723194e, type: 3}
-  delayBeforeNextLevel: 2
   onAllLevelsComplete:
     m_PersistentCalls:
       m_Calls: []
@@ -720,13 +719,13 @@ MonoBehaviour:
   - blockData: {fileID: 11400000, guid: 905f356732f4ce44785fd845a599b86d, type: 2}
     position: {x: 0.5, y: 1, z: 0.75}
   - blockData: {fileID: 11400000, guid: a05cc7fb14caf934485b40d7fec86924, type: 2}
-    position: {x: -0.5, y: 1, z: 0.25}
+    position: {x: -1, y: 1, z: 1}
   - blockData: {fileID: 11400000, guid: a05cc7fb14caf934485b40d7fec86924, type: 2}
-    position: {x: -0.5, y: 1, z: 0.25}
+    position: {x: -1, y: 1, z: 1}
   - blockData: {fileID: 11400000, guid: 1404d291adaa6c2418d4198961ef78be, type: 2}
-    position: {x: 0, y: 1, z: 0.5}
+    position: {x: -0.5, y: 1, z: 0.75}
   - blockData: {fileID: 11400000, guid: 1404d291adaa6c2418d4198961ef78be, type: 2}
-    position: {x: 0, y: 1, z: 0.5}
+    position: {x: -0.5, y: 1, z: 0.75}
 --- !u!82 &194103457
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1378,7 +1377,7 @@ Transform:
   m_GameObject: {fileID: 743815647}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.016, z: 0.374}
+  m_LocalPosition: {x: 0, y: -0.44, z: 0.374}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1608,6 +1607,7 @@ MonoBehaviour:
   instructionCanvas: {fileID: 949464702}
   instructionText: {fileID: 1388911882}
   fadeOutDuration: 0.5
+  hintDisplayDuration: 2
 --- !u!114 &949464698
 MonoBehaviour:
   m_ObjectHideFlags: 0
