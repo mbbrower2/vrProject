@@ -314,15 +314,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99da498b21c747149f0d71317fd6d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Missile
-  target: {fileID: 0}
   rb: {fileID: 184470500350564771}
   _explosionPrefab: {fileID: 0}
   speed: 5
   rotateSpeed: 300
-  maxDistancePredict: 100
-  minDistancePredict: 5
-  maxTimePrediction: 5
-  deviationAmount: 5
+  hitDistance: 1
+  deviationAmount: 1
   deviationSpeed: 2
   scoreForGettingHit: -20
   scoreForProjectile: 20
