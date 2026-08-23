@@ -31,23 +31,7 @@ public class Missile : MonoBehaviour
 
     private void Start()
     {
-        // The "return" in OnCollisionEnter only skips our game logic — physics
-        // still resolves the actual collision and knocks the missile off its
-        // trajectory before that code even runs. To let the missile fly
-        // straight through Environment objects, tell the physics engine to
-        // ignore those collisions entirely at spawn time.
-        Collider missileCollider = GetComponent<Collider>();
-        if (missileCollider != null)
-        {
-            foreach (GameObject environmentObject in GameObject.FindGameObjectsWithTag("Environment"))
-            {
-                Collider environmentCollider = environmentObject.GetComponent<Collider>();
-                if (environmentCollider != null)
-                {
-                    Physics.IgnoreCollision(missileCollider, environmentCollider);
-                }
-            }
-        }
+        // no longer need tags because of layers
     }
     private void Update()
     {
@@ -70,7 +54,7 @@ public class Missile : MonoBehaviour
 
         PredictMovement(target, leadTimePercentage);
         AddDeviation(leadTimePercentage);
-        RotateRocket();
+        RotateRocket(leadTimePercentage);
     }
 
     private void PredictMovement(Transform target, float leadTimePercentage)
@@ -87,15 +71,16 @@ public class Missile : MonoBehaviour
             Mathf.Sin(Time.time * deviationSpeed)
         );
 
+        // use world deviation for accuracy on the camera positon
         Vector3 predictionOffset =
-            transform.TransformDirection(deviation) *
+            deviation *
             deviationAmount *
             leadTimePercentage;
 
         deviatedPrediction = standardPrediction + predictionOffset;
     }
 
-    private void RotateRocket()
+    private void RotateRocket(float leadTimePercentage)
     {
         Vector3 heading = deviatedPrediction - transform.position;
 
@@ -104,11 +89,15 @@ public class Missile : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.LookRotation(heading);
 
+        // tuned turn so fixes ciricling issue
+        float closeRangeTurnBoost = Mathf.Lerp(3f, 1f, leadTimePercentage);
+        float effectiveRotateSpeed = rotateSpeed * closeRangeTurnBoost;
+
         rb.MoveRotation(
             Quaternion.RotateTowards(
                 transform.rotation,
                 targetRotation,
-                rotateSpeed * Time.deltaTime
+                effectiveRotateSpeed * Time.deltaTime
             )
         );
     }
@@ -119,13 +108,6 @@ public class Missile : MonoBehaviour
         if (target == null)
             return;
 
-        // Environment collisions are ignored via Physics.IgnoreCollision in Start(),
-        // so this shouldn't fire for Environment-tagged objects anymore. Kept as a
-        // safety net in case an Environment object spawns in after this missile does.
-        if (collision.gameObject.CompareTag("Environment"))
-        {
-            return;
-        }
         float distance = Vector3.Distance(target.position, transform.position);
 
         // Check if missile hit from the front (dot > 0 means missile is in front of target)

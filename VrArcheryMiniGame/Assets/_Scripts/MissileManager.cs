@@ -20,16 +20,27 @@ public class MissileManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        // Fall back to the main camera if no target was assigned in the Inspector.
-        if (target == null && Camera.main != null)
+        // always target the main camera, overriding anything set in the Inspector
+        if (Camera.main != null)
         {
             target = Camera.main.transform;
+        }
+        else
+        {
+            Debug.LogWarning("MissileManager: Camera.main is null at Awake. Make sure your camera is tagged 'MainCamera'.");
         }
     }
 
     // Update is called once per frame
     void Update()
     {   
+        // Fallback in case Camera.main wasn't ready during Awake (e.g. camera
+        // spawned in after this script, or script execution order issue).
+        if (target == null && Camera.main != null)
+        {
+            target = Camera.main.transform;
+        }
+
         if (currentMissileCount < maxMissles)
         {
             Vector3 randomSpawnPosition = new Vector3(
