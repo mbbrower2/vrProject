@@ -31,25 +31,7 @@ public class Missile : MonoBehaviour
 
     private void Start()
     {
-        Collider missileCollider = GetComponent<Collider>();
-
-        if (missileCollider != null)
-        {
-            foreach (GameObject environmentObject in
-                     GameObject.FindGameObjectsWithTag("Environment"))
-            {
-                Collider environmentCollider =
-                    environmentObject.GetComponent<Collider>();
-
-                if (environmentCollider != null)
-                {
-                    Physics.IgnoreCollision(
-                        missileCollider,
-                        environmentCollider
-                    );
-                }
-            }
-        }
+        // no longer need tags because of layers
     }
 
     private void FixedUpdate()
@@ -87,88 +69,53 @@ public class Missile : MonoBehaviour
         Vector3 targetDirection =
             directionToTarget.normalized;
 
-        // --------------------------------------------------
-        // SMALL WOBBLE
-        // --------------------------------------------------
-        //
-        // IMPORTANT:
-        // The wobble does NOT move the target point.
-        // The missile still fundamentally aims at
-        // the camera.
-        //
-
-        Vector3 wobble =
-            new Vector3(
-                Mathf.Sin(Time.time * deviationSpeed),
-                Mathf.Cos(Time.time * deviationSpeed * 0.7f),
-                0f
-            );
-
-        Quaternion wobbleRotation =
-            Quaternion.AngleAxis(
-                deviationAmount,
-                transform.forward
-            );
-
-        Vector3 deviatedDirection =
-            wobbleRotation * targetDirection;
-
-        // --------------------------------------------------
-        // ROTATE
-        // --------------------------------------------------
-
-        Quaternion targetRotation =
-            Quaternion.LookRotation(deviatedDirection);
-
-        Quaternion newRotation =
-            Quaternion.RotateTowards(
-                rb.rotation,
-                targetRotation,
-                rotateSpeed * Time.fixedDeltaTime
-            );
-
-        rb.MoveRotation(newRotation);
-
-        // --------------------------------------------------
-        // MOVE
-        // --------------------------------------------------
-
-        rb.linearVelocity =
-            newRotation * Vector3.forward * speed;
+        PredictMovement(target, leadTimePercentage);
+        AddDeviation(leadTimePercentage);
+        RotateRocket(leadTimePercentage);
     }
 
     private void HandleCameraHit(Transform target)
     {
-        if (missileDestroyed)
+        // Since the camera has no Rigidbody, just aim at its current position.
+        standardPrediction = target.position;
+    }
+
+    private void AddDeviation(float leadTimePercentage)
+    {
+        Vector3 deviation = new Vector3(
+            Mathf.Cos(Time.time * deviationSpeed),
+            0,
+            Mathf.Sin(Time.time * deviationSpeed)
+        );
+
+        // use world deviation for accuracy on the camera positon
+        Vector3 predictionOffset =
+            deviation *
+            deviationAmount *
+            leadTimePercentage;
+
+        deviatedPrediction = standardPrediction + predictionOffset;
+    }
+
+    private void RotateRocket(float leadTimePercentage)
+    {
+        Vector3 heading = deviatedPrediction - transform.position;
+
+        if (heading.sqrMagnitude < 0.001f)
             return;
 
         missileDestroyed = true;
 
-        // Determine whether the missile hit from the front.
-        Vector3 directionToMissile =
-            (transform.position - target.position).normalized;
+        // tuned turn so fixes ciricling issue
+        float closeRangeTurnBoost = Mathf.Lerp(3f, 1f, leadTimePercentage);
+        float effectiveRotateSpeed = rotateSpeed * closeRangeTurnBoost;
 
-        bool hitFromFront =
-            Vector3.Dot(
-                target.forward,
-                directionToMissile
-            ) > 0f;
-
-        // Hit from behind = destroy silently.
-        if (!hitFromFront)
-        {
-            Destroy(gameObject);
-
-            MissileManager.Instance.ReportMissileDown();
-
-            return;
-        }
-
-        // Hit from front = player gets penalized.
-        Explode();
-
-        GameManager.Instance.PlayerScored(
-            scoreForGettingHit
+        rb.MoveRotation(
+            Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                effectiveRotateSpeed * Time.deltaTime
+            )
         );
 
         MissileManager.Instance.ReportMissileDown();
@@ -179,11 +126,7 @@ public class Missile : MonoBehaviour
         if (missileDestroyed)
             return;
 
-        // Environment is ignored by Physics.IgnoreCollision.
-        if (collision.gameObject.CompareTag("Environment"))
-        {
-            return;
-        }
+        float distance = Vector3.Distance(target.position, transform.position);
 
         // Arrow destroys missile.
         if (collision.gameObject.CompareTag("Arrow"))

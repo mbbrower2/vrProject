@@ -41,4 +41,5 @@ public class TemplateRotator : MonoBehaviour
         if (!OVRInput.Get(OVRInput.Button.One, OVRInput.Controller.LTouch))
             previousControllerRotationLeft = OVRInput.GetLocalControllerRotation(OVRInput.Controller.LTouch);
     }
+    
 }

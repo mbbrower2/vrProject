@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2288047679252950152}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7267694411898990166}
   - component: {fileID: 8916103628832798294}
   - component: {fileID: 5598694021506314098}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 265837478554460588}
   - component: {fileID: 4988238155358921513}
   - component: {fileID: 6201628228278820625}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,8 +318,10 @@ MonoBehaviour:
   _explosionPrefab: {fileID: 0}
   speed: 5
   rotateSpeed: 300
-  hitDistance: 1
-  deviationAmount: 1
+  maxDistancePredict: 100
+  minDistancePredict: 5
+  maxTimePrediction: 5
+  deviationAmount: 5
   deviationSpeed: 2
   scoreForGettingHit: -20
   scoreForProjectile: 20
@@ -334,7 +336,7 @@ GameObject:
   - component: {fileID: 1493051510760732005}
   - component: {fileID: 7467013526920474509}
   - component: {fileID: 8277038578227468888}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
