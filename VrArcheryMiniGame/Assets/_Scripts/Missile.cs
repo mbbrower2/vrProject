@@ -139,6 +139,14 @@ public class Missile : MonoBehaviour
         }
     }
 
+    // Call this whenever the missile is destroyed by a ranged hit (arrow)
+    public void HitByProjectile()
+    {
+        Explode();
+        GameManager.Instance.PlayerScored(scoreForProjectile);
+        MissileManager.Instance.ReportMissileDown();
+    }
+
     private void Explode()
     {
         if (_explosionPrefab != null)
