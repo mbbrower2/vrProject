@@ -48,6 +48,17 @@ public class RayGun : MonoBehaviour
                 burnPoint.transform.parent = hit.rigidbody.transform;
 
             hit.collider.GetComponent<IHittable>()?.GetHit(hit.point);
+
+            // if we hit a missile then destroy it and run the same scoring
+            // logic as a physical arrow hit.
+            if (hit.collider.CompareTag("Missile"))
+            {
+                Missile missile = hit.collider.GetComponent<Missile>();
+                if (missile != null)
+                {
+                    missile.HitByProjectile();
+                }
+            }
         }
         else
         {
