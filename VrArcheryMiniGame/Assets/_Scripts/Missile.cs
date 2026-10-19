@@ -10,71 +10,54 @@ public class Missile : MonoBehaviour
     [SerializeField] private float speed = 15f;
     [SerializeField] private float rotateSpeed = 300f;
 
-    [Header("Target")]
-    [SerializeField] private float hitDistance = .5f;
+    [Header("Prediction")]
+    [SerializeField] private float maxDistancePredict = 100f;
+    [SerializeField] private float minDistancePredict = 5f;
+    [SerializeField] private float maxTimePrediction = 5f;
+
+    private Vector3 standardPrediction;
+    private Vector3 deviatedPrediction;
 
     [Header("Deviation")]
-    [SerializeField] private float deviationAmount = 2f;
+    [SerializeField] private float deviationAmount = 5f;
     [SerializeField] private float deviationSpeed = 2f;
 
     [Header("Score")]
-    [SerializeField] private float scoreForGettingHit = -20f;
-    [SerializeField] private float scoreForProjectile = 20f;
+    [SerializeField] float scoreForGettingHit = -20;
+    [SerializeField] float scoreForProjectile = 20;
 
-    private bool missileDestroyed = false;
-
-    // The missile STILL targets the camera.
-    private Transform Target =>
-        MissileManager.Instance != null
-            ? MissileManager.Instance.Target
-            : null;
+    // Target now comes from MissileManager instead of being set per-missile.
+    private Transform Target => MissileManager.Instance != null ? MissileManager.Instance.Target : null;
 
     private void Start()
     {
         // no longer need tags because of layers
     }
-
-    private void FixedUpdate()
+    private void Update()
     {
-        if (missileDestroyed)
-            return;
-
         Transform target = Target;
 
         if (target == null)
-            return;
-
-        // --------------------------------------------------
-        // DISTANCE TO CAMERA
-        // --------------------------------------------------
-
-        Vector3 directionToTarget =
-            target.position - rb.position;
-
-        float distanceToTarget =
-            directionToTarget.magnitude;
-
-        // If we are close enough to the camera,
-        // treat this as a hit.
-        if (distanceToTarget <= hitDistance)
         {
-            HandleCameraHit(target);
+            Debug.LogWarning($"{gameObject.name}: No target assigned in MissileManager.");
             return;
         }
 
-        // --------------------------------------------------
-        // HOMING
-        // --------------------------------------------------
+        // Move forward continuously
+        rb.linearVelocity = transform.forward * speed;
 
-        Vector3 targetDirection =
-            directionToTarget.normalized;
+        float leadTimePercentage = Mathf.InverseLerp(
+            minDistancePredict,
+            maxDistancePredict,
+            Vector3.Distance(transform.position, target.position)
+        );
 
         PredictMovement(target, leadTimePercentage);
         AddDeviation(leadTimePercentage);
         RotateRocket(leadTimePercentage);
     }
 
-    private void HandleCameraHit(Transform target)
+    private void PredictMovement(Transform target, float leadTimePercentage)
     {
         // Since the camera has no Rigidbody, just aim at its current position.
         standardPrediction = target.position;
@@ -104,7 +87,7 @@ public class Missile : MonoBehaviour
         if (heading.sqrMagnitude < 0.001f)
             return;
 
-        missileDestroyed = true;
+        Quaternion targetRotation = Quaternion.LookRotation(heading);
 
         // tuned turn so fixes ciricling issue
         float closeRangeTurnBoost = Mathf.Lerp(3f, 1f, leadTimePercentage);
@@ -117,30 +100,41 @@ public class Missile : MonoBehaviour
                 effectiveRotateSpeed * Time.deltaTime
             )
         );
-
-        MissileManager.Instance.ReportMissileDown();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (missileDestroyed)
+        Transform target = Target;
+        if (target == null)
             return;
 
         float distance = Vector3.Distance(target.position, transform.position);
 
-        // Arrow destroys missile.
+        // Check if missile hit from the front (dot > 0 means missile is in front of target)
+        Vector3 directionToMissile = (transform.position - target.position).normalized;
+        bool hitFromFront = Vector3.Dot(target.forward, directionToMissile) > 0f;
+
+        // Hit the target (player / camera object)
+        if (distance <= 5f && !collision.gameObject.CompareTag("Arrow"))
+        {
+            if (!hitFromFront)
+            {
+                Destroy(gameObject); // Silent destroy, no score
+                MissileManager.Instance.ReportMissileDown();
+                return;
+            }
+            Explode();
+            GameManager.Instance.PlayerScored(scoreForGettingHit);
+            MissileManager.Instance.ReportMissileDown();
+            return;
+        }
+
+        // Hit by an arrow
         if (collision.gameObject.CompareTag("Arrow"))
         {
-            missileDestroyed = true;
-
             Explode();
-
-            GameManager.Instance.PlayerScored(
-                scoreForProjectile
-            );
-
+            GameManager.Instance.PlayerScored(scoreForProjectile);
             MissileManager.Instance.ReportMissileDown();
-
             return;
         }
     }
@@ -157,11 +151,7 @@ public class Missile : MonoBehaviour
     {
         if (_explosionPrefab != null)
         {
-            Instantiate(
-                _explosionPrefab,
-                transform.position,
-                Quaternion.identity
-            );
+            Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
         }
 
         Destroy(gameObject);
