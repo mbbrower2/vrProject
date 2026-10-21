@@ -99,6 +99,10 @@ public class OscHandler : MonoBehaviour
         - if no extra projectiles then try and make target bigger
         - if the target isnt small, try and slow it down
             - if you cant slow it down then repeat the same level
+
+    Whenever a level would be repeated, RepeatOrAdvance() checks how many times
+    it has been played. Once it has been played GameManager.MaxPlaysPerLevel
+    times, the player moves on to the next level instead of repeating it.
     **/
     private void HandleEngaged()
     {
@@ -106,7 +110,7 @@ public class OscHandler : MonoBehaviour
 
         if (!TargetManager.Instance.IsMoving)
         {
-            TargetManager.Instance.SetNextSceneName(GameManager.Instance.GameSceneToString(GameManager.Instance.GetCurrentScene()));
+            RepeatOrAdvance();
             return;
         }
 
@@ -115,7 +119,7 @@ public class OscHandler : MonoBehaviour
             case GameManager.GameScene.L1:
                 canSlowDown = TrySlowDown();
                 if (!canSlowDown)
-                    TargetManager.Instance.SetNextSceneName(GameManager.Instance.GameSceneToString(GameManager.GameScene.L1));
+                    RepeatOrAdvance();
                 break;
 
             case GameManager.GameScene.L2:
@@ -125,14 +129,16 @@ public class OscHandler : MonoBehaviour
                 {
                     canSlowDown = TrySlowDown();
                     if (!canSlowDown)
-                        TargetManager.Instance.SetNextSceneName(GameManager.Instance.GameSceneToString(GameManager.GameScene.L2));
+                        RepeatOrAdvance();
                 }
                 break;
 
             case GameManager.GameScene.L3:
-                if (TargetManager.Instance.Size < GameManager.Instance.OriginalSize) {
+                if (TargetManager.Instance.Size < GameManager.Instance.OriginalSize)
+                {
                     TargetManager.Instance.SetSize(TargetManager.Instance.Size * 1.25f);
-                } else if (MissileManager.Instance.getMaxMissles() >= GameManager.Instance.GetMaxMissiles())
+                }
+                else if (MissileManager.Instance.getMaxMissles() >= GameManager.Instance.GetMaxMissiles())
                 {
                     int numMissles = MissileManager.Instance.getMaxMissles();
                     MissileManager.Instance.updateMaxMissles(numMissles - 1);
@@ -141,10 +147,24 @@ public class OscHandler : MonoBehaviour
                 {
                     canSlowDown = TrySlowDown();
                     if (!canSlowDown)
-                        TargetManager.Instance.SetNextSceneName(GameManager.Instance.GameSceneToString(GameManager.GameScene.L3));
+                        RepeatOrAdvance();
                 }
                 break;
         }
+    }
+
+    /**
+    * Repeat the current level, unless it has already been played the max
+    * number of times, in which case move on to the next level.
+    **/
+    private void RepeatOrAdvance()
+    {
+        var current = GameManager.Instance.GetCurrentScene();
+
+        if (GameManager.Instance.HasReachedMaxPlays(current))
+            TryNextLevel();
+        else
+            TargetManager.Instance.SetNextSceneName(GameManager.Instance.GameSceneToString(current));
     }
 
     /**

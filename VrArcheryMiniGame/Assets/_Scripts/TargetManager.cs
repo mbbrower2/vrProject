@@ -28,6 +28,9 @@ public class TargetManager : MonoBehaviour
 
     private void Start()
     {
+        // Starts the session timer (first real level only) and counts this play
+        GameManager.Instance.OnLevelStarted(GameManager.Instance.GetCurrentScene());
+
         var defaults = GameManager.Instance.GetSettingsForScene(
             GameManager.Instance.GetCurrentScene()
         );
@@ -49,12 +52,24 @@ public class TargetManager : MonoBehaviour
 
         if (remainingTargets <= 0)
         {
+            // The game may already have ended (e.g. the time limit hit this frame)
+            if (GameManager.Instance.IsGameOver)
+                return;
+
             //If this scene is the tutorial just move on to the next scene
             if (GameManager.Instance.GetCurrentSceneName() == "General")
             {
                 SceneManager.LoadScene("ArcherySceneL1");
                 return;
             }
+
+            //If the last level has been played enough times, end the game
+            if (GameManager.Instance.IsLastLevelComplete(GameManager.Instance.GetCurrentScene()))
+            {
+                GameManager.Instance.EndGame("LastLevelRuns");
+                return;
+            }
+
             AnalyticsManager.Instance.MovingToNextLevel(GameManager.Instance.GetCurrentSceneName(), nextSceneName);
 
             //If the player isnt moving on to the next scene save all the current settings
