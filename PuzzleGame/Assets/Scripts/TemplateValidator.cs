@@ -18,10 +18,12 @@ public class TemplateValidator : MonoBehaviour
     public TextMeshProUGUI timerText;
 
     [Header("Game Over Timer")]
-    public float totalTimeLimit = 900f;
+    [Tooltip("Total seconds for the whole session. 0 = no limit.")]
+    public float totalTimeLimit =  900;
 
     [Header("Per-Level Time Limit")]
-    [Tooltip("Seconds before the player is moved on to the next template automatically. 0 = no limit.")]
+    [Tooltip("Seconds before the player is moved on to the next template automatically (300 = 5 minutes). 0 = no limit.")]
+    [Min(0f)]
     public float levelTimeLimit = 300f;
     [Tooltip("How long the 'time's up' message shows before the next template loads.")]
     public float timeoutMessageDuration = 3f;
@@ -36,18 +38,6 @@ public class TemplateValidator : MonoBehaviour
     }
     public List<BlockSpawnInfo> blockSpawns = new List<BlockSpawnInfo>();
 
-    [System.Serializable]
-    public class HintRecord
-    {
-        public int level;
-        public float timestamp;
-        public HintRecord(int level, float timestamp)
-        {
-            this.level = level;
-            this.timestamp = timestamp;
-        }
-    }
-
     private AudioSource audioSource;
     private ControlDisplay controlDisplay;
     private List<GameObject> activeBlocks = new List<GameObject>();
@@ -57,13 +47,12 @@ public class TemplateValidator : MonoBehaviour
     private bool gameOver = false;
     private bool awaitingNextLevel = false;
     private bool levelEnding = false; // set once a level is solved or timed out, cleared on LoadLevel
+    private bool sessionLogged = false; // makes sure SessionEnded is only sent once per run
     private int currentLevelIndex = 0;
     private List<float> levelTimes = new List<float>();
-    private List<HintRecord> hintRecords = new List<HintRecord>();
     private HashSet<int> timedOutLevels = new HashSet<int>(); // 1-based level numbers
 
     public TemplateData CurrentLevel => (currentLevelIndex < levels.Count) ? levels[currentLevelIndex] : null;
-    public List<HintRecord> HintRecords => hintRecords;
     public bool WasLevelTimedOut(int levelNumber) => timedOutLevels.Contains(levelNumber);
 
     void Awake()
@@ -76,12 +65,12 @@ public class TemplateValidator : MonoBehaviour
     {
         currentLevelIndex = 0;
         levelTimes.Clear();
-        hintRecords.Clear();
         timedOutLevels.Clear();
         totalElapsed = 0f;
         gameOver = false;
         awaitingNextLevel = false;
         levelEnding = false;
+        sessionLogged = false;
         LoadLevel(currentLevelIndex);
     }
 
@@ -103,43 +92,32 @@ public class TemplateValidator : MonoBehaviour
             totalElapsed += Time.deltaTime;
             UpdateTimerDisplay();
 
+            // Check the per-level limit first so a level that hits 5 minutes
+            // on the same frame as the session limit still advances normally.
+            Debug.Log("ABCD elapsed time is " + elapsedTime + " level time limit is " + levelTimeLimit);
+            Debug.Log("abcd total elapsedtime is " + totalElapsed + " total time limit is " + totalTimeLimit);
+            if (levelTimeLimit > 0f && elapsedTime >= levelTimeLimit)
+            {
+                TimeOutLevel();
+                return;
+            }
+
             if (totalTimeLimit > 0f && totalElapsed >= totalTimeLimit)
             {
                 TriggerGameOver();
                 return;
             }
-
-            if (levelTimeLimit > 0f && elapsedTime >= levelTimeLimit)
-                TimeOutLevel();
         }
 
         if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
             ResetLevel();
-
-        RecordHintIfPressed();
-    }
-
-    void RecordHintIfPressed()
-    {
-        // Only record hints when actively playing — not holding a block,
-        // not awaiting next level, not at start/end screens
-        if (!timerRunning) return;
-        if (awaitingNextLevel) return;
-        if (BlockSpawner.CurrentlyHeld != null) return;
-
-        bool buttonDown = OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch);
-        if (buttonDown)
-        {
-            hintRecords.Add(new HintRecord(currentLevelIndex + 1, totalElapsed));
-            controlDisplay?.ShowHintFlash(hintRecords.Count);
-            Debug.Log($"Hint — Level {currentLevelIndex + 1} at {totalElapsed:F1}s (total: {hintRecords.Count})");
-        }
     }
 
     void StartTimer()
     {
         elapsedTime = 0f;
         timerRunning = true;
+        UpdateTimerDisplay();
     }
 
     void StopTimer()
@@ -170,6 +148,34 @@ public class TemplateValidator : MonoBehaviour
         }
     }
 
+    void LogLevelTransition(bool timedOut)
+    {
+        if (AnalyticsManager.Instance == null) return;
+
+        string currentName = CurrentLevel != null ? CurrentLevel.templateName : $"Level {currentLevelIndex + 1}";
+        int nextIndex = currentLevelIndex + 1;
+        string nextName = nextIndex < levels.Count && levels[nextIndex] != null
+            ? levels[nextIndex].templateName
+            : "End";
+
+        AnalyticsManager.Instance.MovingToNextLevel(currentName, nextName, elapsedTime, timedOut);
+    }
+
+    void LogSessionEnded(string endReason)
+    {
+        if (sessionLogged) return;
+        sessionLogged = true;
+
+        if (AnalyticsManager.Instance == null) return;
+
+        // Every level up to and including the current one has been shown.
+        int puzzlesSeen = Mathf.Min(currentLevelIndex + 1, levels.Count);
+        // levelTimes has one entry per finished level, solved or timed out.
+        int puzzlesCompleted = levelTimes.Count - timedOutLevels.Count;
+
+        AnalyticsManager.Instance.SessionEnded(totalElapsed, puzzlesSeen, puzzlesCompleted, endReason);
+    }
+
     void TriggerGameOver()
     {
         if (gameOver) return;
@@ -178,8 +184,9 @@ public class TemplateValidator : MonoBehaviour
         StopAllCoroutines();
 
         DisableBlockInteraction();
+        LogSessionEnded("SessionTimeLimit");
 
-        controlDisplay?.ShowGameOver(levelTimes, currentLevelIndex + 1, levels.Count, hintRecords);
+        controlDisplay?.ShowGameOver(levelTimes, currentLevelIndex + 1, levels.Count);
     }
 
     void TimeOutLevel()
@@ -194,8 +201,9 @@ public class TemplateValidator : MonoBehaviour
         levelTimes.Add(elapsedTime);
         timedOutLevels.Add(currentLevelIndex + 1);
         DisableBlockInteraction();
+        LogLevelTransition(true);
 
-        Debug.Log($"Level {currentLevelIndex + 1} timed out after {levelTimeLimit:F0}s");
+        Debug.Log($"Level {currentLevelIndex + 1} timed out after {levelTimeLimit:F0}s — moving to next level");
 
         bool isLastLevel = currentLevelIndex >= levels.Count - 1;
         if (isLastLevel)
@@ -325,6 +333,7 @@ public class TemplateValidator : MonoBehaviour
         levelEnding = true;
         StopTimer();
         levelTimes.Add(elapsedTime);
+        LogLevelTransition(false);
 
         if (completionSound != null && audioSource != null)
             audioSource.PlayOneShot(completionSound);
@@ -357,7 +366,8 @@ public class TemplateValidator : MonoBehaviour
 
     void HandleAllLevelsComplete()
     {
-        controlDisplay?.ShowEndScreen(levelTimes, hintRecords);
+        LogSessionEnded("AllLevelsFinished");
+        controlDisplay?.ShowEndScreen(levelTimes);
         onAllLevelsComplete?.Invoke();
     }
 

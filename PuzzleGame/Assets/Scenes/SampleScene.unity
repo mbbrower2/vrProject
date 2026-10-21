@@ -696,6 +696,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: accfff26181c8ec4e9e6c1d96de3d1b1, type: 2}
   timerText: {fileID: 791334058}
   totalTimeLimit: 900
+  levelTimeLimit: 300
+  timeoutMessageDuration: 3
   blockBasePrefab: {fileID: 1125414273320052687, guid: dbf36bc015c22f140b7d66bfa659f84e, type: 3}
   blockSpawns:
   - blockData: {fileID: 11400000, guid: d6c92c55a26ba424b937f01345491f7a, type: 2}
@@ -1607,7 +1609,6 @@ MonoBehaviour:
   instructionCanvas: {fileID: 949464702}
   instructionText: {fileID: 1388911882}
   fadeOutDuration: 0.5
-  hintDisplayDuration: 2
 --- !u!114 &949464698
 MonoBehaviour:
   m_ObjectHideFlags: 0

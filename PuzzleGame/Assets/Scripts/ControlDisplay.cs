@@ -14,14 +14,13 @@ public class ControlDisplay : MonoBehaviour
 
     [Header("Settings")]
     public float fadeOutDuration = 0.5f;
-    public float hintDisplayDuration = 2f;
 
     private bool gameStarted = false;
     private bool gameEnded = false;
     private bool gameOver = false;
     private bool awaitingNextLevel = false;
     private CanvasGroup canvasGroup;
-    private Coroutine hintFadeCoroutine;
+    private Coroutine flashCoroutine;
 
     public bool ReadyForNextLevel { get; private set; } = false;
 
@@ -75,13 +74,6 @@ public class ControlDisplay : MonoBehaviour
             "  <b>Press A to Start</b>  ";
     }
 
-    public void ShowHintFlash(int hintCount)
-    {
-        FlashMessage($"<size=120%><b>Hint #{hintCount} recorded</b></size>\n\n" +
-                     "This will appear on your results.",
-                     hintDisplayDuration);
-    }
-
     public void ShowLevelTimedOut(int levelIndex, float displayDuration)
     {
         FlashMessage($"<size=120%><b>Time's up for Level {levelIndex}</b></size>\n\n" +
@@ -93,15 +85,15 @@ public class ControlDisplay : MonoBehaviour
     {
         if (instructionText == null) return;
 
-        if (hintFadeCoroutine != null)
-            StopCoroutine(hintFadeCoroutine);
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
 
         instructionCanvas.gameObject.SetActive(true);
         if (canvasGroup != null) canvasGroup.alpha = 1f;
 
         instructionText.text = message;
 
-        hintFadeCoroutine = StartCoroutine(FlashCoroutine(displayDuration));
+        flashCoroutine = StartCoroutine(FlashCoroutine(displayDuration));
     }
 
     IEnumerator FlashCoroutine(float displayDuration)
@@ -118,17 +110,17 @@ public class ControlDisplay : MonoBehaviour
         }
 
         instructionCanvas.gameObject.SetActive(false);
-        hintFadeCoroutine = null;
+        flashCoroutine = null;
     }
 
     public void ShowLevelComplete(int levelIndex, float levelTime, int totalLevels, List<float> allTimes, bool isLastLevel)
     {
         if (instructionText == null) return;
 
-        if (hintFadeCoroutine != null)
+        if (flashCoroutine != null)
         {
-            StopCoroutine(hintFadeCoroutine);
-            hintFadeCoroutine = null;
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
         }
 
         if (canvasGroup != null) canvasGroup.alpha = 1f;
@@ -168,7 +160,7 @@ public class ControlDisplay : MonoBehaviour
         ReadyForNextLevel = false;
     }
 
-    public void ShowEndScreen(List<float> allTimes, List<TemplateValidator.HintRecord> hints)
+    public void ShowEndScreen(List<float> allTimes)
     {
         if (instructionText == null) return;
         StopFlash();
@@ -187,12 +179,11 @@ public class ControlDisplay : MonoBehaviour
             "<b>Level Times:</b>\n" +
             FormatLevelTimes(allTimes) +
             $"\n<b>Total: {totalMins:00}:{totalSecs:00}</b>\n\n" +
-            BuildHintText(hints) +
             "-----------------------------\n" +
             "  <b>Press A to Play Again</b>";
     }
 
-    public void ShowGameOver(List<float> completedTimes, int reachedLevel, int totalLevels, List<TemplateValidator.HintRecord> hints)
+    public void ShowGameOver(List<float> completedTimes, int reachedLevel, int totalLevels)
     {
         if (instructionText == null) return;
         StopFlash();
@@ -212,7 +203,7 @@ public class ControlDisplay : MonoBehaviour
         instructionText.text =
             "<size=130%><b>Time's Up!</b></size>\n\n" +
             progress +
-            "\n" + BuildHintText(hints) +
+            "\n" +
             "-----------------------------\n" +
             "  <b>Press A to Try Again</b>";
     }
@@ -235,26 +226,11 @@ public class ControlDisplay : MonoBehaviour
 
     void StopFlash()
     {
-        if (hintFadeCoroutine != null)
+        if (flashCoroutine != null)
         {
-            StopCoroutine(hintFadeCoroutine);
-            hintFadeCoroutine = null;
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
         }
-    }
-
-    string BuildHintText(List<TemplateValidator.HintRecord> hints)
-    {
-        if (hints == null || hints.Count == 0)
-            return "<b>Hints:</b> None\n\n";
-
-        string text = $"<b>Hints ({hints.Count} total):</b>\n";
-        foreach (var h in hints)
-        {
-            int m = Mathf.FloorToInt(h.timestamp / 60f);
-            int s = Mathf.FloorToInt(h.timestamp % 60f);
-            text += $"  Level {h.level} at {m:00}:{s:00}\n";
-        }
-        return text + "\n";
     }
 
     void StartGame()
