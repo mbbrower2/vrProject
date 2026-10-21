@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Balloon : MonoBehaviour
 {
+
+[Header("Target")]
 [SerializeField] private Transform target;
+
 
 [Header("References")]
 [SerializeField] private Rigidbody rb;
@@ -122,6 +125,12 @@ private void OnCollisionEnter(Collision collision)
         BalloonManager.Instance.ReportBalloonDown();
         return;
     }
+}
+
+public void HitByProjectile() {
+    Destroy(gameObject);
+    GameManager.Instance.PlayerScored(scoreForProjectile);
+    BalloonManager.Instance.ReportBalloonDown();
 }
 
 private void Explode()

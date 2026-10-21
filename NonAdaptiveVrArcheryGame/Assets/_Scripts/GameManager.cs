@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int playsPerLevel = 3;
     [Tooltip("Session length in seconds. The clock starts when the first level in Level Order loads.")]
     [SerializeField] private float sessionDurationSeconds = 15f * 60f;
+    [Tooltip("If true, the clock stops while the app is paused (e.g. headset removed). If false, wall-clock time is used.")]
+    [SerializeField] private bool pauseClockWhenAppPaused = false;
     [Tooltip("Scene loaded when the game ends. If it isn't in Build Settings, the app quits instead.")]
     [SerializeField] private string endSceneName = "GameOver";
 
@@ -33,12 +35,24 @@ public class GameManager : MonoBehaviour
     private bool sessionEnded = false;
     private bool isLoading = false;
     private float sessionStartTime;
+    private float activeElapsed;          // only used when pauseClockWhenAppPaused is true
 
     public int CurrentLevelIndex => currentLevelIndex;
     public int CurrentPlay => currentPlay;
     public int PlaysPerLevel => playsPerLevel;
     public bool SessionEnded => sessionEnded;
-    public float ElapsedSeconds => sessionStarted ? Time.realtimeSinceStartup - sessionStartTime : 0f;
+
+    public float ElapsedSeconds
+    {
+        get
+        {
+            if (!sessionStarted) return 0f;
+            return pauseClockWhenAppPaused
+                ? activeElapsed
+                : Time.realtimeSinceStartup - sessionStartTime;
+        }
+    }
+
     public float TimeRemaining => Mathf.Max(0f, sessionDurationSeconds - ElapsedSeconds);
 
     private void Awake()
@@ -63,6 +77,11 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    private void OnDestroy()
+    {
+        if (instance == this) instance = null;
+    }
+
     private void Start()
     {
         TryStartSession(GetCurrentSceneName());
@@ -83,6 +102,7 @@ public class GameManager : MonoBehaviour
 
         sessionStarted = true;
         sessionStartTime = Time.realtimeSinceStartup;
+        activeElapsed = 0f;
         currentLevelIndex = index;
         currentPlay = 1;
         Debug.Log($"Session started in {sceneName}");
@@ -90,7 +110,15 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (sessionStarted && !sessionEnded && ElapsedSeconds >= sessionDurationSeconds)
+        if (!sessionStarted || sessionEnded) return;
+
+        if (pauseClockWhenAppPaused)
+        {
+            // Clamp so the first frame after a pause/resume doesn't add a big jump.
+            activeElapsed += Mathf.Min(Time.unscaledDeltaTime, 0.1f);
+        }
+
+        if (ElapsedSeconds >= sessionDurationSeconds)
         {
             EndGame("TimeLimit");
         }
@@ -131,7 +159,7 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log($"Level complete: {current}. Loading {next} (play {currentPlay}/{playsPerLevel})");
-        AnalyticsManager.Instance.MovingToNextLevel(current, next);
+        AnalyticsManager.Instance?.MovingToNextLevel(current, next);
         isLoading = true;
         SceneManager.LoadScene(next);
     }
@@ -143,7 +171,7 @@ public class GameManager : MonoBehaviour
         isLoading = true;
 
         Debug.Log($"Game over ({reason}) after {ElapsedSeconds:0}s");
-        AnalyticsManager.Instance.GameEnded(GetCurrentSceneName(), reason, ElapsedSeconds, currentPlay);
+        AnalyticsManager.Instance?.GameEnded(GetCurrentSceneName(), reason, ElapsedSeconds, currentPlay);
 
         if (!string.IsNullOrEmpty(endSceneName) && Application.CanStreamedLevelBeLoaded(endSceneName))
         {
@@ -170,9 +198,9 @@ public class GameManager : MonoBehaviour
 
     public void PlayerScored(float targetValue)
     {
-        score = score + targetValue;
-        AnalyticsManager.Instance.UpdateScore(GetCurrentSceneName(), score);
-        ScoreManager.Instance.UpdateScoreText(score);
+        score += targetValue;
+        AnalyticsManager.Instance?.UpdateScore(GetCurrentSceneName(), score);
+        ScoreManager.Instance?.UpdateScoreText(score);
     }
 
     private static readonly Dictionary<string, SceneSettings> sceneDefaults = new()

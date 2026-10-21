@@ -77,24 +77,36 @@ public class ControlDisplay : MonoBehaviour
 
     public void ShowHintFlash(int hintCount)
     {
+        FlashMessage($"<size=120%><b>Hint #{hintCount} recorded</b></size>\n\n" +
+                     "This will appear on your results.",
+                     hintDisplayDuration);
+    }
+
+    public void ShowLevelTimedOut(int levelIndex, float displayDuration)
+    {
+        FlashMessage($"<size=120%><b>Time's up for Level {levelIndex}</b></size>\n\n" +
+                     "Moving on to the next puzzle...",
+                     displayDuration);
+    }
+
+    void FlashMessage(string message, float displayDuration)
+    {
         if (instructionText == null) return;
 
         if (hintFadeCoroutine != null)
             StopCoroutine(hintFadeCoroutine);
 
-        // Activate canvas before theread
         instructionCanvas.gameObject.SetActive(true);
         if (canvasGroup != null) canvasGroup.alpha = 1f;
 
-        instructionText.text = $"<size=120%><b>Hint #{hintCount} recorded</b></size>\n\n" +
-                            "This will appear on your results.";
+        instructionText.text = message;
 
-        hintFadeCoroutine = StartCoroutine(HintFlashCoroutine());
+        hintFadeCoroutine = StartCoroutine(FlashCoroutine(displayDuration));
     }
 
-    IEnumerator HintFlashCoroutine()
+    IEnumerator FlashCoroutine(float displayDuration)
     {
-        yield return new WaitForSeconds(hintDisplayDuration);
+        yield return new WaitForSeconds(displayDuration);
 
         float elapsed = 0f;
         while (elapsed < fadeOutDuration)
@@ -129,15 +141,7 @@ public class ControlDisplay : MonoBehaviour
                       $"Time: <b>{mins:00}:{secs:00}</b>\n\n";
 
         if (allTimes.Count > 1)
-        {
-            text += "<b>Level Times:</b>\n";
-            for (int i = 0; i < allTimes.Count; i++)
-            {
-                int m = Mathf.FloorToInt(allTimes[i] / 60f);
-                int s = Mathf.FloorToInt(allTimes[i] % 60f);
-                text += $"  Level {i + 1}: {m:00}:{s:00}\n";
-            }
-        }
+            text += "<b>Level Times:</b>\n" + FormatLevelTimes(allTimes);
 
         if (!isLastLevel)
         {
@@ -167,19 +171,13 @@ public class ControlDisplay : MonoBehaviour
     public void ShowEndScreen(List<float> allTimes, List<TemplateValidator.HintRecord> hints)
     {
         if (instructionText == null) return;
+        StopFlash();
         if (canvasGroup != null) canvasGroup.alpha = 1f;
         instructionCanvas.gameObject.SetActive(true);
         gameEnded = true;
 
         float total = 0f;
-        string timesText = "";
-        for (int i = 0; i < allTimes.Count; i++)
-        {
-            total += allTimes[i];
-            int m = Mathf.FloorToInt(allTimes[i] / 60f);
-            int s = Mathf.FloorToInt(allTimes[i] % 60f);
-            timesText += $"  Level {i + 1}: {m:00}:{s:00}\n";
-        }
+        foreach (float t in allTimes) total += t;
 
         int totalMins = Mathf.FloorToInt(total / 60f);
         int totalSecs = Mathf.FloorToInt(total % 60f);
@@ -187,7 +185,7 @@ public class ControlDisplay : MonoBehaviour
         instructionText.text =
             "<size=130%><b>All Done!</b></size>\n\n" +
             "<b>Level Times:</b>\n" +
-            timesText +
+            FormatLevelTimes(allTimes) +
             $"\n<b>Total: {totalMins:00}:{totalSecs:00}</b>\n\n" +
             BuildHintText(hints) +
             "-----------------------------\n" +
@@ -197,22 +195,19 @@ public class ControlDisplay : MonoBehaviour
     public void ShowGameOver(List<float> completedTimes, int reachedLevel, int totalLevels, List<TemplateValidator.HintRecord> hints)
     {
         if (instructionText == null) return;
+        StopFlash();
         if (canvasGroup != null) canvasGroup.alpha = 1f;
         instructionCanvas.gameObject.SetActive(true);
         gameOver = true;
 
-        string timesText = "";
+        int solved = 0;
         for (int i = 0; i < completedTimes.Count; i++)
-        {
-            int m = Mathf.FloorToInt(completedTimes[i] / 60f);
-            int s = Mathf.FloorToInt(completedTimes[i] % 60f);
-            timesText += $"  Level {i + 1}: {m:00}:{s:00}\n";
-        }
+            if (!IsTimedOut(i + 1)) solved++;
 
         string progress = completedTimes.Count == 0
             ? "No levels completed.\n"
-            : $"Completed {completedTimes.Count}/{totalLevels} levels.\n\n" +
-              "<b>Times:</b>\n" + timesText;
+            : $"Completed {solved}/{totalLevels} levels.\n\n" +
+              "<b>Times:</b>\n" + FormatLevelTimes(completedTimes);
 
         instructionText.text =
             "<size=130%><b>Time's Up!</b></size>\n\n" +
@@ -220,6 +215,31 @@ public class ControlDisplay : MonoBehaviour
             "\n" + BuildHintText(hints) +
             "-----------------------------\n" +
             "  <b>Press A to Try Again</b>";
+    }
+
+    bool IsTimedOut(int levelNumber) =>
+        templateValidator != null && templateValidator.WasLevelTimedOut(levelNumber);
+
+    string FormatLevelTimes(List<float> times)
+    {
+        string text = "";
+        for (int i = 0; i < times.Count; i++)
+        {
+            int m = Mathf.FloorToInt(times[i] / 60f);
+            int s = Mathf.FloorToInt(times[i] % 60f);
+            string suffix = IsTimedOut(i + 1) ? " (timed out)" : "";
+            text += $"  Level {i + 1}: {m:00}:{s:00}{suffix}\n";
+        }
+        return text;
+    }
+
+    void StopFlash()
+    {
+        if (hintFadeCoroutine != null)
+        {
+            StopCoroutine(hintFadeCoroutine);
+            hintFadeCoroutine = null;
+        }
     }
 
     string BuildHintText(List<TemplateValidator.HintRecord> hints)

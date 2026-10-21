@@ -48,6 +48,14 @@ public class WaterGun : MonoBehaviour
                 burnPoint.transform.parent = hit.rigidbody.transform;
 
             hit.collider.GetComponent<IHittable>()?.GetHit(hit.point);
+
+            // Collider added
+            if (hit.collider.CompareTag("Missile")) {
+                Balloon balloon = hit.collider.GetComponent<Balloon>();
+                if (balloon) {
+                    balloon.HitByProjectile();
+                }
+            }
         }
         else
         {

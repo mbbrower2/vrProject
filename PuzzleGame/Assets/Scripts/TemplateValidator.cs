@@ -20,6 +20,12 @@ public class TemplateValidator : MonoBehaviour
     [Header("Game Over Timer")]
     public float totalTimeLimit = 900f;
 
+    [Header("Per-Level Time Limit")]
+    [Tooltip("Seconds before the player is moved on to the next template automatically. 0 = no limit.")]
+    public float levelTimeLimit = 300f;
+    [Tooltip("How long the 'time's up' message shows before the next template loads.")]
+    public float timeoutMessageDuration = 3f;
+
     [Header("Block Spawning")]
     public GameObject blockBasePrefab;
     [System.Serializable]
@@ -50,12 +56,15 @@ public class TemplateValidator : MonoBehaviour
     private bool timerRunning = false;
     private bool gameOver = false;
     private bool awaitingNextLevel = false;
+    private bool levelEnding = false; // set once a level is solved or timed out, cleared on LoadLevel
     private int currentLevelIndex = 0;
     private List<float> levelTimes = new List<float>();
     private List<HintRecord> hintRecords = new List<HintRecord>();
+    private HashSet<int> timedOutLevels = new HashSet<int>(); // 1-based level numbers
 
     public TemplateData CurrentLevel => (currentLevelIndex < levels.Count) ? levels[currentLevelIndex] : null;
     public List<HintRecord> HintRecords => hintRecords;
+    public bool WasLevelTimedOut(int levelNumber) => timedOutLevels.Contains(levelNumber);
 
     void Awake()
     {
@@ -68,15 +77,20 @@ public class TemplateValidator : MonoBehaviour
         currentLevelIndex = 0;
         levelTimes.Clear();
         hintRecords.Clear();
+        timedOutLevels.Clear();
         totalElapsed = 0f;
         gameOver = false;
         awaitingNextLevel = false;
+        levelEnding = false;
         LoadLevel(currentLevelIndex);
     }
 
     void OnDisable()
     {
         StopTimer();
+        // Disabling a component doesn't stop its coroutines, so kill any pending
+        // level advance to stop it firing after a restart.
+        StopAllCoroutines();
     }
 
     void Update()
@@ -90,7 +104,13 @@ public class TemplateValidator : MonoBehaviour
             UpdateTimerDisplay();
 
             if (totalTimeLimit > 0f && totalElapsed >= totalTimeLimit)
+            {
                 TriggerGameOver();
+                return;
+            }
+
+            if (levelTimeLimit > 0f && elapsedTime >= levelTimeLimit)
+                TimeOutLevel();
         }
 
         if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
@@ -135,12 +155,8 @@ public class TemplateValidator : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    void TriggerGameOver()
+    void DisableBlockInteraction()
     {
-        if (gameOver) return;
-        gameOver = true;
-        StopTimer();
-
         foreach (GameObject block in activeBlocks)
         {
             if (block == null) continue;
@@ -152,8 +168,53 @@ public class TemplateValidator : MonoBehaviour
                     mb.enabled = false;
             }
         }
+    }
+
+    void TriggerGameOver()
+    {
+        if (gameOver) return;
+        gameOver = true;
+        StopTimer();
+        StopAllCoroutines();
+
+        DisableBlockInteraction();
 
         controlDisplay?.ShowGameOver(levelTimes, currentLevelIndex + 1, levels.Count, hintRecords);
+    }
+
+    void TimeOutLevel()
+    {
+        if (levelEnding || gameOver) return;
+        levelEnding = true;
+
+        StopTimer();
+        elapsedTime = levelTimeLimit;
+        UpdateTimerDisplay();
+
+        levelTimes.Add(elapsedTime);
+        timedOutLevels.Add(currentLevelIndex + 1);
+        DisableBlockInteraction();
+
+        Debug.Log($"Level {currentLevelIndex + 1} timed out after {levelTimeLimit:F0}s");
+
+        bool isLastLevel = currentLevelIndex >= levels.Count - 1;
+        if (isLastLevel)
+        {
+            HandleAllLevelsComplete();
+            return;
+        }
+
+        controlDisplay?.ShowLevelTimedOut(currentLevelIndex + 1, timeoutMessageDuration);
+        StartCoroutine(AdvanceAfterTimeout());
+    }
+
+    IEnumerator AdvanceAfterTimeout()
+    {
+        yield return new WaitForSeconds(timeoutMessageDuration);
+        if (gameOver) yield break;
+
+        currentLevelIndex++;
+        LoadLevel(currentLevelIndex);
     }
 
     void LoadLevel(int index)
@@ -164,6 +225,7 @@ public class TemplateValidator : MonoBehaviour
             return;
         }
 
+        levelEnding = false;
         spawner.templateData = levels[index];
         spawner.BuildTemplate();
         SpawnBlocks();
@@ -249,7 +311,7 @@ public class TemplateValidator : MonoBehaviour
 
     public void CheckCompletion()
     {
-        if (gameOver) return;
+        if (gameOver || levelEnding) return;
 
         foreach (SnapSlot slot in spawner.spawnedSlots)
             if (!slot.isOccupied) return;
@@ -260,6 +322,7 @@ public class TemplateValidator : MonoBehaviour
             if (occupant != null && !occupant.FullyMatched) return;
         }
 
+        levelEnding = true;
         StopTimer();
         levelTimes.Add(elapsedTime);
 
@@ -274,17 +337,7 @@ public class TemplateValidator : MonoBehaviour
 
     IEnumerator AdvanceToNextLevel(bool isLastLevel)
     {
-        foreach (GameObject block in activeBlocks)
-        {
-            if (block == null) continue;
-            foreach (var mb in block.GetComponents<MonoBehaviour>())
-            {
-                if (mb == null) continue;
-                if (mb.GetType().Name.Contains("Interactable") ||
-                    mb.GetType().Name.Contains("Grabbable"))
-                    mb.enabled = false;
-            }
-        }
+        DisableBlockInteraction();
 
         if (isLastLevel)
         {
@@ -310,8 +363,7 @@ public class TemplateValidator : MonoBehaviour
 
     public void ResetLevel()
     {
-        if (gameOver) return;
-        StopTimer();
+        if (gameOver || levelEnding) return;
 
         foreach (GameObject block in activeBlocks)
             if (block != null) Destroy(block);
@@ -319,6 +371,6 @@ public class TemplateValidator : MonoBehaviour
 
         spawner.BuildTemplate();
         SpawnBlocks();
-        StartTimer();
+        // Level timer keeps running so a reset doesn't restart the 5-minute limit.
     }
 }

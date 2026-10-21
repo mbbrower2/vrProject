@@ -8,6 +8,10 @@ public class BalloonManager : MonoBehaviour
     public int CurrentBalloonCount => currentBalloonCount; 
     public int maxMissles;
 
+    [Header("Target")]
+    [SerializeField] private Transform target;
+    public Transform Target => target;
+
     // Update is called once per frame
     private void Awake()
     {
@@ -27,7 +31,7 @@ public class BalloonManager : MonoBehaviour
                 Random.Range(-10, 11)
             );
             GameObject newBalloon = Instantiate(balloon, randomSpawnPosition, Quaternion.identity);
-            newBalloon.GetComponent<Balloon>().SetTarget(Camera.main.transform); // <-- Set target here
+            newBalloon.GetComponent<Balloon>().SetTarget(target); // <-- Set target here
             RegisterBalloon();
         }
     }
