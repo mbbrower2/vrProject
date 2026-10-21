@@ -15,55 +15,64 @@ public class OscHandler : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-
-        Debug.Log("ABCD OCS HANDLER CREATED");
     }
 
     public void oscTransformation(bool bored)
     {
-        Debug.Log("ABCD message recevied");
         boredSignals.Add(bored);
-        
     }
 
     public Difficulty GetRecommendedDifficulty(Difficulty currentDifficulty)
     {
-        if (boredSignals.Count == 0)
-        {
-            // No messages received — cycle through difficulties in order
-            switch (currentDifficulty)
-            {
-                case Difficulty.Easy: return Difficulty.Medium;
-                case Difficulty.Medium: return Difficulty.Hard;
-                case Difficulty.Hard: return Difficulty.Easy;
-                default: return currentDifficulty;
-            }
-        }
-
         int boredCount = 0;
         foreach (bool b in boredSignals)
         {
             if (b) boredCount++;
         }
 
-        bool majorityBored = boredCount > boredSignals.Count / 2;
+        Difficulty recommended;
+        string reason;
 
-        if (majorityBored)
+        if (boredSignals.Count == 0)
+        {
+            // No messages received — cycle through difficulties in order
+            reason = "NoSignals";
+            switch (currentDifficulty)
+            {
+                case Difficulty.Easy: recommended = Difficulty.Medium; break;
+                case Difficulty.Medium: recommended = Difficulty.Hard; break;
+                case Difficulty.Hard: recommended = Difficulty.Easy; break;
+                default: recommended = currentDifficulty; break;
+            }
+        }
+        else if (boredCount > boredSignals.Count / 2)
         {
             // Player is bored — increase difficulty
-            if (currentDifficulty == Difficulty.Easy)
-                return Difficulty.Medium;
-            else
-                return Difficulty.Hard;
+            reason = "MajorityBored";
+            recommended = currentDifficulty == Difficulty.Easy
+                ? Difficulty.Medium
+                : Difficulty.Hard;
         }
         else
         {
-            // Player if im thinking too hard — decrease or keep same difficulty
-            if (currentDifficulty == Difficulty.Hard)
-                return Difficulty.Medium;
-            else
-                return Difficulty.Easy;
+            // Player is thinking too hard — decrease or keep same difficulty
+            reason = "MajorityNotBored";
+            recommended = currentDifficulty == Difficulty.Hard
+                ? Difficulty.Medium
+                : Difficulty.Easy;
         }
+
+        if (recommended != currentDifficulty)
+        {
+            AnalyticsManager.Instance?.DifficultyChanged(
+                currentDifficulty.ToString(),
+                recommended.ToString(),
+                reason,
+                boredCount,
+                boredSignals.Count);
+        }
+
+        return recommended;
     }
 
     public void ClearSignals()

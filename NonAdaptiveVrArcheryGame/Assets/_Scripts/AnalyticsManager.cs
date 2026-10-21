@@ -27,7 +27,6 @@ public class AnalyticsManager : MonoBehaviour
 
     async void Start()
     {
-
         // 1. Initialize core Unity Gaming Services
         await UnityServices.InitializeAsync();
 
@@ -35,39 +34,51 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.StartDataCollection();
 
         _isInitialized = true;
-
     }
 
     public void MovingToNextLevel(string currentScene, string nextScene)
     {
-        if (!_isInitialized)
-        {
-            return; // don't try to record if analytics isn't ready
-        }
+        if (!_isInitialized) return;
 
         CustomEvent myEvent = new CustomEvent("MovingToNextLevel")
         {
-            {"participantID", participantID},
-            { "currentScene", currentScene},
-            { "nextScene", nextScene}
+            { "participantID", participantID },
+            { "currentScene", currentScene },
+            { "nextScene", nextScene }
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);
         AnalyticsService.Instance.Flush();
     }
 
-    public void TargetHit(string currentScene, float accuracy )
+    // NOTE: register "GameEnded" and its parameters in the UGS Event Manager,
+    // otherwise the event will be rejected by validation.
+    public void GameEnded(string currentScene, string reason, float elapsedSeconds, int playNumber)
     {
-        if (!_isInitialized)
+        if (!_isInitialized) return;
+
+        CustomEvent myEvent = new CustomEvent("GameEnded")
         {
-            return; // don't try to record if analytics isn't ready
-        }
+            { "participantID", participantID },
+            { "currentScene", currentScene },
+            { "endReason", reason },
+            { "elapsedSeconds", elapsedSeconds },
+            { "playNumber", playNumber }
+        };
+
+        AnalyticsService.Instance.RecordEvent(myEvent);
+        AnalyticsService.Instance.Flush();
+    }
+
+    public void TargetHit(string currentScene, float accuracy)
+    {
+        if (!_isInitialized) return;
 
         CustomEvent myEvent = new CustomEvent("TargetHit")
         {
-            {"participantID", participantID},
-            { "currentScene", currentScene},
-            { "accuracy", accuracy}
+            { "participantID", participantID },
+            { "currentScene", currentScene },
+            { "accuracy", accuracy }
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);
@@ -76,39 +87,31 @@ public class AnalyticsManager : MonoBehaviour
 
     public void DrtTargetResponse(string currentScene, float timeElapsed)
     {
-        if (!_isInitialized)
-        {
-            return; // don't try to record if analytics isn't ready
-        }
+        if (!_isInitialized) return;
 
         CustomEvent myEvent = new CustomEvent("DrtTargetResponse")
         {
-            {"participantID", participantID},
-            { "currentScene", currentScene},
-            { "timeElapsed", timeElapsed}
+            { "participantID", participantID },
+            { "currentScene", currentScene },
+            { "timeElapsed", timeElapsed }
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);
         AnalyticsService.Instance.Flush();
     }
 
-    public void UpdateScore(string currentScene, float score )
+    public void UpdateScore(string currentScene, float score)
     {
-        if (!_isInitialized)
-        {
-            return; // don't try to record if analytics isn't ready
-        }
+        if (!_isInitialized) return;
 
         CustomEvent myEvent = new CustomEvent("UpdateScore")
         {
-            {"participantID", participantID},
-            { "currentScene", currentScene},
-            { "score", score}
+            { "participantID", participantID },
+            { "currentScene", currentScene },
+            { "score", score }
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);
         AnalyticsService.Instance.Flush();
     }
-
-
 }

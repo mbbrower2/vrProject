@@ -36,7 +36,9 @@ public class AnalyticsManager : MonoBehaviour
         _isInitialized = true;
     }
 
-    public void MovingToNextLevel(string currentLevel, string nextLevel, float timeElapsed)
+    // timedOut = true when the player was moved on automatically after the
+    // per-level time limit, false when they solved the puzzle.
+    public void MovingToNextLevel(string currentLevel, string nextLevel, float timeElapsed, bool timedOut)
     {
         if (!_isInitialized)
         {
@@ -45,15 +47,40 @@ public class AnalyticsManager : MonoBehaviour
 
         CustomEvent myEvent = new CustomEvent("MovingToNextLevel")
         {
-            {"participantID", participantID},
-            { "currentLevel", currentLevel},
-            { "nextLevel", nextLevel},
-            { "timeElapsed", timeElapsed}
+            { "participantID", participantID },
+            { "currentScene", currentLevel },
+            { "nextScene", nextLevel },
+            { "timeTaken", timeElapsed },
+            { "timedOut", timedOut }
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);
         AnalyticsService.Instance.Flush();
     }
+
+        // Sent once when a run ends, either by finishing the last level or by
+    // hitting the session time limit.
+    // endReason: "AllLevelsFinished" or "SessionTimeLimit".
+    public void SessionEnded(float totalTimePlayed, int puzzlesSeen, int puzzlesCompleted, string endReason)
+    {
+        if (!_isInitialized)
+        {
+            return; // don't try to record if analytics isn't ready
+        }
+ 
+        CustomEvent myEvent = new CustomEvent("SessionEnded")
+        {
+            { "participantID", participantID },
+            { "totalTimePlayed", totalTimePlayed },
+            { "puzzlesSeen", puzzlesSeen },
+            { "puzzlesCompleted", puzzlesCompleted },
+            { "endReason", endReason }
+        };
+ 
+        AnalyticsService.Instance.RecordEvent(myEvent);
+        AnalyticsService.Instance.Flush();
+    }
+
 
     public void DrtTargetResponse(string currentScene, float timeElapsed)
     {
@@ -62,15 +89,14 @@ public class AnalyticsManager : MonoBehaviour
             return; // don't try to record if analytics isn't ready
         }
 
-        CustomEvent myEvent = new CustomEvent("DrtTargetResponse")
+        CustomEvent myEvent = new CustomEvent("DrtTargetResponseTime")
         {
-            {"participantID", participantID},
-            { "currentScene", currentScene},
-            { "timeElapsed", timeElapsed}
+            { "participantID", participantID },
+            { "currentScene", currentScene },
+            { "responseTime", timeElapsed }
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);
         AnalyticsService.Instance.Flush();
     }
-
 }

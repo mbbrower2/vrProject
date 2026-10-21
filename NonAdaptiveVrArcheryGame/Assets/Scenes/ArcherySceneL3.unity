@@ -1480,7 +1480,7 @@ GameObject:
   - component: {fileID: 245682787}
   - component: {fileID: 245682786}
   - component: {fileID: 245682785}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -2513,7 +2513,7 @@ GameObject:
   - component: {fileID: 407202105}
   - component: {fileID: 407202104}
   - component: {fileID: 407202103}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: XR Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5756,7 +5756,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 780969545}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5868,9 +5868,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 800506842}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Camera Offset
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5900,7 +5900,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 801402739}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7802,7 +7802,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1089219570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AttachPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14765,6 +14765,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1271060379266661553, guid: bbef4177d645542b9a8ecc9d4404775a,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 800506842}
+    - target: {fileID: -1271060379266661553, guid: bbef4177d645542b9a8ecc9d4404775a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4489602603293644019, guid: bbef4177d645542b9a8ecc9d4404775a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14819,6 +14829,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BalloonManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7239621418074786461, guid: bbef4177d645542b9a8ecc9d4404775a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Missile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

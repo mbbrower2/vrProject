@@ -16,6 +16,10 @@ public class TemplateValidator : MonoBehaviour
     public List<TemplateData> easyLevels = new List<TemplateData>();
     public List<TemplateData> mediumLevels = new List<TemplateData>();
     public List<TemplateData> hardLevels = new List<TemplateData>();
+    public float totalTimeLimit = 900f;
+
+    [Tooltip("Seconds allowed on a single level before automatically moving on. 0 = no limit.")]
+    public float levelTimeLimit = 300f;
 
     [Header("Timer")]
     public TextMeshProUGUI timerText;
@@ -33,13 +37,29 @@ public class TemplateValidator : MonoBehaviour
     private AudioSource audioSource;
     private ControlDisplay controlDisplay;
     private List<GameObject> activeBlocks = new List<GameObject>();
-    private float elapsedTime = 0f;
+    private float elapsedTime = 0f;      // time on the current level
+    private float totalElapsed = 0f;     // time across the whole session
     private bool timerRunning = false;
+    private bool gameOver = false;
+    private bool awaitingNextLevel = false;
     private List<float> levelTimes = new List<float>();
+    private HashSet<int> timedOutLevels = new HashSet<int>(); // 1-based level numbers
     private TemplateData currentLevel;
     public TemplateData CurrentLevel => currentLevel;
     private Difficulty currentDifficulty;
     private Dictionary<Difficulty, List<TemplateData>> levelPools;
+
+    // Session analytics
+    private HashSet<TemplateData> seenLevels = new HashSet<TemplateData>();
+    private bool sessionReported = false;
+
+    // 0-based index of the level currently being played
+    private int currentLevelIndex => levelTimes.Count;
+    public int TotalLevelCount => easyLevels.Count + mediumLevels.Count + hardLevels.Count;
+    public bool WasLevelTimedOut(int levelNumber) => timedOutLevels.Contains(levelNumber);
+
+    // Levels finished by actually solving them (not by timing out)
+    int CompletedLevelCount => levelTimes.Count - timedOutLevels.Count;
 
     void Awake()
     {
@@ -50,6 +70,13 @@ public class TemplateValidator : MonoBehaviour
     void OnEnable()
     {
         levelTimes.Clear();
+        timedOutLevels.Clear();
+        seenLevels.Clear();
+        sessionReported = false;
+        totalElapsed = 0f;
+        gameOver = false;
+        awaitingNextLevel = false;
+
         levelPools = new Dictionary<Difficulty, List<TemplateData>>
         {
             { Difficulty.Easy, new List<TemplateData>(easyLevels) },
@@ -64,19 +91,80 @@ public class TemplateValidator : MonoBehaviour
     void OnDisable()
     {
         StopTimer();
+        // Disabling a component does not stop its coroutines, so do it explicitly
+        // (otherwise a pending AdvanceToNextLevel can fire after a restart).
+        StopAllCoroutines();
     }
 
     void Update()
     {
+        if (gameOver) return;
+
+        totalElapsed += Time.deltaTime;
+
         if (timerRunning)
         {
             elapsedTime += Time.deltaTime;
             UpdateTimerDisplay();
         }
 
+        if (totalTimeLimit > 0f && totalElapsed >= totalTimeLimit)
+        {
+            TriggerGameOver();
+            return;
+        }
+
+        // Per-level limit: move on automatically after levelTimeLimit seconds
+        if (levelTimeLimit > 0f && timerRunning && !awaitingNextLevel && elapsedTime >= levelTimeLimit)
+        {
+            LevelTimedOut();
+            return;
+        }
+
         // Y button to reset current level
-        if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
+        if (!awaitingNextLevel && OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
             ResetLevel();
+    }
+
+    void LevelTimedOut()
+    {
+        Debug.Log($"Level timed out after {levelTimeLimit}s: {currentLevel?.templateName} ({currentDifficulty})");
+
+        StopTimer();
+        elapsedTime = levelTimeLimit;
+        UpdateTimerDisplay();
+
+        levelTimes.Add(elapsedTime);
+        timedOutLevels.Add(levelTimes.Count);
+
+        controlDisplay?.ShowLevelTimedOut(levelTimes.Count, TotalLevelCount, levelTimes);
+
+        StartCoroutine(AdvanceToNextLevel());
+    }
+
+    void TriggerGameOver()
+    {
+        if (gameOver) return;
+        gameOver = true;
+        StopTimer();
+        StopAllCoroutines();
+
+        DisableBlockInteraction();
+
+        ReportSessionEnd("SessionTimeLimit");
+
+        controlDisplay?.ShowGameOver(levelTimes, currentLevelIndex + 1, TotalLevelCount);
+    }
+
+    void ReportSessionEnd(string endReason)
+    {
+        if (sessionReported) return;
+        sessionReported = true;
+
+        Debug.Log($"Session ended ({endReason}): {totalElapsed:F1}s played, " +
+                  $"{seenLevels.Count} puzzles seen, {CompletedLevelCount} completed");
+
+        AnalyticsManager.Instance?.SessionEnded(totalElapsed, seenLevels.Count, CompletedLevelCount, endReason);
     }
 
     void StartTimer()
@@ -126,7 +214,6 @@ public class TemplateValidator : MonoBehaviour
     void LoadNextLevel()
     {
         currentLevel = PickLevelFromDifficulty(currentDifficulty);
-        Debug.Log("ABCD currentLevel difficulty is " + currentLevel);
         if (currentLevel == null)
         {
             HandleAllLevelsComplete();
@@ -138,12 +225,15 @@ public class TemplateValidator : MonoBehaviour
 
     void LoadLevel()
     {
-        Debug.Log($"ABCD Loading level: {currentLevel.templateName} ({currentDifficulty})");
+        Debug.Log($"Loading level: {currentLevel.templateName} ({currentDifficulty})");
+
+        seenLevels.Add(currentLevel);
 
         spawner.templateData = currentLevel;
         spawner.BuildTemplate();
 
         SpawnBlocks();
+        awaitingNextLevel = false;
         StartTimer();
     }
 
@@ -223,6 +313,9 @@ public class TemplateValidator : MonoBehaviour
 
     public void CheckCompletion()
     {
+        // Ignore late snaps after a timeout / completion / game over
+        if (gameOver || awaitingNextLevel) return;
+
         foreach (SnapSlot slot in spawner.spawnedSlots)
         {
             if (!slot.isOccupied)
@@ -246,11 +339,10 @@ public class TemplateValidator : MonoBehaviour
         StopTimer();
         levelTimes.Add(elapsedTime);
 
-        int totalLevels = easyLevels.Count + mediumLevels.Count + hardLevels.Count;
         controlDisplay?.ShowLevelComplete(
             levelTimes.Count,
             elapsedTime,
-            totalLevels,
+            TotalLevelCount,
             levelTimes);
 
         if (completionSound != null && audioSource != null)
@@ -259,9 +351,8 @@ public class TemplateValidator : MonoBehaviour
         StartCoroutine(AdvanceToNextLevel());
     }
 
-    IEnumerator AdvanceToNextLevel()
+    void DisableBlockInteraction()
     {
-        // Lock all blocks
         foreach (GameObject block in activeBlocks)
         {
             if (block == null) continue;
@@ -273,6 +364,12 @@ public class TemplateValidator : MonoBehaviour
                     mb.enabled = false;
             }
         }
+    }
+
+    IEnumerator AdvanceToNextLevel()
+    {
+        awaitingNextLevel = true;
+        DisableBlockInteraction();
 
         yield return new WaitForSeconds(delayBeforeNextLevel);
 
@@ -288,9 +385,18 @@ public class TemplateValidator : MonoBehaviour
 
         // Peek at the next level for analytics before loading
         string currentLevelName = currentLevel != null ? currentLevel.templateName : "None";
+        string currentLevelDifficulty = currentLevel != null ? GetDifficultyForLevel(currentLevel).ToString() : "None";
         TemplateData nextLevel = PickLevelFromDifficulty(currentDifficulty);
         string nextLevelName = nextLevel != null ? nextLevel.templateName : "None";
-        AnalyticsManager.Instance.MovingToNextLevel(currentLevelName, nextLevelName, elapsedTime);
+        // Use the level's actual pool rather than currentDifficulty, because
+        // PickLevelFromDifficulty falls back to another pool when one runs out.
+        string nextLevelDifficulty = nextLevel != null ? GetDifficultyForLevel(nextLevel).ToString() : "None";
+        // The level that just ended is the last entry in levelTimes (1-based number = Count)
+        bool currentLevelTimedOut = timedOutLevels.Contains(levelTimes.Count);
+        AnalyticsManager.Instance?.MovingToNextLevel(
+            currentLevelName, currentLevelDifficulty,
+            nextLevelName, nextLevelDifficulty,
+            elapsedTime, currentLevelTimedOut);
 
         if (nextLevel == null)
         {
@@ -305,13 +411,18 @@ public class TemplateValidator : MonoBehaviour
     void HandleAllLevelsComplete()
     {
         Debug.Log("All levels complete!");
+        gameOver = true;
+        StopTimer();
 
         for (int i = 0; i < levelTimes.Count; i++)
         {
             int mins = Mathf.FloorToInt(levelTimes[i] / 60f);
             int secs = Mathf.FloorToInt(levelTimes[i] % 60f);
-            Debug.Log($"  Level {i + 1}: {mins:00}:{secs:00}");
+            string tag = timedOutLevels.Contains(i + 1) ? " (timed out)" : "";
+            Debug.Log($"  Level {i + 1}: {mins:00}:{secs:00}{tag}");
         }
+
+        ReportSessionEnd("AllLevelsFinished");
 
         controlDisplay?.ShowEndScreen(levelTimes);
         onAllLevelsComplete?.Invoke();
@@ -319,7 +430,7 @@ public class TemplateValidator : MonoBehaviour
 
     public void ResetLevel()
     {
-        StopTimer();
+        if (gameOver || awaitingNextLevel) return;
 
         foreach (GameObject block in activeBlocks)
             if (block != null) Destroy(block);
@@ -335,7 +446,8 @@ public class TemplateValidator : MonoBehaviour
 
         spawner.BuildTemplate();
         SpawnBlocks();
-        StartTimer();
+        // The level timer keeps running through a reset so the
+        // per-level time limit can't be dodged by resetting.
 
         Debug.Log($"Level reset: {currentLevel?.templateName}");
     }

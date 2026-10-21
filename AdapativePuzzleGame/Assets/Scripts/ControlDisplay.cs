@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using Oculus.Interaction;
 
 public class ControlDisplay : MonoBehaviour
@@ -18,6 +19,7 @@ public class ControlDisplay : MonoBehaviour
     private bool gameStarted = false;
     private bool gameEnded = false;
     private CanvasGroup canvasGroup;
+    private Coroutine fadeRoutine;
 
     void Start()
     {
@@ -67,31 +69,57 @@ public class ControlDisplay : MonoBehaviour
             "  <b>Press A to Start</b>";
     }
 
-    // Called by TemplateValidator after each level completes
+    // ---------- Shared helpers ----------
+
+    void ShowCanvas()
+    {
+        // Cancel any fade still running so it can't hide the screen we're about to show
+        if (fadeRoutine != null)
+        {
+            StopCoroutine(fadeRoutine);
+            fadeRoutine = null;
+        }
+        if (canvasGroup != null) canvasGroup.alpha = 1f;
+        instructionCanvas.gameObject.SetActive(true);
+    }
+
+    bool IsTimedOut(int levelNumber)
+    {
+        return templateValidator != null && templateValidator.WasLevelTimedOut(levelNumber);
+    }
+
+    string FormatTime(float t)
+    {
+        int m = Mathf.FloorToInt(t / 60f);
+        int s = Mathf.FloorToInt(t % 60f);
+        return $"{m:00}:{s:00}";
+    }
+
+    string FormatLevelTimes(List<float> times)
+    {
+        var sb = new StringBuilder();
+        for (int i = 0; i < times.Count; i++)
+        {
+            sb.Append($"  Level {i + 1}: {FormatTime(times[i])}");
+            if (IsTimedOut(i + 1)) sb.Append("  <i>(timed out)</i>");
+            sb.Append('\n');
+        }
+        return sb.ToString();
+    }
+
+    // ---------- Screens called by TemplateValidator ----------
+
+    // Called after each level completes
     public void ShowLevelComplete(int levelIndex, float levelTime, int totalLevels, List<float> allTimes)
     {
         if (instructionText == null) return;
-
-        // Make canvas visible again if it was hidden
-        if (canvasGroup != null) canvasGroup.alpha = 1f;
-        instructionCanvas.gameObject.SetActive(true);
-
-        int mins = Mathf.FloorToInt(levelTime / 60f);
-        int secs = Mathf.FloorToInt(levelTime % 60f);
+        ShowCanvas();
 
         string text = $"<size=120%><b>Level {levelIndex} Complete!</b></size>\n\n" +
-                      $"Time: <b>{mins:00}:{secs:00}</b>\n\n";
+                      $"Time: <b>{FormatTime(levelTime)}</b>\n\n";
 
         if (allTimes.Count > 1)
-        {
-            text += "<b>Level Times:</b>\n";
-            for (int i = 0; i < allTimes.Count; i++)
-            {
-                int m = Mathf.FloorToInt(allTimes[i] / 60f);
-                int s = Mathf.FloorToInt(allTimes[i] % 60f);
-                text += $"  Level {i + 1}: {m:00}:{s:00}\n";
-            }
-        }
+            text += "<b>Level Times:</b>\n" + FormatLevelTimes(allTimes);
 
         if (levelIndex < totalLevels)
             text += "\n-------------------------\n<b>Now you move onto this next level</b>";
@@ -99,36 +127,64 @@ public class ControlDisplay : MonoBehaviour
         instructionText.text = text;
     }
 
+    // Called when the per-level time limit runs out
+    public void ShowLevelTimedOut(int levelIndex, int totalLevels, List<float> allTimes)
+    {
+        if (instructionText == null) return;
+        ShowCanvas();
+
+        string text = $"<size=120%><b>Level {levelIndex}: Time's Up</b></size>\n\n";
+
+        if (allTimes.Count > 1)
+            text += "<b>Level Times:</b>\n" + FormatLevelTimes(allTimes);
+
+        if (levelIndex < totalLevels)
+            text += "\n-------------------------\n<b>Moving on to the next level</b>";
+
+        instructionText.text = text;
+    }
+
+    public void ShowGameOver(List<float> completedTimes, int reachedLevel, int totalLevels)
+    {
+        if (instructionText == null) return;
+        ShowCanvas();
+        gameEnded = true;
+
+        int solved = 0;
+        for (int i = 0; i < completedTimes.Count; i++)
+            if (!IsTimedOut(i + 1)) solved++;
+
+        string progress = completedTimes.Count == 0
+            ? "No levels completed.\n"
+            : $"Completed {solved}/{totalLevels} levels.\n\n" +
+              "<b>Times:</b>\n" + FormatLevelTimes(completedTimes);
+
+        instructionText.text =
+            "<size=130%><b>Time's Up!</b></size>\n\n" +
+            progress +
+            "\n-----------------------------\n" +
+            "  <b>Press A to Try Again</b>";
+    }
+
     public void ShowEndScreen(List<float> allTimes)
     {
         if (instructionText == null) return;
-
-        if (canvasGroup != null) canvasGroup.alpha = 1f;
-        instructionCanvas.gameObject.SetActive(true);
-
+        ShowCanvas();
         gameEnded = true;
 
         float total = 0f;
-        string timesText = "";
-        for (int i = 0; i < allTimes.Count; i++)
-        {
-            total += allTimes[i];
-            int m = Mathf.FloorToInt(allTimes[i] / 60f);
-            int s = Mathf.FloorToInt(allTimes[i] % 60f);
-            timesText += $"  Level {i + 1}: {m:00}:{s:00}\n";
-        }
-
-        int totalMins = Mathf.FloorToInt(total / 60f);
-        int totalSecs = Mathf.FloorToInt(total % 60f);
+        foreach (float t in allTimes) total += t;
 
         instructionText.text =
             "<size=130%><b>All Done!</b></size>\n\n" +
             "<b>Level Times:</b>\n" +
-            timesText +
-            $"\n<b>Total: {totalMins:00}:{totalSecs:00}</b>\n\n" +
+            FormatLevelTimes(allTimes) +
+            $"\n<b>Total: {FormatTime(total)}</b>\n\n" +
             "-------------------------\n" +
             "  <b>Press A to Play Again</b> ";
     }
+
+    // ---------- Game flow ----------
 
     void StartGame()
     {
@@ -138,16 +194,15 @@ public class ControlDisplay : MonoBehaviour
         if (templateValidator != null)
             templateValidator.enabled = true;
 
-        StartCoroutine(FadeOutCanvas());
+        fadeRoutine = StartCoroutine(FadeOutCanvas());
     }
 
     void RestartGame()
     {
         gameEnded = false;
-        gameStarted = false;
+        gameStarted = true; // restart goes straight into play
 
-        // Hide canvas, re-show instructions, restart validator
-        StartCoroutine(FadeOutCanvas());
+        fadeRoutine = StartCoroutine(FadeOutCanvas());
 
         if (templateValidator != null)
         {
@@ -167,5 +222,6 @@ public class ControlDisplay : MonoBehaviour
             yield return null;
         }
         instructionCanvas.gameObject.SetActive(false);
+        fadeRoutine = null;
     }
 }

@@ -73,6 +73,6 @@ MonoBehaviour:
   _closeOnPause: 0
   _mapBundle: {fileID: 0}
   _workInEditor: 0
-  _localHostMode: 1
+  _localHostMode: 0
   _localHost: 10.5.9.139
   _localPort: 7000

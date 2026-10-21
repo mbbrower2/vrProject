@@ -110,7 +110,7 @@ public class AnalyticsManager : MonoBehaviour
 
     public void UpdateSpeed(string currentScene ,float speed)
     {
-                if (!_isInitialized)
+        if (!_isInitialized)
         {
             return; // don't try to record if analytics isn't ready
         }
@@ -128,7 +128,7 @@ public class AnalyticsManager : MonoBehaviour
 
     public void UpdateSize(string currentScene ,float size)
     {
-                if (!_isInitialized)
+        if (!_isInitialized)
         {
             return; // don't try to record if analytics isn't ready
         }
@@ -144,9 +144,9 @@ public class AnalyticsManager : MonoBehaviour
         AnalyticsService.Instance.Flush();
     }
 
-        public void UpdateMaxMissiles(string currentScene ,int numMissles)
+    public void UpdateMaxMissiles(string currentScene ,int numMissles)
     {
-                if (!_isInitialized)
+        if (!_isInitialized)
         {
             return; // don't try to record if analytics isn't ready
         }
@@ -156,6 +156,26 @@ public class AnalyticsManager : MonoBehaviour
             {"participantID", participantID},
             { "currentScene", currentScene},
             { "numMissiles", numMissles}
+        };
+
+        AnalyticsService.Instance.RecordEvent(myEvent);
+        AnalyticsService.Instance.Flush();
+    }
+
+    public void GameEnded(string currentScene, string reason, float elapsedSeconds, float finalScore)
+    {
+        if (!_isInitialized)
+        {
+            return; // don't try to record if analytics isn't ready
+        }
+
+        CustomEvent myEvent = new CustomEvent("GameEnded")
+        {
+            {"participantID", participantID},
+            { "currentScene", currentScene},
+            { "reason", reason},          // "TimeLimit" or "LastLevelRuns"
+            { "elapsedSeconds", elapsedSeconds},
+            { "finalScore", finalScore}
         };
 
         AnalyticsService.Instance.RecordEvent(myEvent);

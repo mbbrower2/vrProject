@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7350149375304336439}
   - component: {fileID: 9055638563639907839}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WaterStream
   m_TagString: Untagged
   m_Icon: {fileID: 0}

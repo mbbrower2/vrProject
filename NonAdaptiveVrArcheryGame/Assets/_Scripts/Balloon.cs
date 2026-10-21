@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class Balloon : MonoBehaviour
 {
+
+[Header("Target")]
 [SerializeField] private Transform target;
+
 
 [Header("References")]
 [SerializeField] private Rigidbody rb;
 [SerializeField] private GameObject _explosionPrefab;
 
 [Header("Movement")]
-[SerializeField] private float speed = 15f;
+[SerializeField] private float speed = 10f;
 [SerializeField] private float rotateSpeed = 300f;
 
 [Header("Prediction")]
@@ -122,6 +125,12 @@ private void OnCollisionEnter(Collision collision)
         BalloonManager.Instance.ReportBalloonDown();
         return;
     }
+}
+
+public void HitByProjectile() {
+    Destroy(gameObject);
+    GameManager.Instance.PlayerScored(scoreForProjectile);
+    BalloonManager.Instance.ReportBalloonDown();
 }
 
 private void Explode()
