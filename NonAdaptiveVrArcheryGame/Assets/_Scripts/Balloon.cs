@@ -9,7 +9,7 @@ public class Balloon : MonoBehaviour
 [SerializeField] private GameObject _explosionPrefab;
 
 [Header("Movement")]
-[SerializeField] private float speed = 15f;
+[SerializeField] private float speed = 10f;
 [SerializeField] private float rotateSpeed = 300f;
 
 [Header("Prediction")]

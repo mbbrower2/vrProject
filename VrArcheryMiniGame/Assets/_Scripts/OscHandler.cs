@@ -61,6 +61,7 @@ public class OscHandler : MonoBehaviour
             case GameManager.GameScene.L2:
                 if (TargetManager.Instance.Size > GameManager.Instance.MinSize)
                 {
+                    Debug.Log("ABCD CURR size and min size " + TargetManager.Instance.Size + " " + GameManager.Instance.MinSize);
                     float updateTargetSize = TargetManager.Instance.Size * 0.75f;
                     TargetManager.Instance.SetSize(updateTargetSize);
                     AnalyticsManager.Instance.UpdateSize(GameManager.Instance.GetCurrentSceneName(), updateTargetSize);
@@ -160,7 +161,7 @@ public class OscHandler : MonoBehaviour
     private void RepeatOrAdvance()
     {
         var current = GameManager.Instance.GetCurrentScene();
-
+        Debug.Log("ABCD PLAY COUNT " + GameManager.Instance.GetPlayCount(current));
         if (GameManager.Instance.HasReachedMaxPlays(current))
             TryNextLevel();
         else

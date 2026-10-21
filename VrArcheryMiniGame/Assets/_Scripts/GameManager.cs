@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int lastLevelRuns = 3;
     [Tooltip("The game ends this many minutes after the first level starts.")]
     [SerializeField] private float sessionLengthMinutes = 15f;
-    [Tooltip("Scene to load when the game ends. Must be added to Build Settings.")]
-    [SerializeField] private string endSceneName = "EndScene";
+    [Tooltip("Seconds to wait after the game ends before quitting, so the final analytics event can upload.")]
+    [SerializeField] private float quitDelaySeconds = 2f;
 
     private bool timerStarted = false;
     private float sessionStartTime;
@@ -129,7 +129,22 @@ public class GameManager : MonoBehaviour
 
         AnalyticsManager.Instance.GameEnded(GetCurrentSceneName(), reason, ElapsedSessionTime, score);
 
-        SceneManager.LoadScene(endSceneName);
+        // Freeze gameplay (targets, missiles, physics) while analytics uploads
+        Time.timeScale = 0f;
+
+        StartCoroutine(QuitAfterDelay());
+    }
+
+    private System.Collections.IEnumerator QuitAfterDelay()
+    {
+        // Realtime so it still runs while timeScale is 0
+        yield return new WaitForSecondsRealtime(quitDelaySeconds);
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // stop Play mode in the editor
+#else
+        Application.Quit(); // close the app in a build
+#endif
     }
 
     // ---------- Scene settings ----------
