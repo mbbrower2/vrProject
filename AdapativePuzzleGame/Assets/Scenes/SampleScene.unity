@@ -730,6 +730,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3380460ec645ab48934c2d0790b90a4, type: 2}
   hardLevels:
   - {fileID: 11400000, guid: accfff26181c8ec4e9e6c1d96de3d1b1, type: 2}
+  totalTimeLimit: 900
+  levelTimeLimit: 300
   timerText: {fileID: 791334058}
   blockBasePrefab: {fileID: 1125414273320052687, guid: dbf36bc015c22f140b7d66bfa659f84e, type: 3}
   blockSpawns:
@@ -1199,7 +1201,7 @@ MonoBehaviour:
   _mapBundle: {fileID: 0}
   _workInEditor: 0
   _localHostMode: 1
-  _localHost: 192.168.1.248
+  _localHost: 10.5.9.139
   _localPort: 7000
 --- !u!114 &566283708
 MonoBehaviour:
@@ -1220,7 +1222,7 @@ MonoBehaviour:
   _localHostMode: 1
   _localPortMode: 2
   _localReceiver: {fileID: 0}
-  _localHost: 192.168.1.248
+  _localHost: 10.5.9.139
   _localPort: 7000
   _remoteHost: 127.0.0.1
   _remotePort: 7000

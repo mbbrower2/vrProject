@@ -34,6 +34,13 @@ public class TemplateValidator : MonoBehaviour
     }
     public List<BlockSpawnInfo> blockSpawns = new List<BlockSpawnInfo>();
 
+    [Header("Debug")]
+    public bool debugLogs = true;
+    [Tooltip("Seconds between periodic status logs. 0 = off.")]
+    public float statusLogInterval = 10f;
+    private float statusLogTimer = 0f;
+    private const string LogTag = "[TemplateValidator]";
+
     private AudioSource audioSource;
     private ControlDisplay controlDisplay;
     private List<GameObject> activeBlocks = new List<GameObject>();
@@ -61,19 +68,76 @@ public class TemplateValidator : MonoBehaviour
     // Levels finished by actually solving them (not by timing out)
     int CompletedLevelCount => levelTimes.Count - timedOutLevels.Count;
 
+    // ---------- Debug helpers ----------
+
+    void Log(string msg)
+    {
+        if (debugLogs) Debug.Log($"ABCD {LogTag} [f{Time.frameCount} t={Time.time:F2}] {msg}", this);
+    }
+
+    void LogWarn(string msg)
+    {
+        if (debugLogs) Debug.LogWarning($"ABCD {LogTag} [f{Time.frameCount} t={Time.time:F2}] {msg}", this);
+    }
+
+    string PoolSummary()
+    {
+        if (levelPools == null) return "(pools not built yet)";
+        int e = levelPools.ContainsKey(Difficulty.Easy) ? levelPools[Difficulty.Easy].Count : -1;
+        int m = levelPools.ContainsKey(Difficulty.Medium) ? levelPools[Difficulty.Medium].Count : -1;
+        int h = levelPools.ContainsKey(Difficulty.Hard) ? levelPools[Difficulty.Hard].Count : -1;
+        return $"Easy={e} Medium={m} Hard={h}";
+    }
+
+    string StateSummary()
+    {
+        int occupied = 0, total = 0;
+        if (spawner != null)
+        {
+            total = spawner.spawnedSlots.Count;
+            foreach (var s in spawner.spawnedSlots)
+                if (s != null && s.isOccupied) occupied++;
+        }
+        return $"level='{currentLevel?.templateName}' diff={currentDifficulty} " +
+               $"levelTime={elapsedTime:F1}s total={totalElapsed:F1}s timerRunning={timerRunning} " +
+               $"awaitingNextLevel={awaitingNextLevel} gameOver={gameOver} enabled={enabled} " +
+               $"slots={occupied}/{total} levelsDone={levelTimes.Count} pools[{PoolSummary()}]";
+    }
+
+    // ---------- Lifecycle ----------
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         controlDisplay = FindAnyObjectByType<ControlDisplay>();
+
+        int validatorCount = FindObjectsByType<TemplateValidator>(FindObjectsInactive.Include, FindObjectsSortMode.None).Length;
+        Log($"Awake on '{gameObject.name}' (id {GetInstanceID()}). " +
+            $"spawner={(spawner != null ? spawner.name : "NULL")}, " +
+            $"controlDisplay={(controlDisplay != null ? "found" : "NULL")}, " +
+            $"audioSource={(audioSource != null ? "found" : "NULL")}, " +
+            $"blockBasePrefab={(blockBasePrefab != null ? blockBasePrefab.name : "NULL")}, " +
+            $"levels: easy={easyLevels.Count} medium={mediumLevels.Count} hard={hardLevels.Count}, " +
+            $"TemplateValidators in scene={validatorCount}");
+
+        if (validatorCount > 1)
+            LogWarn($"There are {validatorCount} TemplateValidators in the scene. BlockSpawner uses FindAnyObjectByType, " +
+                    "so CheckCompletion may be going to the wrong one.");
+        if (spawner == null)
+            Debug.LogError($"{LogTag} spawner is not assigned!", this);
     }
 
     void OnEnable()
     {
+        Log($"OnEnable - starting a new session. OscHandler.Instance={(OscHandler.Instance != null ? "found" : "NULL")}, " +
+            $"AnalyticsManager.Instance={(AnalyticsManager.Instance != null ? "found" : "NULL")}");
+
         levelTimes.Clear();
         timedOutLevels.Clear();
         seenLevels.Clear();
         sessionReported = false;
         totalElapsed = 0f;
+        statusLogTimer = 0f;
         gameOver = false;
         awaitingNextLevel = false;
 
@@ -84,12 +148,15 @@ public class TemplateValidator : MonoBehaviour
             { Difficulty.Hard, new List<TemplateData>(hardLevels) }
         };
         currentDifficulty = Difficulty.Easy;
+        Log($"Pools built: {PoolSummary()}");
+
         OscHandler.Instance?.ClearSignals();
         LoadNextLevel();
     }
 
     void OnDisable()
     {
+        Log($"OnDisable - stopping timer and all coroutines. State: {StateSummary()}");
         StopTimer();
         // Disabling a component does not stop its coroutines, so do it explicitly
         // (otherwise a pending AdvanceToNextLevel can fire after a restart).
@@ -98,6 +165,16 @@ public class TemplateValidator : MonoBehaviour
 
     void Update()
     {
+        if (debugLogs && statusLogInterval > 0f)
+        {
+            statusLogTimer += Time.deltaTime;
+            if (statusLogTimer >= statusLogInterval)
+            {
+                statusLogTimer = 0f;
+                Log($"Status: {StateSummary()}");
+            }
+        }
+
         if (gameOver) return;
 
         totalElapsed += Time.deltaTime;
@@ -110,6 +187,7 @@ public class TemplateValidator : MonoBehaviour
 
         if (totalTimeLimit > 0f && totalElapsed >= totalTimeLimit)
         {
+            Log($"Total time limit reached ({totalTimeLimit}s)");
             TriggerGameOver();
             return;
         }
@@ -123,12 +201,15 @@ public class TemplateValidator : MonoBehaviour
 
         // Y button to reset current level
         if (!awaitingNextLevel && OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
+        {
+            Log("Y pressed - resetting level");
             ResetLevel();
+        }
     }
 
     void LevelTimedOut()
     {
-        Debug.Log($"Level timed out after {levelTimeLimit}s: {currentLevel?.templateName} ({currentDifficulty})");
+        Log($"Level timed out after {levelTimeLimit}s: {currentLevel?.templateName} ({currentDifficulty})");
 
         StopTimer();
         elapsedTime = levelTimeLimit;
@@ -139,12 +220,13 @@ public class TemplateValidator : MonoBehaviour
 
         controlDisplay?.ShowLevelTimedOut(levelTimes.Count, TotalLevelCount, levelTimes);
 
-        StartCoroutine(AdvanceToNextLevel());
+        StartAdvance("LevelTimedOut");
     }
 
     void TriggerGameOver()
     {
-        if (gameOver) return;
+        if (gameOver) { LogWarn("TriggerGameOver called but gameOver is already true"); return; }
+        Log($"TriggerGameOver. State: {StateSummary()}");
         gameOver = true;
         StopTimer();
         StopAllCoroutines();
@@ -161,8 +243,8 @@ public class TemplateValidator : MonoBehaviour
         if (sessionReported) return;
         sessionReported = true;
 
-        Debug.Log($"Session ended ({endReason}): {totalElapsed:F1}s played, " +
-                  $"{seenLevels.Count} puzzles seen, {CompletedLevelCount} completed");
+        Log($"Session ended ({endReason}): {totalElapsed:F1}s played, " +
+            $"{seenLevels.Count} puzzles seen, {CompletedLevelCount} completed");
 
         AnalyticsManager.Instance?.SessionEnded(totalElapsed, seenLevels.Count, CompletedLevelCount, endReason);
     }
@@ -171,10 +253,12 @@ public class TemplateValidator : MonoBehaviour
     {
         elapsedTime = 0f;
         timerRunning = true;
+        Log("Level timer started");
     }
 
     void StopTimer()
     {
+        if (timerRunning) Log($"Level timer stopped at {elapsedTime:F2}s");
         timerRunning = false;
     }
 
@@ -186,66 +270,101 @@ public class TemplateValidator : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    TemplateData PickLevelFromDifficulty(Difficulty difficulty)
+    // Picks a random level from the target difficulty. If that pool is empty,
+    // falls back to the NEAREST difficulty that still has levels. When two pools
+    // are equally near (Medium requested, both Easy and Hard available), it goes
+    // in the direction the difficulty was moving: harder if target >= previous,
+    // easier otherwise. pickedFrom is the pool the level actually came from.
+    TemplateData PickLevelFromDifficulty(Difficulty target, Difficulty previous, out Difficulty pickedFrom)
     {
-        // Try the requested difficulty first
-        if (levelPools.ContainsKey(difficulty) && levelPools[difficulty].Count > 0)
+        pickedFrom = target;
+        Log($"PickLevelFromDifficulty(target={target}, previous={previous}). Pools before: {PoolSummary()}");
+
+        bool preferHarder = (int)target >= (int)previous;
+        int min = (int)Difficulty.Easy;
+        int max = (int)Difficulty.Hard;
+
+        // Search order: target first, then outward by distance
+        List<Difficulty> searchOrder = new List<Difficulty> { target };
+        for (int dist = 1; dist <= max - min; dist++)
         {
-            List<TemplateData> candidates = levelPools[difficulty];
+            int harder = (int)target + dist;
+            int easier = (int)target - dist;
+            int first = preferHarder ? harder : easier;
+            int second = preferHarder ? easier : harder;
+            if (first >= min && first <= max) searchOrder.Add((Difficulty)first);
+            if (second >= min && second <= max) searchOrder.Add((Difficulty)second);
+        }
+
+        foreach (Difficulty diff in searchOrder)
+        {
+            if (!levelPools.ContainsKey(diff) || levelPools[diff].Count == 0) continue;
+
+            List<TemplateData> candidates = levelPools[diff];
             TemplateData picked = candidates[Random.Range(0, candidates.Count)];
             candidates.Remove(picked);
+            pickedFrom = diff;
+
+            if (picked == null)
+                LogWarn($"Picked a NULL level from the {diff} pool - check for empty entries in the level lists");
+            if (diff != target)
+                LogWarn($"{target} pool is empty - fell back to nearest pool: {diff}");
+            Log($"Picked '{picked?.templateName}' from {diff}. Pools after: {PoolSummary()}");
             return picked;
         }
 
-        // Fall back to any difficulty that still has levels
-        foreach (var kvp in levelPools)
-        {
-            if (kvp.Value.Count > 0)
-            {
-                TemplateData picked = kvp.Value[Random.Range(0, kvp.Value.Count)];
-                kvp.Value.Remove(picked);
-                return picked;
-            }
-        }
-
+        Log("All pools empty - no level picked");
         return null;
     }
 
     void LoadNextLevel()
     {
-        currentLevel = PickLevelFromDifficulty(currentDifficulty);
+        Log("LoadNextLevel");
+        currentLevel = PickLevelFromDifficulty(currentDifficulty, currentDifficulty, out Difficulty actualDifficulty);
         if (currentLevel == null)
         {
+            Log("LoadNextLevel: no level returned -> HandleAllLevelsComplete");
             HandleAllLevelsComplete();
             return;
         }
+        currentDifficulty = actualDifficulty;
 
         LoadLevel();
     }
 
     void LoadLevel()
     {
-        Debug.Log($"Loading level: {currentLevel.templateName} ({currentDifficulty})");
+        Log($"Loading level: {currentLevel.templateName} ({currentDifficulty}), " +
+            $"template slots={(currentLevel.slots != null ? currentLevel.slots.Length : 0)}");
 
         seenLevels.Add(currentLevel);
 
         spawner.templateData = currentLevel;
         spawner.BuildTemplate();
+        Log($"Template built with {spawner.spawnedSlots.Count} slots");
 
         SpawnBlocks();
         awaitingNextLevel = false;
         StartTimer();
+        Log($"Level loaded. State: {StateSummary()}");
     }
 
     void SpawnBlocks()
     {
+        int destroyed = 0;
         foreach (GameObject block in activeBlocks)
-            if (block != null) Destroy(block);
+            if (block != null) { Destroy(block); destroyed++; }
         activeBlocks.Clear();
+        Log($"SpawnBlocks: destroyed {destroyed} old blocks, spawning {blockSpawns.Count} entries");
 
         foreach (var info in blockSpawns)
         {
-            if (info.blockData == null || blockBasePrefab == null) continue;
+            if (info.blockData == null || blockBasePrefab == null)
+            {
+                LogWarn($"Skipping block spawn entry: blockData={(info.blockData != null ? info.blockData.blockName : "NULL")}, " +
+                        $"blockBasePrefab={(blockBasePrefab != null ? "ok" : "NULL")}");
+                continue;
+            }
 
             GameObject blockParent = Instantiate(blockBasePrefab, info.position, Quaternion.identity);
             blockParent.name = $"Block_{info.blockData.blockName}";
@@ -309,18 +428,50 @@ public class TemplateValidator : MonoBehaviour
 
             activeBlocks.Add(blockParent);
         }
+
+        Log($"SpawnBlocks: {activeBlocks.Count} blocks active");
     }
 
     public void CheckCompletion()
     {
+        Log($"CheckCompletion called on '{gameObject.name}' (id {GetInstanceID()}). State: {StateSummary()}");
+
         // Ignore late snaps after a timeout / completion / game over
-        if (gameOver || awaitingNextLevel) return;
+        if (gameOver || awaitingNextLevel)
+        {
+            LogWarn($"CheckCompletion ignored: gameOver={gameOver}, awaitingNextLevel={awaitingNextLevel}");
+            return;
+        }
+
+        // Diagnostic pass: report everything that is blocking completion (does not change logic)
+        int nullSlots = 0;
+        var unoccupied = new List<string>();
+        var checkedBlocks = new HashSet<BlockSpawner>();
+        var offTemplateBlocks = new List<string>();
+        foreach (SnapSlot slot in spawner.spawnedSlots)
+        {
+            if (slot == null) { nullSlots++; continue; }
+            if (!slot.isOccupied) { unoccupied.Add(slot.gridPos.ToString()); continue; }
+            BlockSpawner occ = slot.occupant;
+            if (occ != null && checkedBlocks.Add(occ) && !occ.FullyMatched)
+                offTemplateBlocks.Add(occ.name);
+        }
+
+        int total = spawner.spawnedSlots.Count;
+        Log($"Completion check: {total - unoccupied.Count - nullSlots}/{total} slots occupied, " +
+            $"{checkedBlocks.Count} distinct blocks placed, nullSlots={nullSlots}");
+        if (nullSlots > 0)
+            LogWarn($"{nullSlots} slot references are null/destroyed - spawnedSlots may be stale");
+        if (unoccupied.Count > 0)
+            Log($"Unoccupied slots ({unoccupied.Count}): {string.Join(", ", unoccupied)}");
+        if (offTemplateBlocks.Count > 0)
+            Log($"Blocks with cells hanging off the template: {string.Join(", ", offTemplateBlocks)}");
 
         foreach (SnapSlot slot in spawner.spawnedSlots)
         {
             if (!slot.isOccupied)
             {
-                Debug.Log($"Not complete - slot at {slot.gridPos} is not occupied");
+                Log($"Not complete - slot at {slot.gridPos} is not occupied");
                 return;
             }
         }
@@ -330,12 +481,12 @@ public class TemplateValidator : MonoBehaviour
             BlockSpawner occupant = slot.occupant;
             if (occupant != null && !occupant.FullyMatched)
             {
-                Debug.Log($"Not complete - block '{occupant.name}' has cells off-template");
+                Log($"Not complete - block '{occupant.name}' has cells off-template");
                 return;
             }
         }
 
-        Debug.Log($"Level complete: {currentLevel.templateName} ({currentDifficulty}). Time: {elapsedTime:F2}s");
+        Log($"Level complete: {currentLevel.templateName} ({currentDifficulty}). Time: {elapsedTime:F2}s");
         StopTimer();
         levelTimes.Add(elapsedTime);
 
@@ -348,11 +499,21 @@ public class TemplateValidator : MonoBehaviour
         if (completionSound != null && audioSource != null)
             audioSource.PlayOneShot(completionSound);
 
+        StartAdvance("CheckCompletion");
+    }
+
+    void StartAdvance(string caller)
+    {
+        Log($"{caller} -> starting AdvanceToNextLevel coroutine " +
+            $"(activeInHierarchy={gameObject.activeInHierarchy}, enabled={enabled})");
+        if (!gameObject.activeInHierarchy)
+            Debug.LogError($"{LogTag} GameObject '{gameObject.name}' is inactive - StartCoroutine will fail!", this);
         StartCoroutine(AdvanceToNextLevel());
     }
 
     void DisableBlockInteraction()
     {
+        int disabled = 0;
         foreach (GameObject block in activeBlocks)
         {
             if (block == null) continue;
@@ -361,24 +522,40 @@ public class TemplateValidator : MonoBehaviour
                 if (mb == null) continue;
                 if (mb.GetType().Name.Contains("Interactable") ||
                     mb.GetType().Name.Contains("Grabbable"))
+                {
                     mb.enabled = false;
+                    disabled++;
+                }
             }
         }
+        Log($"DisableBlockInteraction: disabled {disabled} components on {activeBlocks.Count} blocks");
     }
 
     IEnumerator AdvanceToNextLevel()
     {
         awaitingNextLevel = true;
+        Log($"AdvanceToNextLevel: started. Waiting {delayBeforeNextLevel}s (Time.timeScale={Time.timeScale})");
+        if (Time.timeScale == 0f)
+            LogWarn("Time.timeScale is 0 - WaitForSeconds will never finish!");
+
         DisableBlockInteraction();
 
         yield return new WaitForSeconds(delayBeforeNextLevel);
 
-        // Only allow difficulty change if current difficulty has no remaining levels
-        bool currentPoolExhausted = levelPools.ContainsKey(currentDifficulty) && levelPools[currentDifficulty].Count == 0;
+        Log($"AdvanceToNextLevel: wait finished. State: {StateSummary()}");
 
-        if (currentPoolExhausted && OscHandler.Instance != null)
+        // Ask OscHandler for a new difficulty after every level
+        Difficulty previousDifficulty = currentDifficulty;
+        Difficulty targetDifficulty = currentDifficulty;
+
+        if (OscHandler.Instance != null)
         {
-            currentDifficulty = OscHandler.Instance.GetRecommendedDifficulty(currentDifficulty);
+            targetDifficulty = OscHandler.Instance.GetRecommendedDifficulty(currentDifficulty);
+            Log($"AdvanceToNextLevel: OscHandler recommended {previousDifficulty} -> {targetDifficulty}");
+        }
+        else
+        {
+            LogWarn("AdvanceToNextLevel: OscHandler.Instance is NULL - keeping current difficulty");
         }
 
         OscHandler.Instance?.ClearSignals();
@@ -386,31 +563,47 @@ public class TemplateValidator : MonoBehaviour
         // Peek at the next level for analytics before loading
         string currentLevelName = currentLevel != null ? currentLevel.templateName : "None";
         string currentLevelDifficulty = currentLevel != null ? GetDifficultyForLevel(currentLevel).ToString() : "None";
-        TemplateData nextLevel = PickLevelFromDifficulty(currentDifficulty);
+        TemplateData nextLevel = PickLevelFromDifficulty(targetDifficulty, previousDifficulty, out Difficulty actualDifficulty);
+
+        // Keep currentDifficulty in sync with the pool the level actually came from,
+        // so the next recommendation starts from the real difficulty.
+        if (nextLevel != null)
+        {
+            currentDifficulty = actualDifficulty;
+            Log($"AdvanceToNextLevel: difficulty {previousDifficulty} -> {currentDifficulty}" +
+                (actualDifficulty != targetDifficulty ? $" (recommended {targetDifficulty}, but that pool was empty)" : ""));
+        }
+
         string nextLevelName = nextLevel != null ? nextLevel.templateName : "None";
-        // Use the level's actual pool rather than currentDifficulty, because
-        // PickLevelFromDifficulty falls back to another pool when one runs out.
-        string nextLevelDifficulty = nextLevel != null ? GetDifficultyForLevel(nextLevel).ToString() : "None";
+        string nextLevelDifficulty = nextLevel != null ? actualDifficulty.ToString() : "None";
         // The level that just ended is the last entry in levelTimes (1-based number = Count)
         bool currentLevelTimedOut = timedOutLevels.Contains(levelTimes.Count);
+
+        Log($"AdvanceToNextLevel: {currentLevelName} ({currentLevelDifficulty}) -> {nextLevelName} ({nextLevelDifficulty}), " +
+            $"timedOut={currentLevelTimedOut}. Sending analytics (AnalyticsManager.Instance={(AnalyticsManager.Instance != null ? "found" : "NULL")})");
+
         AnalyticsManager.Instance?.MovingToNextLevel(
             currentLevelName, currentLevelDifficulty,
             nextLevelName, nextLevelDifficulty,
             elapsedTime, currentLevelTimedOut);
 
+        Log("AdvanceToNextLevel: analytics call returned");
+
         if (nextLevel == null)
         {
+            Log("AdvanceToNextLevel: no next level -> HandleAllLevelsComplete");
             HandleAllLevelsComplete();
             yield break;
         }
 
         currentLevel = nextLevel;
         LoadLevel();
+        Log("AdvanceToNextLevel: finished");
     }
 
     void HandleAllLevelsComplete()
     {
-        Debug.Log("All levels complete!");
+        Log("All levels complete!");
         gameOver = true;
         StopTimer();
 
@@ -419,7 +612,7 @@ public class TemplateValidator : MonoBehaviour
             int mins = Mathf.FloorToInt(levelTimes[i] / 60f);
             int secs = Mathf.FloorToInt(levelTimes[i] % 60f);
             string tag = timedOutLevels.Contains(i + 1) ? " (timed out)" : "";
-            Debug.Log($"  Level {i + 1}: {mins:00}:{secs:00}{tag}");
+            Log($"  Level {i + 1}: {mins:00}:{secs:00}{tag}");
         }
 
         ReportSessionEnd("AllLevelsFinished");
@@ -430,26 +623,25 @@ public class TemplateValidator : MonoBehaviour
 
     public void ResetLevel()
     {
-        if (gameOver || awaitingNextLevel) return;
+        if (gameOver || awaitingNextLevel)
+        {
+            LogWarn($"ResetLevel ignored: gameOver={gameOver}, awaitingNextLevel={awaitingNextLevel}");
+            return;
+        }
 
         foreach (GameObject block in activeBlocks)
             if (block != null) Destroy(block);
         activeBlocks.Clear();
 
-        // Put the current level back into the correct pool
-        if (currentLevel != null)
-        {
-            Difficulty levelDiff = GetDifficultyForLevel(currentLevel);
-            if (!levelPools[levelDiff].Contains(currentLevel))
-                levelPools[levelDiff].Add(currentLevel);
-        }
+        // (The current level is NOT put back into its pool - doing that made
+        // the same level get picked again after it was solved.)
 
         spawner.BuildTemplate();
         SpawnBlocks();
         // The level timer keeps running through a reset so the
         // per-level time limit can't be dodged by resetting.
 
-        Debug.Log($"Level reset: {currentLevel?.templateName}");
+        Log($"Level reset: {currentLevel?.templateName}. State: {StateSummary()}");
     }
 
     Difficulty GetDifficultyForLevel(TemplateData level)
