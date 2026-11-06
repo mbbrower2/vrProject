@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Threading.Tasks; // Required for Tasks
 
 public class BalloonManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class BalloonManager : MonoBehaviour
     {   
         if (currentBalloonCount < maxMissles)
         {
+            Task.Delay(1000);
             //TODO: this random spawn position range needs to be adjusted, its too close to the camera
             Vector3 randomSpawnPosition = new Vector3(
                 Random.Range(-10, 11),

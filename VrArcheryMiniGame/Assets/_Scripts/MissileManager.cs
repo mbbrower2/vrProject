@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Threading.Tasks; // Required for Tasks
 
 public class MissileManager : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class MissileManager : MonoBehaviour
 
         if (currentMissileCount < maxMissles)
         {
+            Task.Delay(1000);
             Vector3 randomSpawnPosition =
                 new Vector3(
                     Random.Range(-20f, 21f),

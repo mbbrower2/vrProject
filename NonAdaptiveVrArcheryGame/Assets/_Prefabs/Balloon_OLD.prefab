@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 54cc74209a3f84ef393d2e3dd0170d5a,
         type: 3}
       propertyPath: m_Name
-      value: Balloon
+      value: Balloon_OLD
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 54cc74209a3f84ef393d2e3dd0170d5a,
         type: 3}
@@ -111,7 +111,7 @@ MonoBehaviour:
   target: {fileID: 0}
   rb: {fileID: 1841303246223204063}
   _explosionPrefab: {fileID: 0}
-  speed: 5
+  speed: 2
   rotateSpeed: 300
   maxDistancePredict: 100
   minDistancePredict: 5

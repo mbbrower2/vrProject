@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Missile
   rb: {fileID: 184470500350564771}
   _explosionPrefab: {fileID: 0}
-  speed: 5
+  speed: 2
   rotateSpeed: 300
   maxDistancePredict: 100
   minDistancePredict: 5

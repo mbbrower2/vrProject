@@ -69,7 +69,7 @@ public class MovingTarget : MonoBehaviour, IHittable
     {
         if ((rb.isKinematic || collision.gameObject.CompareTag("Laser")) == false)
         {
-            audioSource.Play();
+            Destroy(gameObject);
         }
     }
 

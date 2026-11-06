@@ -48,8 +48,9 @@ public class TargetManager : MonoBehaviour
 
     public void ReportTargetDown()
     {
+        
         remainingTargets--;
-
+        Debug.Log("ABCD target down called remaining targets is " + remainingTargets);
         if (remainingTargets <= 0)
         {
             // The game may already have ended (e.g. the time limit hit this frame)
